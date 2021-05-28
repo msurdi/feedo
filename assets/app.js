@@ -1,5 +1,5 @@
 import "unpoly";
-import "unpoly/dist/unpoly.css";
+import "unpoly/unpoly.css";
 import "./app.css";
 
 if (process.env.NODE_ENV === "development") {
