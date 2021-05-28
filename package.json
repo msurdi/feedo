@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development nodemon server -w server"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,23 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.3",
     "eslint-plugin-prettier": "^3.4.0",
+    "nodemon": "^2.0.7",
     "prettier": "^2.3.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "dotenv": "^10.0.0",
+    "expand-home-dir": "^0.0.3",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-basic-auth": "^1.2.0",
+    "find-root": "^1.1.0",
+    "fs-extra": "^10.0.0",
+    "helmet": "^4.6.0",
+    "html-string": "^3.0.1",
+    "morgan": "^1.10.0",
+    "reload": "^3.1.1",
+    "winston": "^3.3.3"
   }
 }
