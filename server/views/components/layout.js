@@ -14,9 +14,10 @@ module.exports = ({ body }) => html`
         content="initial-scale=1.0, width=device-width, user-scalable=no"
       />
       <script src="${urls.public("dist/app.js")}"></script>
+      <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
-    <body>
+    <body class="bg-primary"></body>
       <header></header>
       <main>${body}</main>
       <footer></footer>
