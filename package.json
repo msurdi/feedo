@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "NODE_ENV=development run-p -l dev:*",
     "dev:server": "nodemon server -w server",
-    "dev:assets": "parcel watch --dist-dir public/dist assets/app.js"
+    "dev:assets": "parcel watch assets/app.js"
+  },
+  "targets": {
+    "app": {
+      "distDir": "./public/dist"
+    }
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +24,8 @@
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "parcel": "^2.0.0-beta.2",
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.0",
+    "unpoly": "^1.0.0"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
