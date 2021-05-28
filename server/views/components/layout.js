@@ -17,9 +17,30 @@ module.exports = ({ body }) => html`
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
-    <body class="bg-primary"></body>
-      <header></header>
-      <main>${body}</main>
+    <body class="h-full">
+      <header>
+        <nav
+          class="z-50 flex flex-row justify-between bg-primary shadow items-baseline sticky top-0"
+        >
+          <a
+            up-target="body"
+            class="font-bold text-lg text-white px-4 py-2"
+            href="/"
+            >Feedo</a
+          >
+          <a
+            class="uppercase text-white align-middle text-sm py-2 px-4"
+            up-target="body"
+            href="${urls.feeds()}"
+            >Feeds</a
+          >
+        </nav>
+      </header>
+      <main
+        class="p-4 w-full max-w-6xl min-h-full bg-white mx-auto rounded shadow flex-grow"
+      >
+        ${body}
+      </main>
       <footer></footer>
     </body>
   </html>
