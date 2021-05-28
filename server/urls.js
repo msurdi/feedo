@@ -1,5 +1,5 @@
 module.exports = {
   home: () => "/",
-  public: () => "/public",
+  public: (path = "") => `/public/${path}`,
   status: () => `/status`,
 };

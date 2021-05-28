@@ -30,5 +30,8 @@ const config = {
   dataDir,
   publicRoot: path.resolve(path.join(rootDir, "public")),
   reload: devMode,
+  helmet: {
+    contentSecurityPolicy: !devMode,
+  },
 };
 module.exports = config;

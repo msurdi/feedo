@@ -1,5 +1,6 @@
 const html = require("html-string");
 const config = require("../../config");
+const urls = require("../../urls");
 
 module.exports = ({ body }) => html`
   <!DOCTYPE html>
@@ -12,6 +13,7 @@ module.exports = ({ body }) => html`
         name="viewport"
         content="initial-scale=1.0, width=device-width, user-scalable=no"
       />
+      <script src="${urls.public("dist/app.js")}"></script>
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
     <body>

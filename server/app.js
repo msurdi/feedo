@@ -26,7 +26,7 @@ module.exports = async () => {
   }
   app.use(compression());
   app.use(morgan("combined", { stream: logger.stream }));
-  app.use(helmet());
+  app.use(helmet(config.helmet));
   app.use(urls.public(), express.static(config.publicRoot));
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(handlers);
