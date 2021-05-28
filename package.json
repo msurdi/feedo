@@ -2,16 +2,10 @@
   "name": "feedo",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development run-p -l dev:*",
     "dev:server": "nodemon server -w server",
-    "dev:assets": "parcel watch assets/app.js"
-  },
-  "targets": {
-    "app": {
-      "distDir": "./public/dist"
-    }
+    "dev:assets": "parcel watch --dist-dir ./public/dist assets/app.js"
   },
   "author": "",
   "license": "ISC",
