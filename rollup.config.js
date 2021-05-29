@@ -5,6 +5,7 @@ import replace from "@rollup/plugin-replace";
 import autoprefixer from "autoprefixer";
 import filesize from "rollup-plugin-filesize";
 import postcss from "rollup-plugin-postcss";
+import sourcemaps from "rollup-plugin-sourcemaps";
 import { terser } from "rollup-plugin-terser";
 import tailwindcss from "tailwindcss";
 
@@ -13,6 +14,7 @@ export default {
   plugins: [
     commonjs(),
     nodeResolve(),
+    sourcemaps(),
     postcss({
       plugins: [tailwindcss, autoprefixer],
       extract: true,
@@ -29,6 +31,7 @@ export default {
   ],
   input: "./assets/app.js",
   output: {
+    sourcemap: true,
     file: "./public/dist/app.js",
     format: "iife",
   },
