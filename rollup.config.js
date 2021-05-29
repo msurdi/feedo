@@ -4,7 +4,6 @@ import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import autoprefixer from "autoprefixer";
 import filesize from "rollup-plugin-filesize";
-import gzipPlugin from "rollup-plugin-gzip";
 import postcss from "rollup-plugin-postcss";
 import { terser } from "rollup-plugin-terser";
 import tailwindcss from "tailwindcss";
@@ -26,7 +25,7 @@ export default {
         ),
       },
     }),
-    ...(isProduction ? [terser(), gzipPlugin(), filesize()] : []),
+    ...(isProduction ? [terser(), filesize()] : []),
   ],
   input: "./assets/app.js",
   output: {
