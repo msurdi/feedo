@@ -7,8 +7,7 @@ module.exports = () =>
   layout({
     body: html` <div class="flex flex-row justify-between">
       <h1 class="text-lg font-bold py-4">My feeds</h1>
-      ${link({
-        children: "Add Feed",
+      ${link("Add Feed", {
         variant: link.variants.button,
         upTarget: "body",
         href: urls.newFeed(),

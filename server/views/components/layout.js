@@ -23,15 +23,13 @@ module.exports = ({ body }) => html`
         <nav
           class="z-50 flex flex-row justify-between bg-primary shadow items-baseline sticky top-0"
         >
-          ${link({
+          ${link("Feedo", {
             variant: link.variants.brand,
-            children: "Feedo",
             href: urls.home(),
             upTarget: "body",
           })}
-          ${link({
+          ${link("Feeds", {
             variant: link.variants.nav,
-            children: "Feeds",
             href: urls.feeds(),
             upTarget: "body",
           })}
