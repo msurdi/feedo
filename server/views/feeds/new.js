@@ -1,5 +1,6 @@
 const html = require("html-string");
 const urls = require("../../urls");
+const button = require("../components/button");
 const input = require("../components/input");
 const layout = require("../components/layout");
 const pageHeader = require("../components/page-header");
@@ -21,14 +22,7 @@ module.exports = () =>
               placeholder: "Url",
             })}
           </div>
-          <div class="m-2 flex flex-row justify-end">
-            <button
-              class="py-2 px-6 rounded transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none shadow text-white bg-primary hover:bg-primary-light w-auto bg-success"
-              type="submit"
-            >
-              Add feed
-            </button>
-          </div>
+          <div class="m-2 flex flex-row justify-end">${button("Add feed")}</div>
         </form>
       </div>
     `,
