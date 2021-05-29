@@ -1,5 +1,6 @@
 const html = require("html-string");
 const urls = require("../../urls");
+const input = require("../components/input");
 const layout = require("../components/layout");
 const pageHeader = require("../components/page-header");
 
@@ -14,13 +15,11 @@ module.exports = () =>
           class="flex flex-col w-full max-w-xl"
         >
           <div class="m-2 md:flex flex flex-col">
-            <input
-              type="text"
-              class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-primary"
-              id="url"
-              placeholder="Url"
-              name="url"
-            />
+            ${input({
+              id: "url",
+              name: "url",
+              placeholder: "Url",
+            })}
           </div>
           <div class="m-2 flex flex-row justify-end">
             <button
