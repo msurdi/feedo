@@ -5,7 +5,7 @@ const link = require("./link");
 
 module.exports = ({ body }) => html`
   <!DOCTYPE html>
-  <html>
+  <html class="h-full">
     <head>
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,7 +18,7 @@ module.exports = ({ body }) => html`
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
-    <body class="h-full">
+    <body class="h-full bg-gray-100 flex flex-col min-h-full">
       <header>
         <nav
           class="z-50 flex flex-row justify-between bg-primary shadow items-baseline sticky top-0"
