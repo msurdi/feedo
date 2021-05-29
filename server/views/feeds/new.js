@@ -20,6 +20,7 @@ module.exports = () =>
               id: "url",
               name: "url",
               placeholder: "Url",
+              autofocus: true,
             })}
           </div>
           <div class="m-2 flex flex-row justify-end">${button("Add feed")}</div>
