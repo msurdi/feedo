@@ -3,9 +3,13 @@ import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import autoprefixer from "autoprefixer";
+import filesize from "rollup-plugin-filesize";
+import gzipPlugin from "rollup-plugin-gzip";
 import postcss from "rollup-plugin-postcss";
+import { terser } from "rollup-plugin-terser";
 import tailwindcss from "tailwindcss";
 
+const isProduction = process.env.NODE_ENV === "production";
 export default {
   plugins: [
     commonjs(),
@@ -22,6 +26,7 @@ export default {
         ),
       },
     }),
+    ...(isProduction ? [terser(), gzipPlugin(), filesize()] : []),
   ],
   input: "./assets/app.js",
   output: {
