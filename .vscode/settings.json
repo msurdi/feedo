@@ -8,6 +8,10 @@
     "source.organizeImports": true,
     "source.fixAll": true
   },
-  "editor.formatOnSave": true
-
+  "editor.formatOnSave": true,
+  "tailwindCSS.experimental.classRegex": ["cn\\(([^)]*)\\)"],
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+  // "tailwindCSS.includeLanguages": { "javascript": "html" }
 }
