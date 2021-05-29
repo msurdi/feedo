@@ -3,4 +3,5 @@ module.exports = {
   public: (path = "") => `/public/${path}`,
   status: () => `/status`,
   feeds: () => `/feeds`,
+  newFeed: () => `/feeed/new`,
 };
