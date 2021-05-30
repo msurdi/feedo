@@ -3,12 +3,14 @@ const dotenv = require("dotenv");
 const os = require("os");
 const path = require("path");
 const fs = require("fs-extra");
+const { milliseconds } = require("date-fns");
+const randomstring = require("randomstring");
 
 dotenv.config();
 
 const env = (name) => {
   const normalizedName = name.toUpperCase();
-  const appSpecificEnv = `MP_${normalizedName}`;
+  const appSpecificEnv = `FEEDO_${normalizedName}`;
   return process.env[appSpecificEnv] ?? process.env[normalizedName];
 };
 
@@ -18,6 +20,7 @@ const dataDir = env("DATA_DIR") ?? defaultDataDir;
 fs.ensureDirSync(dataDir);
 
 const devMode = env("NODE_ENV") === "development";
+const secretKey = env("SECRET_KEY") ?? randomstring.generate();
 
 const config = {
   port: parseInt(env("PORT") ?? 8080, 10),
@@ -32,6 +35,13 @@ const config = {
   reload: devMode,
   helmet: {
     contentSecurityPolicy: !devMode,
+  },
+  session: {
+    name: "s",
+    maxAge: milliseconds({ years: 1 }),
+    secure: !devMode,
+    httpOnly: true,
+    keys: [secretKey],
   },
   feedo: {
     oldestArticleDays: 30,

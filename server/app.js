@@ -5,6 +5,7 @@ const reload = require("reload");
 const helmet = require("helmet");
 const compression = require("compression");
 const basicAuth = require("express-basic-auth");
+const cookieSession = require("cookie-session");
 const config = require("./config");
 const logger = require("./services/logger");
 const handlers = require("./handlers");
@@ -14,6 +15,7 @@ module.exports = async () => {
   const app = express();
 
   app.set("trust proxy", true);
+
   const { username, password } = config.auth;
   if (username || password) {
     app.use(
@@ -23,6 +25,9 @@ module.exports = async () => {
       })
     );
   }
+
+  app.use(cookieSession(config.session));
+
   app.use(compression());
   app.use(morgan("combined", { stream: logger.stream }));
   app.use(helmet(config.helmet));
