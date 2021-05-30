@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const reload = require("reload");
 const helmet = require("helmet");
 const compression = require("compression");
-const bodyParser = require("body-parser");
 const basicAuth = require("express-basic-auth");
 const config = require("./config");
 const logger = require("./services/logger");
@@ -28,7 +27,7 @@ module.exports = async () => {
   app.use(morgan("combined", { stream: logger.stream }));
   app.use(helmet(config.helmet));
   app.use(urls.public(), express.static(config.publicRoot));
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(express.urlencoded({ extended: true }));
   app.use(handlers);
 
   if (config.reload) {
