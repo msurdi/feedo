@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 const { formatDistanceToNowStrict } = require("date-fns");
 const downsize = require("downsize");
 const db = require("../services/db");

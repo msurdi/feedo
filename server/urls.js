@@ -5,4 +5,5 @@ module.exports = {
   feeds: () => "/feeds",
   newFeed: () => "/feeds/new",
   deleteFeed: (feedId) => `/feeds/${feedId}/delete`,
+  articleDetail: (articleId) => `/articles/${articleId}`,
 };
