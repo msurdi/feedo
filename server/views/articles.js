@@ -18,6 +18,7 @@ const articlesView = ({ req, articles }) =>
                   <a
                     class="text-black visited:text-gray-500"
                     href="${urls.articleDetail(article.id)}"
+                    up-target="body"
                   >
                     <h1 class="font-bold text-lg">${article.title}</h1></a
                   >
