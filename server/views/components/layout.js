@@ -18,25 +18,23 @@ module.exports = ({ body }) => html`
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
-    <body class="h-full bg-gray-100 flex flex-col min-h-full">
-      <header>
-        <nav
-          class="z-50 flex flex-row justify-between bg-primary shadow items-baseline sticky top-0"
-        >
-          ${link("Feedo", {
-            variant: link.variants.brand,
-            href: urls.home(),
-            upTarget: "body",
-          })}
-          ${link("Feeds", {
-            variant: link.variants.nav,
-            href: urls.feeds(),
-            upTarget: "body",
-          })}
-        </nav>
+    <body class="h-full min-h-full bg-gray-100 pt-12 overflow-hidden">
+      <header
+        class="z-50 flex flex-row justify-between bg-primary shadow items-baseline fixed top-0 left-0 right-0 h-12"
+      >
+        ${link("Feedo", {
+          variant: link.variants.brand,
+          href: urls.home(),
+          upTarget: "body",
+        })}
+        ${link("Feeds", {
+          variant: link.variants.nav,
+          href: urls.feeds(),
+          upTarget: "body",
+        })}
       </header>
       <main
-        class="p-4 w-full max-w-6xl min-h-full bg-white mx-auto rounded shadow flex-grow"
+        class="h-full p-4 w-full max-w-6xl bg-white mx-auto rounded shadow overflow-y-scroll"
       >
         ${body}
       </main>

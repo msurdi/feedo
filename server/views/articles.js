@@ -5,7 +5,7 @@ const layout = require("./components/layout");
 const articlesView = ({ articles }) =>
   layout({
     body: html`
-      <div>
+      <div class="divide-y divide-gray-300">
         ${articles.map(
           (article) => html`
             <article class="px-2 py-6 flex flex-col break-words">
