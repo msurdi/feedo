@@ -12,3 +12,5 @@ logger.stream = {
     logger.info(message.trim());
   },
 };
+
+module.exports = logger;

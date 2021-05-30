@@ -1,7 +1,7 @@
 const createApp = require("./app");
 const config = require("./config");
 
-const main = async () => {
+const runServer = async () => {
   const server = await createApp();
   server.listen(config.port, config.addres, () => {
     // eslint-disable-next-line no-console
@@ -9,8 +9,4 @@ const main = async () => {
   });
 };
 
-main().catch((e) => {
-  // eslint-disable-next-line no-console
-  console.trace(e);
-  process.exit(1);
-});
+module.exports = runServer;

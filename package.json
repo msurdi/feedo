@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "NODE_ENV=development run-s migrate:dev dev:start",
     "dev:start": "run-p -l dev:watch:*",
-    "dev:watch:server": "nodemon server -w server --ignore server/views -w public/dist",
+    "dev:watch:server": "nodemon bin/feedo.js start -w server --ignore server/views -w public/dist -w bin -w cli",
     "dev:watch:assets": "TAILWIND_MODE=build nodemon -w tailwind.config.js -w server/views -w assets -x rollup -c rollup.config.js",
     "migrate:dev": "prisma migrate dev",
     "build": "NODE_ENV=production rollup -c rollup.config.js"
@@ -42,6 +42,7 @@
     "@prisma/client": "^2.23.0",
     "body-parser": "^1.19.0",
     "classnames": "^2.3.1",
+    "commander": "^6.1.0",
     "compression": "^1.7.4",
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
