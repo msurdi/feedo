@@ -24,11 +24,8 @@ const getClassesForVariant = (variant) => {
   }
 };
 
-const link = (
-  children,
-  { variant = variants.normal, classes, ...attrs } = {}
-) => {
-  const linkClasses = `${getClassesForVariant(variant)} ${classes}`;
+const link = (children, { variant = variants.normal, ...attrs } = {}) => {
+  const linkClasses = `${getClassesForVariant(variant)}`;
 
   return html`<a class="${linkClasses}" ${attrs}:attrs>${children}</a>`;
 };

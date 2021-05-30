@@ -1,5 +1,6 @@
 const html = require("html-string");
 const urls = require("../urls");
+const button = require("./components/button");
 const csrfInput = require("./components/csrf-input");
 const layout = require("./components/layout");
 const link = require("./components/link");
@@ -32,12 +33,11 @@ const feedsView = ({ req, feeds } = {}) =>
                     class="flex flex-col"
                   >
                     ${csrfInput(req.csrfToken())}
-                    <button
-                      class="my-4 w-auto py-2 text-danger text-sm background-transparent font-bold uppercase outline-none focus:outline-none ease-linear disabled:text-gray-400"
-                      type="submit"
-                    >
-                      Unsubscribe
-                    </button>
+                    ${button("Unsubscribe", {
+                      variant: button.variants.danger,
+                      upDisable: true,
+                      dataDisableWith: "Unsubscribing...",
+                    })}
                   </form>
                 </div>
               </li>
