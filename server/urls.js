@@ -6,4 +6,5 @@ module.exports = {
   newFeed: () => "/feeds/new",
   deleteFeed: (feedId) => `/feeds/${feedId}/delete`,
   articleDetail: (articleId) => `/articles/${articleId}`,
+  markAsRead: () => `/read`,
 };

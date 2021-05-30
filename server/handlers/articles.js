@@ -1,6 +1,10 @@
 const express = require("express");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
-const { getUnreadArticles, getArticle } = require("../core/articles");
+const {
+  getUnreadArticles,
+  getArticle,
+  markArticlesAsRead,
+} = require("../core/articles");
 const urls = require("../urls");
 const articlesView = require("../views/articles");
 const articleDetailView = require("../views/articles/detail");
@@ -20,6 +24,13 @@ router.get(urls.articleDetail(":articleId"), async (req, res) => {
     return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
   }
   return res.send(articleDetailView({ article }).render());
+});
+
+router.post(urls.markAsRead(), async (req, res) => {
+  const { articleIds } = req.body;
+  await markArticlesAsRead(articleIds);
+
+  return res.redirect(urls.home());
 });
 
 module.exports = router;
