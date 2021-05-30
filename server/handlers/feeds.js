@@ -1,5 +1,5 @@
 const express = require("express");
-const { default: StatusCodes } = require("http-status-codes");
+const { StatusCodes } = require("http-status-codes");
 const { createFeed, getAllFeeds, removeFeed } = require("../core/feeds");
 const urls = require("../urls");
 const feedsView = require("../views/feeds");

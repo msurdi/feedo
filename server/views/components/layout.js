@@ -3,7 +3,7 @@ const config = require("../../config");
 const urls = require("../../urls");
 const link = require("./link");
 
-module.exports = ({ body }) => html`
+const layout = ({ body }) => html`
   <!DOCTYPE html>
   <html class="h-full">
     <head>
@@ -42,3 +42,5 @@ module.exports = ({ body }) => html`
     </body>
   </html>
 `;
+
+module.exports = layout;
