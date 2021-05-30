@@ -33,5 +33,8 @@ const config = {
   helmet: {
     contentSecurityPolicy: !devMode,
   },
+  feedo: {
+    oldestArticleDays: 30,
+  },
 };
 module.exports = config;

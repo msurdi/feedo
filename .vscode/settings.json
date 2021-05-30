@@ -2,7 +2,10 @@
   "files.exclude": {
     "node_modules": true,
     "public/dist": true,
-    ".parcel-cache": true
+    ".parcel-cache": true,
+    "dist": true,
+    ".env": true,
+    "feedo.db*": true
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,

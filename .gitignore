@@ -2,3 +2,5 @@
 /public/dist
 /.parcel-cache
 /dist
+/.env
+/feedo.db*

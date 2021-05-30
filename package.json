@@ -3,10 +3,15 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "dev": "NODE_ENV=development run-p -l dev:*",
-    "dev:server": "nodemon server -w server --ignore server/views -w public/dist",
-    "dev:assets": "TAILWIND_MODE=build nodemon -w tailwind.config.js -w server/views -w assets -x rollup -c rollup.config.js",
+    "dev": "NODE_ENV=development run-s migrate:dev dev:start",
+    "dev:start": "run-p -l dev:watch:*",
+    "dev:watch:server": "nodemon server -w server --ignore server/views -w public/dist",
+    "dev:watch:assets": "TAILWIND_MODE=build nodemon -w tailwind.config.js -w server/views -w assets -x rollup -c rollup.config.js",
+    "migrate:dev": "prisma migrate dev",
     "build": "NODE_ENV=production rollup -c rollup.config.js"
+  },
+  "prisma": {
+    "schema": "server/services/db/schema.prisma"
   },
   "author": "",
   "license": "ISC",
@@ -34,10 +39,13 @@
     "unpoly": "^2.0.0-rc9"
   },
   "dependencies": {
+    "@prisma/client": "^2.23.0",
     "body-parser": "^1.19.0",
     "classnames": "^2.3.1",
     "compression": "^1.7.4",
+    "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
+    "downsize": "^0.0.8",
     "expand-home-dir": "^0.0.3",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -46,9 +54,13 @@
     "fs-extra": "^10.0.0",
     "helmet": "^4.6.0",
     "html-string": "^3.0.1",
+    "http-status-codes": "^2.1.4",
     "morgan": "^1.10.0",
+    "prisma": "^2.23.0",
     "reload": "^3.1.1",
     "rollup-plugin-filesize": "^9.1.1",
-    "winston": "^3.3.3"
+    "rss-parser": "^3.12.0",
+    "winston": "^3.3.3",
+    "yup": "^0.32.9"
   }
 }
