@@ -1,9 +1,10 @@
 const html = require("html-string");
 const urls = require("../urls");
 const button = require("./components/button");
+const csrfInput = require("./components/csrf-input");
 const layout = require("./components/layout");
 
-const articlesView = ({ articles }) =>
+const articlesView = ({ req, articles }) =>
   layout({
     body: html`
 
@@ -36,6 +37,7 @@ const articlesView = ({ articles }) =>
           </div>
           <div class="flex justify-center p-4">
             <form up-target="body" method="post" action="${urls.markAsRead()}">
+              ${csrfInput(req.csrfToken())}
               ${articles.map(
                 (article) => html`
                   <input

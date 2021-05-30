@@ -1,21 +1,23 @@
 const html = require("html-string");
 const urls = require("../../urls");
 const button = require("../components/button");
+const csrfInput = require("../components/csrf-input");
 const input = require("../components/input");
 const layout = require("../components/layout");
 const pageHeader = require("../components/page-header");
 
-module.exports = ({ feed, errors } = {}) =>
+module.exports = ({ req, feed, errors } = {}) =>
   layout({
     body: html`
       ${pageHeader({ title: "Add new feed" })}
       <div class="flex flex-row justify-center my-6">
         <form
           up-target="body"
-          method="POST"
+          method="post"
           action="${urls.newFeed()}"
           class="flex flex-col w-full max-w-xl"
         >
+          ${csrfInput(req.csrfToken())}
           <fieldset class="m-2 md:flex flex flex-col">
             ${input({
               id: "url",

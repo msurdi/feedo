@@ -9,11 +9,11 @@ const router = express.Router();
 
 router.get(urls.feeds(), async (req, res) => {
   const feeds = await getAllFeeds();
-  return res.send(feedsView({ feeds }).render());
+  return res.send(feedsView({ req, feeds }).render());
 });
 
 router.get(urls.newFeed(), async (req, res) =>
-  res.send(newFeedView().render())
+  res.send(newFeedView({ req }).render())
 );
 
 router.post(urls.newFeed(), async (req, res) => {
@@ -24,7 +24,7 @@ router.post(urls.newFeed(), async (req, res) => {
   if (errors) {
     return res
       .status(StatusCodes.BAD_REQUEST)
-      .send(newFeedView({ feed, errors }).render());
+      .send(newFeedView({ req, feed, errors }).render());
   }
 
   return res.redirect(urls.feeds());

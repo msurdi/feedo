@@ -1,9 +1,10 @@
 const html = require("html-string");
 const urls = require("../urls");
+const csrfInput = require("./components/csrf-input");
 const layout = require("./components/layout");
 const link = require("./components/link");
 
-const feedsView = ({ feeds } = {}) =>
+const feedsView = ({ req, feeds } = {}) =>
   layout({
     body: html`
       <div class="flex flex-row justify-between">
@@ -30,6 +31,7 @@ const feedsView = ({ feeds } = {}) =>
                     action="${urls.deleteFeed(feed.id)}"
                     class="flex flex-col"
                   >
+                    ${csrfInput(req.csrfToken())}
                     <button
                       class="my-4 w-auto py-2 text-danger text-sm background-transparent font-bold uppercase outline-none focus:outline-none ease-linear disabled:text-gray-400"
                       type="submit"

@@ -6,6 +6,8 @@ const helmet = require("helmet");
 const compression = require("compression");
 const basicAuth = require("express-basic-auth");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
+const cookieParser = require("cookie-parser");
 const config = require("./config");
 const logger = require("./services/logger");
 const handlers = require("./handlers");
@@ -13,6 +15,7 @@ const urls = require("./urls");
 
 module.exports = async () => {
   const app = express();
+  const csrfProtection = csurf({ cookie: true });
 
   app.set("trust proxy", true);
 
@@ -25,14 +28,14 @@ module.exports = async () => {
       })
     );
   }
-
+  app.use(express.urlencoded({ extended: true }));
+  app.use(cookieParser());
   app.use(cookieSession(config.session));
-
+  app.use(csrfProtection);
   app.use(compression());
   app.use(morgan("combined", { stream: logger.stream }));
   app.use(helmet(config.helmet));
   app.use(urls.public(), express.static(config.publicRoot));
-  app.use(express.urlencoded({ extended: true }));
   app.use(handlers);
 
   if (config.reload) {

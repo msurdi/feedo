@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get(urls.home(), async (req, res) => {
   const unreadArticles = await getUnreadArticles();
-  res.send(articlesView({ articles: unreadArticles }).render());
+  res.send(articlesView({ req, articles: unreadArticles }).render());
 });
 
 router.get(urls.articleDetail(":articleId"), async (req, res) => {
