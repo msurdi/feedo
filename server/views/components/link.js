@@ -4,7 +4,6 @@ const html = require("html-string");
 
 const variants = {
   button: Symbol("button"),
-  normal: Symbol("normal"),
   brand: Symbol("brand"),
   nav: Symbol("nav"),
 };
@@ -24,7 +23,7 @@ const getClassesForVariant = (variant) => {
   }
 };
 
-const link = (children, { variant = variants.normal, ...attrs } = {}) => {
+const link = (children, { variant, ...attrs } = {}) => {
   const linkClasses = `${getClassesForVariant(variant)}`;
 
   return html`<a class="${linkClasses}" ${attrs}:attrs>${children}</a>`;
