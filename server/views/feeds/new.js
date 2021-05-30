@@ -6,7 +6,7 @@ const input = require("../components/input");
 const layout = require("../components/layout");
 const pageHeader = require("../components/page-header");
 
-module.exports = ({ req, feed, errors } = {}) =>
+const newFeedView = ({ req, feed, errors } = {}) =>
   layout({
     body: html`
       ${pageHeader({ title: "Add new feed" })}
@@ -34,3 +34,5 @@ module.exports = ({ req, feed, errors } = {}) =>
       </div>
     `,
   });
+
+module.exports = newFeedView;
