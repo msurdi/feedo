@@ -29,7 +29,12 @@ const newFeedView = ({ req, feed, errors } = {}) =>
             ${errors?.url &&
             html`<span class="text-danger ">${errors.url}</span>`}
           </fieldset>
-          <div class="m-2 flex flex-row justify-end">${button("Add feed")}</div>
+          <div class="m-2 flex flex-row justify-end">
+            ${button("Add feed", {
+              upDisable: true,
+              dataDisableWith: "Saving...",
+            })}
+          </div>
         </form>
       </div>
     `,

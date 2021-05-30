@@ -48,7 +48,10 @@ const articlesView = ({ req, articles }) =>
                   />
                 `
               )}
-              ${button("Mark as read")}
+              ${button("Mark as read", {
+                upDisable: true,
+                dataDisableWith: "Loading...",
+              })}
             </form>
           </div>
         `
