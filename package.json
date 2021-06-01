@@ -9,6 +9,7 @@
     "dev:watch:js": "esbuild --watch --bundle --sourcemap --outdir=public/dist/ assets/app.js",
     "dev:watch:css": "postcss --map --watch assets/app.css --dir public/dist/",
     "migrate:dev": "prisma migrate dev",
+    "feed:sync": "node bin/feedo.js sync",
     "build": "NODE_ENV=production  run-p build:*",
     "build:js": "esbuild --bundle --sourcemap --minify --outdir=public/dist/ assets/app.js",
     "build:css": "postcss assets/app.css --dir public/dist/"
