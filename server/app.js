@@ -39,7 +39,9 @@ module.exports = async () => {
   app.use(handlers);
 
   if (config.reload) {
-    await reload(app);
+    const reloader = await reload(app);
+    // eslint-disable-next-line import/no-extraneous-dependencies,global-require
+    require("watch").watchTree(config.publicRoot, () => reloader.reload());
     // eslint-disable-next-line no-console
     console.info("Auto reloading enabled");
   }
