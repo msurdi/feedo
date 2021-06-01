@@ -1,0 +1,8 @@
+{
+  "cron": [
+    {
+      "command": "./bin/feedo.js sync",
+      "schedule": "@hourly"
+    }
+  ]
+}
