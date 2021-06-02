@@ -1,4 +1,8 @@
 #!/usr/bin/env node
+
+// Prisma relies on relative directories for schema loading, etc.
+process.chdir(`${__dirname}/..`);
+
 const cli = require("../cli");
 
 cli().catch((e) => {
