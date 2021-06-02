@@ -4,7 +4,6 @@ const morgan = require("morgan");
 const reload = require("reload");
 const helmet = require("helmet");
 const compression = require("compression");
-const basicAuth = require("express-basic-auth");
 const cookieSession = require("cookie-session");
 const csurf = require("csurf");
 const cookieParser = require("cookie-parser");
@@ -12,6 +11,7 @@ const config = require("./config");
 const logger = require("./services/logger");
 const handlers = require("./handlers");
 const urls = require("./urls");
+const authMiddleware = require("./middlewares/auth");
 
 module.exports = async () => {
   const app = express();
@@ -19,15 +19,7 @@ module.exports = async () => {
 
   app.set("trust proxy", true);
 
-  const { username, password } = config.auth;
-  if (username || password) {
-    app.use(
-      basicAuth({
-        users: { [username]: password },
-        challenge: true,
-      })
-    );
-  }
+  app.use(authMiddleware({ excludeUrls: [urls.status()] }));
   app.use(express.urlencoded({ extended: true }));
   app.use(cookieParser());
   app.use(cookieSession(config.session));
