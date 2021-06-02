@@ -85,6 +85,7 @@
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
     "downsize": "^0.0.8",
+    "execa": "^5.0.1",
     "expand-home-dir": "^0.0.3",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",

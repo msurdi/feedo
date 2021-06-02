@@ -1,5 +1,6 @@
 const { program } = require("commander");
 const packageJSON = require("../package.json");
+const migrate = require("./commands/migrate");
 const start = require("./commands/start");
 const sync = require("./commands/sync");
 
@@ -23,6 +24,11 @@ const cli = async () => {
     .action(run(start));
 
   program.command("sync").description("Sync all feeds").action(run(sync));
+
+  program
+    .command("migrate")
+    .description("Migrate the database to the latest schema")
+    .action(run(migrate));
 
   program.parse(process.argv);
 };
