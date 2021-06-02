@@ -22,10 +22,7 @@ const layout = ({ body }) => html`
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
-    <body
-      class="h-full min-h-full bg-gray-100 pt-12 overflow-hidden"
-      up-progress
-    >
+    <body class="h-full bg-gray-100 pt-12" up-progress>
       <header
         class="z-50 flex flex-row justify-between bg-primary shadow items-baseline fixed top-0 left-0 right-0 h-12"
       >
@@ -40,11 +37,13 @@ const layout = ({ body }) => html`
           upTarget: "body",
         })}
       </header>
-      <main
-        class="h-full p-4 w-full max-w-6xl bg-white mx-auto rounded shadow overflow-y-scroll"
-      >
-        ${body}
-      </main>
+      <div class="h-full w-full overflow-y-scroll">
+        <main
+          class="h-full p-4 w-full max-w-6xl bg-white mx-auto rounded shadow"
+        >
+          ${body}
+        </main>
+      </div>
       <footer></footer>
     </body>
   </html>
