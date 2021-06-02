@@ -8,7 +8,7 @@ const authMiddleware = ({ excludeUrls = [] } = {}) => {
   const { username, password } = config.auth;
 
   if (!username && !password) {
-    return null;
+    return (req, res, next) => next();
   }
 
   const auth = expressBasicAuth({
