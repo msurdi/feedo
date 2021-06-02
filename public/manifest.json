@@ -1,0 +1,19 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "192x192",
+      "src": "/img/android-chrome-192x192.png",
+      "type": "image/png"
+    },
+    {
+      "sizes": "512x512",
+      "src": "/img/android-chrome-512x512.png",
+      "type": "image/png"
+    }
+  ],
+  "name": "Feedo",
+  "short_name": "Feedo",
+  "theme_color": "#581c87"
+}

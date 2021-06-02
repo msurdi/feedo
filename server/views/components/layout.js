@@ -9,11 +9,15 @@ const layout = ({ body }) => html`
     <head>
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <title>Feedo</title>
+      <link rel="manifest" href="/manifest.json" />
+      <meta name="theme-color" content="#075985" />
+      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      <meta name="apple-mobile-web-app-status-bar" content="#075985" />
       <meta
         name="viewport"
-        content="initial-scale=1.0, width=device-width, user-scalable=no"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
+      <title>Feedo</title>
       <script src="${urls.public("dist/app.js")}"></script>
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
