@@ -1,6 +1,6 @@
 module.exports = {
   home: () => "/",
-  public: (path = "") => `/public/${path}`,
+  public: (path = "") => `/${path}`,
   status: () => "/status",
   feeds: () => "/feeds",
   newFeed: () => "/feeds/new",
