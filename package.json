@@ -1,6 +1,6 @@
 {
   "name": "feedo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "scripts": {
     "dev": "NODE_ENV=development run-s migrate:dev dev:start",
