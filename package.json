@@ -17,6 +17,7 @@
     "deploy:dokku": "dotenv run-s deploy:dokku:setup deploy:dokku:push",
     "deploy:dokku:setup": "git remote | grep dokku || git remote add dokku ${DOKKU_USER:-dokku}@${DOKKU_HOST:-example.com}:${DOKKU_APP:-feedo}",
     "deploy:dokku:push": "git push --force dokku main:master",
+    "prepack": "npm run build",
     "start": "node ./bin/feedo.js start"
   },
   "prisma": {
