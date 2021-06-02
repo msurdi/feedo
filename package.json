@@ -103,6 +103,7 @@
     "randomstring": "^1.2.1",
     "reload": "^3.1.1",
     "rss-parser": "^3.12.0",
+    "sanitize-html": "^2.4.0",
     "winston": "^3.3.3",
     "yup": "^0.32.9"
   }

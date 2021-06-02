@@ -1,4 +1,5 @@
 const html = require("html-string");
+const sanitizeHtml = require("sanitize-html");
 const urls = require("../urls");
 const button = require("./components/button");
 const csrfInput = require("./components/csrf-input");
@@ -30,7 +31,7 @@ const articlesView = ({ req, articles }) =>
                   <section
                     class="text-gray-600 mt-2 prose max-w-full prose-purple"
                   >
-                    ${article.excerpt}
+                    ${sanitizeHtml(article.excerpt)}:safe
                   </section>
                 </article>
               `

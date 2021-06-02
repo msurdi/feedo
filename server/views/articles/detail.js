@@ -1,4 +1,5 @@
 const html = require("html-string");
+const sanitizeHtml = require("sanitize-html");
 const layout = require("../components/layout");
 const link = require("../components/link");
 
@@ -15,7 +16,7 @@ const articleDetailView = ({ article }) =>
           </time>
         </span>
         <div class="text-gray-600 mt-2 prose max-w-full prose-purple">
-          ${article.content}
+          ${sanitizeHtml(article.content)}:safe
         </div>
       </article>
       <div class="flex flex-row justify-center">
