@@ -21,6 +21,7 @@ fs.ensureDirSync(dataDir);
 
 const devMode = env("NODE_ENV") === "development";
 const secretKey = env("SECRET_KEY") ?? randomstring.generate();
+const isAuthEnabled = !!(env("USERNAME") || env("PASSWORD"));
 
 const config = {
   port: parseInt(env("PORT") ?? 8080, 10),
@@ -34,7 +35,10 @@ const config = {
   publicRoot: path.resolve(path.join(rootDir, "public")),
   reload: devMode,
   helmet: {
-    contentSecurityPolicy: !devMode,
+    contentSecurityPolicy: {
+      "upgrade-insecure-requests": isAuthEnabled && !devMode,
+    },
+    hsts: isAuthEnabled && !devMode,
   },
   session: {
     name: "s",
