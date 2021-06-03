@@ -4,6 +4,22 @@ An RSS/Atom feed reader
 
 Work in progress
 
+## Quick start
+
+```shell
+npm i -g feedo
+export FEEDO_DATABASE_URL=/some/path/feedo.db
+feedo migrate
+feedo start
+```
+
+That will start the web application at [http://localhost:8080](http://localhost:8080/).
+After adding some feeds, you will need to manually run the sync process (for now, see #6, #7 and #8) as:
+
+```shell
+feedo sync
+```
+
 ## Development environment
 
 1. Install dependencies:
@@ -27,18 +43,7 @@ To sync feed, please make sure you at least added one feed and execute:
 npm run feed:sync
 ```
 
-## Production usage
-
-## Your computer
-
-1. Ensure you have a recent version of node and npm
-2. Install it with:
-
-    ```shell
-       npm i -g feedo
-    ```
-
-3. Run it with `feedo`, and periodically run `feedo sync` to fetch data
+## Production deployment
 
 ### Dokku
 
