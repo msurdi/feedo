@@ -43,7 +43,7 @@ const layout = ({ body }) => html`
       </header>
       <div class="h-full w-full overflow-y-scroll" up-viewport>
         <main
-          class="h-full p-4 w-full max-w-6xl bg-white mx-auto rounded shadow"
+          class="min-h-full p-4 w-full max-w-6xl bg-white mx-auto rounded shadow"
         >
           ${body}
         </main>
