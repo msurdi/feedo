@@ -35,9 +35,7 @@ const config = {
   publicRoot: path.resolve(path.join(rootDir, "public")),
   reload: devMode,
   helmet: {
-    contentSecurityPolicy: {
-      "upgrade-insecure-requests": isAuthEnabled && !devMode,
-    },
+    contentSecurityPolicy: isAuthEnabled && !devMode,
     hsts: isAuthEnabled && !devMode,
   },
   session: {
