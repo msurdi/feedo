@@ -9,7 +9,11 @@ const layout = ({ body }) => html`
     <head>
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <link rel="manifest" href="/manifest.json" />
+      <link
+        rel="manifest"
+        href="/manifest.json"
+        crossorigin="use-credentials"
+      />
       <meta name="theme-color" content="#075985" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
       <meta name="apple-mobile-web-app-status-bar" content="#075985" />
