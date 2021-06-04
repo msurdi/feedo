@@ -21,7 +21,6 @@ const withPrismaErrors = async (prismaQuery) => {
           target: [field],
         },
       } = err;
-      console.log("--------------------", err);
       const message = getErrorMessageFromPrismaCode(code);
       return { result: null, errors: { [field]: [message] } };
     }
