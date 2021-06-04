@@ -14,7 +14,7 @@
     "test:acceptance": "run-p -r start:acceptance cypress:run",
     "cypress:run": "cypress run",
     "test": "run-s lint test:unit test:acceptance",
-    "lint": "eslint --ext .js acceptance",
+    "lint": "eslint --ext .js .",
     "migrate:dev": "prisma migrate dev",
     "migrate:production": "prisma migrate deploy",
     "feed:sync": "node bin/feedo.js sync",
