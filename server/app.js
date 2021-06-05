@@ -1,6 +1,7 @@
 require("express-async-errors");
 const express = require("express");
 const morgan = require("morgan");
+const reload = require("reload");
 const helmet = require("helmet");
 const compression = require("compression");
 const cookieSession = require("cookie-session");
@@ -30,19 +31,9 @@ module.exports = async () => {
   app.use(handlers);
 
   if (config.reload) {
-    // eslint-disable-next-line global-require,import/no-extraneous-dependencies
-    const livereload = require("livereload");
-    const livereloadServer = livereload.createServer({
-      port: 8088,
-      applyCSSLive: false,
-    });
-    livereloadServer.watch(config.publicRoot);
-    livereloadServer.server.once("connection", () => {
-      setTimeout(() => {
-        livereloadServer.refresh("/");
-      }, 100);
-    });
-
+    const reloader = await reload(app);
+    // eslint-disable-next-line import/no-extraneous-dependencies,global-require
+    require("watch").watchTree(config.publicRoot, () => reloader.reload());
     // eslint-disable-next-line no-console
     console.info("Auto reloading enabled");
   }

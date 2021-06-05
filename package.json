@@ -78,14 +78,14 @@
     "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.4",
-    "livereload": "^0.9.3",
     "nodemon": "^2.0.7",
     "npm-run-all": "^4.1.5",
     "postcss-cli": "^8.3.1",
     "postcss-import": "^14.0.2",
     "prettier": "^2.3.0",
     "tailwindcss": "^2.1.2",
-    "unpoly": "^2.0.0-rc9"
+    "unpoly": "^2.0.0-rc9",
+    "watch": "^1.0.2"
   },
   "dependencies": {
     "@prisma/client": "^2.23.0",
@@ -113,6 +113,7 @@
     "path-to-regexp": "^6.2.0",
     "prisma": "^2.23.0",
     "randomstring": "^1.2.1",
+    "reload": "^3.1.1",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.4.0",
     "winston": "^3.3.3",
