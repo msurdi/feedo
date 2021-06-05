@@ -54,4 +54,4 @@ deploy it with:
     npm run deploy:dokku
 ```
 
-Ensure you also setup all the necessary environment variables in dokkue, with `dokku config set ...`.
+Ensure you also setup all the necessary environment variables in dokku, with `dokku config set ...`.
