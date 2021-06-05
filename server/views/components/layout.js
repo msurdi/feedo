@@ -24,7 +24,8 @@ const layout = ({ body }) => html`
       <title>Feedo</title>
       <script src="${urls.public("dist/app.js")}"></script>
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
-      ${config.reload && html`<script src="/reload/reload.js"></script>`}
+      ${config.reload &&
+      html`<script src="//0.0.0.0:8088/livereload.js?snipver=1"></script>`}
     </head>
     <body class="h-full bg-gray-100 pt-12" up-progress>
       <header
