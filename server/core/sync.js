@@ -37,14 +37,18 @@ const processFeed = async (feed) => {
   const parser = new RSSParser();
 
   try {
+    logger.info(`Syncing ${feed.url}`);
     const feedData = await parser.parseURL(feed.url);
-    logger.info(`Syncing ${feedData.items.length} articles from ${feed.url}`);
     await processFeedItems(feedData);
     if (feed.lastError) {
       await clearFeedLastError(feed.id);
     }
   } catch (error) {
-    if (error.message.match(/Status code (4|5).*/)) {
+    if (
+      error.message.match(/Status code (4|5).*/) ||
+      error.message.match(/Invalid character/)
+    ) {
+      logger.error(`Failed syncing ${feed.url}: ${error.message}`);
       await setFeedLastError(feed.id, error.message);
     } else {
       throw error;
@@ -52,7 +56,6 @@ const processFeed = async (feed) => {
   }
 };
 
-// eslint-disable-next-line import/prefer-default-export
 const syncAllFeeds = async () => {
   const feeds = await getAllFeeds();
   logger.info(`Starting sync of ${feeds.length} feeds`);
@@ -62,4 +65,4 @@ const syncAllFeeds = async () => {
   logger.info("Sync completed");
 };
 
-module.exports = { syncAllFeeds };
+module.exports = { syncAllFeeds, processFeed };
