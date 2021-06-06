@@ -1,6 +1,7 @@
 const html = require("html-string");
 const sanitizeHtml = require("sanitize-html");
 const urls = require("../urls");
+const articleMeta = require("./components/article-meta");
 const button = require("./components/button");
 const csrfInput = require("./components/csrf-input");
 const layout = require("./components/layout");
@@ -21,13 +22,9 @@ const articlesView = ({ req, articles }) =>
                     href="${urls.articleDetail(article.id)}"
                     up-target="body"
                   >
-                    <h1 class="font-bold text-lg">${article.title}</h1></a
-                  >
-                  <time
-                    title="${article.publishedAt}"
-                    class="text-sm text-gray-500"
-                    >${article.timeAgo}
-                  </time>
+                    <h1 class="font-bold text-lg">${article.title}</h1>
+                  </a>
+                  ${articleMeta({ article })}
                   <section
                     class="text-gray-600 mt-2 prose max-w-full prose-purple"
                   >

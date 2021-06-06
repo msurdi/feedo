@@ -1,5 +1,6 @@
 const html = require("html-string");
 const sanitizeHtml = require("sanitize-html");
+const articleMeta = require("../components/article-meta");
 const layout = require("../components/layout");
 const link = require("../components/link");
 
@@ -10,11 +11,7 @@ const articleDetailView = ({ article }) =>
         <a href="${article.link}">
           <h1 class="font-bold text-xl">${article.title}</h1>
         </a>
-        <span class="text-sm text-gray-500">
-          <time title="${article.publishedAt}" class="text-sm text-gray-500">
-            ${article.timeAgo}
-          </time>
-        </span>
+        ${articleMeta({ article })}
         <div class="text-gray-600 mt-2 prose max-w-full prose-purple">
           ${sanitizeHtml(article.content)}:safe
         </div>
