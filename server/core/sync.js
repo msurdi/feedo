@@ -1,4 +1,5 @@
 const RSSParser = require("rss-parser");
+const fs = require("fs-extra");
 const logger = require("../services/logger");
 const { putArticle } = require("./articles");
 const {
@@ -8,11 +9,25 @@ const {
 } = require("./feeds");
 const { isExpired } = require("./is-expired");
 
+const getAuthorFromFeedItem = (feedItem) => {
+  if (typeof feedItem?.author === "string") {
+    return feedItem.author;
+  }
+  if (typeof feedItem?.creator === "string") {
+    return feedItem.creator;
+  }
+
+  if (Array.isArray(feedItem?.author?.name)) {
+    return feedItem.author.name.join(", ");
+  }
+  return null;
+};
+
 const processFeed = async (feed) => {
   const processFeedItems = async (feedData) => {
     for (const feedItem of feedData.items) {
       const articleId = feedItem.id ?? feedItem.guid ?? feedItem.link;
-      const author = feedItem.author || feedItem.creator;
+      const author = getAuthorFromFeedItem(feedItem);
       const publishedAtDate = new Date(feedItem.isoDate);
 
       if (isExpired(publishedAtDate)) {
@@ -24,7 +39,7 @@ const processFeed = async (feed) => {
         guid: articleId,
         link: feedItem.link,
         title: feedItem.title,
-        author: author ? author.toString() : null,
+        author,
         content: feedItem.content || feedItem.summary || "",
         publishedAt: feedItem.isoDate,
         commentsLink: feedItem.comments,
@@ -39,6 +54,12 @@ const processFeed = async (feed) => {
   try {
     logger.info(`Syncing ${feed.url}`);
     const feedData = await parser.parseURL(feed.url);
+    if (feed.url === "http://googleblog.blogspot.com/atom.xml") {
+      await fs.writeJson("fixtures/google.json", feedData);
+    }
+    if (feed.url === "https://www.nasa.gov/rss/dyn/breaking_news.rss") {
+      await fs.writeJson("fixtures/nasa.json", feedData);
+    }
     await processFeedItems(feedData);
     if (feed.lastError) {
       await clearFeedLastError(feed.id);

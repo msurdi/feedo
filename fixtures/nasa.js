@@ -161,7 +161,7 @@ module.exports = {
       title:
         "Media Invited to Administrator’s State of NASA Remarks on Climate, Artemis",
       link: "http://www.nasa.gov/press-release/media-invited-to-administrator-s-state-of-nasa-remarks-on-climate-artemis",
-      pubDate: "Thu, 27 May 2021 16:39 EDT",
+      pubDate: "Thu, 27 May 2011 16:39 EDT",
       enclosure: {
         url: "http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/nasa-logo-web-rgb_0.jpg?itok=mrBnB_c9",
         length: "189751",
@@ -172,7 +172,7 @@ module.exports = {
       contentSnippet:
         "In his first address to the workforce, NASA Administrator Bill Nelson will discuss the agency’s plans for future climate science missions, the agency’s plans for a robotic and human return to the Moon through the Artemis program, and more during a State of NASA event at 3 p.m. EDT Wednesday, June 2.",
       guid: "http://www.nasa.gov/press-release/media-invited-to-administrator-s-state-of-nasa-remarks-on-climate-artemis",
-      isoDate: "2021-05-27T20:39:00.000Z",
+      isoDate: "2011-05-27T20:39:00.000Z",
       itunes: {},
     },
   ],
