@@ -13,7 +13,7 @@ const getClassesForVariant = (variant) => {
       );
     default:
       return cn(
-        "py-2 px-6 rounded transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none shadow text-white hover:bg-primary-light w-auto bg-success"
+        "py-2 px-6 rounded transition-colors duration-200 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none shadow text-white hover:bg-success-light bg-success"
       );
   }
 };
