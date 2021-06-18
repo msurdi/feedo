@@ -17,13 +17,15 @@ const articlesView = ({ req, articles }) =>
             ${articles.map(
               (article) => html`
                 <article class="px-2 py-6 flex flex-col break-words">
-                  <a
-                    class="text-black visited:text-gray-500"
-                    href="${urls.articleDetail(article.id)}"
-                    up-target="body"
-                  >
-                    <h1 class="font-bold text-lg">${article.title}</h1>
-                  </a>
+                  <h1 class="font-bold text-lg">
+                    <a
+                      class="text-black visited:text-gray-500"
+                      href="${urls.articleDetail(article.id)}"
+                      up-target="body"
+                    >
+                      ${article.title}
+                    </a>
+                  </h1>
                   ${articleMeta({ article })}
                   <section
                     class="text-gray-600 mt-2 prose max-w-full prose-purple"
