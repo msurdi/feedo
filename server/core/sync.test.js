@@ -14,7 +14,7 @@ describe("processFeed", () => {
     beforeEach(() => {
       putArticle.mockReset();
       RSSParser.prototype.parseURL = jest.fn(() => googleFixture);
-      processFeed({ url: "google", id: "google" });
+      processFeed({ url: "https://google.com/feed", id: "google" });
     });
 
     it("creates the first article", () => {
@@ -54,7 +54,7 @@ describe("processFeed", () => {
     beforeEach(() => {
       putArticle.mockReset();
       RSSParser.prototype.parseURL = jest.fn(() => nasaFixture);
-      processFeed({ url: "nasa", id: "nasa" });
+      processFeed({ url: "http://www.nasa.gov/", id: "nasa" });
     });
 
     it("creates the first article", () => {

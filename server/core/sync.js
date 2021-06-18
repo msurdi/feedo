@@ -37,7 +37,7 @@ const processFeed = async (feed) => {
 
       const article = {
         guid: articleId,
-        link: feedItem.link,
+        link: new URL(feedItem.link, feed.url).href,
         title: feedItem.title,
         author,
         content: feedItem.content || feedItem.summary || "",

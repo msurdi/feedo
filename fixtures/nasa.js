@@ -3,7 +3,7 @@ module.exports = {
     {
       title:
         "NASA Awards Universities $1.2M for Space Station, Suborbital Research",
-      link: "http://www.nasa.gov/press-release/nasa-awards-universities-12m-for-space-station-suborbital-research",
+      link: "/press-release/nasa-awards-universities-12m-for-space-station-suborbital-research",
       pubDate: "Fri, 04 Jun 2021 15:04 EDT",
       enclosure: {
         url: "http://www.nasa.gov/sites/default/files/styles/1x1_cardfeed/public/thumbnails/image/nasa-logo-web-rgb_0.jpg?itok=mrBnB_c9",
