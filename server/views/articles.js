@@ -2,6 +2,7 @@ const html = require("html-string");
 const sanitizeHtml = require("sanitize-html");
 const urls = require("../urls");
 const articleMeta = require("./components/article-meta");
+const articleTitle = require("./components/article-title");
 const button = require("./components/button");
 const csrfInput = require("./components/csrf-input");
 const layout = require("./components/layout");
@@ -17,15 +18,10 @@ const articlesView = ({ req, articles }) =>
             ${articles.map(
               (article) => html`
                 <article class="px-2 py-6 flex flex-col break-words">
-                  <h1 class="font-bold text-lg">
-                    <a
-                      class="text-black visited:text-gray-500"
-                      href="${urls.articleDetail(article.id)}"
-                      up-target="body"
-                    >
-                      ${article.title}
-                    </a>
-                  </h1>
+                  ${articleTitle({
+                    article,
+                    href: urls.articleDetail(article.id),
+                  })}
                   ${articleMeta({ article })}
                   <section
                     class="text-gray-600 mt-2 prose max-w-full prose-purple"
