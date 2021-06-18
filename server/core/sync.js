@@ -1,5 +1,4 @@
 const RSSParser = require("rss-parser");
-const fs = require("fs-extra");
 const logger = require("../services/logger");
 const { putArticle } = require("./articles");
 const {
@@ -54,12 +53,6 @@ const processFeed = async (feed) => {
   try {
     logger.info(`Syncing ${feed.url}`);
     const feedData = await parser.parseURL(feed.url);
-    if (feed.url === "http://googleblog.blogspot.com/atom.xml") {
-      await fs.writeJson("fixtures/google.json", feedData);
-    }
-    if (feed.url === "https://www.nasa.gov/rss/dyn/breaking_news.rss") {
-      await fs.writeJson("fixtures/nasa.json", feedData);
-    }
     await processFeedItems(feedData);
     if (feed.lastError) {
       await clearFeedLastError(feed.id);
