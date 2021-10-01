@@ -88,7 +88,7 @@
     "watch": "^1.0.2"
   },
   "dependencies": {
-    "@prisma/client": "^2.25.0",
+    "@prisma/client": "^3.1.1",
     "classnames": "^2.3.1",
     "commander": "^8.2.0",
     "compression": "^1.7.4",
@@ -111,7 +111,7 @@
     "morgan": "^1.10.0",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.0",
-    "prisma": "^2.25.0",
+    "prisma": "^3.1.1",
     "randomstring": "^1.2.1",
     "reload": "^3.2.0",
     "rss-parser": "^3.12.0",
