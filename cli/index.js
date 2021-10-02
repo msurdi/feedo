@@ -5,9 +5,9 @@ const start = require("./commands/start");
 const sync = require("./commands/sync");
 
 const cli = async () => {
-  const run = (command) => async () => {
+  const run = (command) => async (options) => {
     try {
-      await command(program.opts());
+      await command(options);
       process.exit(0);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -20,6 +20,7 @@ const cli = async () => {
 
   program
     .command("start")
+    .option("-m, --migrate", "Automatically run migrations")
     .description("Start web application")
     .action(run(start));
 
