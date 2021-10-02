@@ -7,6 +7,6 @@ const cli = require("../cli");
 
 cli().catch((e) => {
   // eslint-disable-next-line no-console
-  console.trace(e);
+  console.error(e);
   process.exit(1);
 });
