@@ -24,7 +24,7 @@ const secretKey = env("SECRET_KEY") ?? randomstring.generate();
 const isAuthEnabled = !!(env("USERNAME") || env("PASSWORD"));
 
 const config = {
-  port: parseInt(env("PORT") ?? 8080, 10),
+  port: parseInt(env("PORT"), 10) || 8080,
   address: env("ADDRESS") ?? "0.0.0.0",
   auth: {
     username: env("USERNAME"),
