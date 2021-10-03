@@ -1,24 +1,25 @@
 # Feedo
 
-An RSS/Atom feed reader
+An RSS/Atom feed reader that runs on your laptop or on almost any free hosting provider or server.
 
-Work in progress
+![home screenshot](./docs/feedo1.png)
+
+![feeds screenshot](./docs/feedo2.png)
+
+![new feed screenshot](./docs/feedo3.png)
+
+![mobile screenshot](./docs/mobile.png)
 
 ## Quick start
 
+This command will start feedo on your computer.
+
 ```shell
 npm i -g feedo
-export FEEDO_DATABASE_URL=/some/path/feedo.db
-feedo migrate
-feedo start
+feedo start -m -s 3h
 ```
 
 That will start the web application at [http://localhost:8080](http://localhost:8080/).
-After adding some feeds, you will need to manually run the sync process (for now, see #6, #7 and #8) as:
-
-```shell
-feedo sync
-```
 
 ## Development environment
 
@@ -35,15 +36,10 @@ feedo sync
     npm run dev
     ```
 
-## Sync feeds
+## Hosted usage
 
-To sync feed, please make sure you at least added one feed and execute:
-
-```shell
-npm run feed:sync
-```
-
-## Production deployment
+If instead of running feedo on your own latop, you would prefer to run it on a server, here are
+some guides to do so:
 
 ### Dokku
 
@@ -55,3 +51,4 @@ deploy it with:
 ```
 
 Ensure you also setup all the necessary environment variables in dokku, with `dokku config set ...`.
+You can see which ones are supported by looking at the [.env.example](./.env.example) file.
