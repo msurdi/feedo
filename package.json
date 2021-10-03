@@ -1,7 +1,14 @@
 {
   "name": "feedo",
   "version": "0.2.0",
-  "description": "",
+  "description": "An RSS/Atom feed reader that runs on your laptop or on almost any free hosting provider or server.",
+  "keywords": [
+    "feed",
+    "reader",
+    "rss",
+    "atom",
+    "news"
+  ],
   "scripts": {
     "dev": "NODE_ENV=development run-s migrate:dev dev:start",
     "dev:start": "run-p -l dev:watch:*",
