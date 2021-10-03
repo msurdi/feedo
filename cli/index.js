@@ -21,6 +21,11 @@ const cli = async () => {
   program
     .command("start")
     .option("-m, --migrate", "Automatically run migrations")
+    .option(
+      "-s, --sync <minutes>",
+      "Automatically sync feeds periodically",
+      "0"
+    )
     .description("Start web application")
     .action(run(start));
 
