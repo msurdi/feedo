@@ -26,7 +26,6 @@ const start = async ({ migrate, sync }) => {
     await migrateCommand();
   }
 
-  // @ts-ignore
   const syncInterval = parseDuration(sync);
 
   if (syncInterval) {
