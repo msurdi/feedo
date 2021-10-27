@@ -6,7 +6,14 @@ const fs = require("fs-extra");
 const { milliseconds } = require("date-fns");
 const randomstring = require("randomstring");
 
+const homedir = os.homedir();
+
 dotenv.config();
+
+// Ensure a default database is set for Prisma to work
+if (!process.env.FEEDO_DATABASE_URL) {
+  process.env.FEEDO_DATABASE_URL = `file:${homedir}/.feedo.db`;
+}
 
 const env = (name) => {
   const normalizedName = name.toUpperCase();
@@ -32,6 +39,7 @@ const config = {
   },
   rootDir,
   dataDir,
+  dbUrl: env("DATABASE_URL"),
   publicRoot: path.resolve(path.join(rootDir, "public")),
   reload: devMode,
   helmet: {
