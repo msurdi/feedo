@@ -26,7 +26,7 @@ const layout = ({ body }) => html`
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
       ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
-    <body class="h-full bg-gray-100 pt-12" up-progress>
+    <body class="h-full bg-gray-100 pt-12">
       <header
         class="z-50 flex flex-row justify-between bg-primary shadow items-baseline fixed top-0 left-0 right-0 h-12"
       >

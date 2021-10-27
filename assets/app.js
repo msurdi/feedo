@@ -1,6 +1,5 @@
 import "unpoly";
 import "./compilers/up-disable";
-import "./compilers/up-progress";
 
 up.log.config.banner = false;
 
