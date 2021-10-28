@@ -1,5 +1,6 @@
 import "unpoly";
 import "./compilers/up-disable";
+import "./compilers/up-submit-observer";
 
 up.log.config.banner = false;
 

@@ -1,19 +1,38 @@
 const express = require("express");
 const { StatusCodes, ReasonPhrases } = require("http-status-codes");
+const config = require("../config");
 const {
   getUnreadArticles,
   getArticle,
   markArticlesAsRead,
+  getArticlesByIds,
 } = require("../core/articles");
 const urls = require("../urls");
 const articlesView = require("../views/articles");
 const articleDetailView = require("../views/articles/detail");
+const articlesList = require("../views/components/articles-list");
 
 const router = express.Router();
 
+const {
+  feedo: { unreadPageSize },
+} = config;
+
 router.get(urls.home(), async (req, res) => {
-  const unreadArticles = await getUnreadArticles();
-  res.send(articlesView({ req, articles: unreadArticles }).render());
+  const { afterArticleId } = req.query;
+  const unreadArticles = await getUnreadArticles({
+    afterArticleId,
+    pageSize: unreadPageSize + 1,
+  });
+  const hasMoreArticles = unreadArticles.length === unreadPageSize + 1;
+
+  if (hasMoreArticles) {
+    unreadArticles.pop();
+  }
+
+  res.send(
+    articlesView({ req, articles: unreadArticles, hasMoreArticles }).render()
+  );
 });
 
 router.get(urls.articleDetail(":articleId"), async (req, res) => {
@@ -29,8 +48,13 @@ router.get(urls.articleDetail(":articleId"), async (req, res) => {
 router.post(urls.markAsRead(), async (req, res) => {
   const { articleIds } = req.body;
   await markArticlesAsRead(articleIds);
-
-  return res.redirect(urls.home());
+  const updatedArticles = await getArticlesByIds(articleIds);
+  return res.send(
+    articlesList({
+      articles: updatedArticles,
+      csrfToken: req.csrfToken(),
+    }).render()
+  );
 });
 
 module.exports = router;

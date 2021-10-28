@@ -1,63 +1,51 @@
 const html = require("html-string");
-const sanitizeHtml = require("sanitize-html");
 const urls = require("../urls");
-const articleMeta = require("./components/article-meta");
-const articleTitle = require("./components/article-title");
-const button = require("./components/button");
-const csrfInput = require("./components/csrf-input");
+const articlesList = require("./components/articles-list");
 const layout = require("./components/layout");
 
-const articlesView = ({ req, articles }) =>
+const articlesView = ({ req, articles, hasMoreArticles }) =>
   layout({
     body: html`
-
-      ${
-        !!articles.length &&
-        html`
-          <div class="divide-y divide-gray-300">
-            ${articles.map(
-              (article) => html`
-                <article class="px-2 py-6 flex flex-col break-words">
-                  ${articleTitle({
-                    article,
-                    href: urls.articleDetail(article.id),
-                  })}
-                  ${articleMeta({ article })}
-                  <section
-                    class="text-gray-600 mt-2 prose max-w-full prose-purple"
-                  >
-                    ${sanitizeHtml(article.excerpt)}:safe
-                  </section>
-                </article>
-              `
-            )}
-          </div>
-          <div class="flex justify-center p-4">
-            <form up-target="body" method="post" action="${urls.markAsRead()}">
-              ${csrfInput(req.csrfToken())}
-              ${articles.map(
-                (article) => html`
-                  <input
-                    type="hidden"
-                    name="articleIds[]"
-                    value="${article.id}"
-                  />
-                `
-              )}
-              ${button("Mark as read", {
-                upDisable: true,
-                dataDisableWith: "Loading...",
-              })}
-            </form>
-          </div>
-        `
-      }
-        ${
-          !articles.length &&
-          html`<div class="flex justify-center my-4">
+      ${!!articles.length &&
+      html`
+        ${articlesList({
+          articles,
+          csrfToken: req.csrfToken(),
+          id: "articles-list",
+        })}
+      `}
+      ${hasMoreArticles &&
+      html`
+        <div
+          id="fetch-more"
+          up-hungry
+          up-submit-observer
+          data-submit-observer-form="#fetch-more-form"
+          data-submit-observer-mode="enter-bottom"
+        >
+          <form
+            id="fetch-more-form"
+            method="get"
+            action="${urls.home()}"
+            up-hungry
+            up-submit
+            up-target="#articles-list:after"
+          >
+            <input
+              type="hidden"
+              name="afterArticleId"
+              value="${articles.slice(-1)[0].id}"
+            />
+          </form>
+        </div>
+      `}
+      <div id="no-more-articles" up-hungry class="h-[calc(100vh-5rem)]">
+        ${!hasMoreArticles &&
+        html`<div id="articles-list"></div>
+          <div id="fetch-more"></div>
+          <div class="flex flex-col justify-center items-center h-full">
             <span class="text-gray-400">That's all for now.</span>
-          </div>`
-        }
+          </div>`}
       </div>
     `,
   });

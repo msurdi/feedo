@@ -55,6 +55,7 @@ const config = {
   },
   feedo: {
     oldestArticleDays: 30,
+    unreadPageSize: 10,
   },
 };
 module.exports = config;

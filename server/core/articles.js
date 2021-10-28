@@ -47,11 +47,26 @@ const getAllArticles = async () => {
   return articles.map(asArticle);
 };
 
-const getUnreadArticles = async () => {
+const getUnreadArticles = async ({ afterArticleId, pageSize = 10 } = {}) => {
+  const paginationParams = {
+    cursor: {
+      id: afterArticleId,
+    },
+    skip: 1,
+  };
+
   const articles = await db.article.findMany({
     where: { isRead: false },
-    take: 10,
-    orderBy: { publishedAt: "asc" },
+    take: pageSize,
+    orderBy: { id: "asc" },
+    ...(afterArticleId ? paginationParams : {}),
+  });
+  return articles.map(asArticle);
+};
+
+const getArticlesByIds = async (articleIds) => {
+  const articles = await db.article.findMany({
+    where: { id: { in: articleIds } },
   });
   return articles.map(asArticle);
 };
@@ -76,4 +91,5 @@ module.exports = {
   getUnreadArticles,
   markArticlesAsRead,
   removeReadAndExpiredArticles,
+  getArticlesByIds,
 };
