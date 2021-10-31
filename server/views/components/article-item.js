@@ -15,7 +15,6 @@ const articleItem = ({ article, csrfToken }) => html`
     data-submit-observer-threshold="0.4"
     data-submit-observer-form="#form-mark-as-read-${article.id}"
   >
-    ${article.id}
     ${articleTitle({
       article,
       href: urls.articleDetail(article.id),

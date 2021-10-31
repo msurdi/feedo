@@ -2,4 +2,9 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-module.exports = () => {};
+
+const tasks = require("./tasks");
+
+module.exports = (on) => {
+  on("task", tasks);
+};

@@ -58,7 +58,7 @@ const getUnreadArticles = async ({ afterArticleId, pageSize = 10 } = {}) => {
   const articles = await db.article.findMany({
     where: { isRead: false },
     take: pageSize,
-    orderBy: { id: "asc" },
+    orderBy: [{ createdAt: "asc" }, { id: "asc" }],
     ...(afterArticleId ? paginationParams : {}),
   });
   return articles.map(asArticle);

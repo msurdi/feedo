@@ -5,9 +5,10 @@
   "env": {},
   "fixturesFolder": "acceptance/fixtures",
   "integrationFolder": "acceptance/tests",
+  "nodeVersion": "system",
   "pluginsFile": "acceptance/plugins",
   "retries": {
-    "openMode": 1,
+    "openMode": 0,
     "runMode": 1
   },
   "screenshotsFolder": "acceptance/screenshots",
