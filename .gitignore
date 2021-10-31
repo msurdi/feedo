@@ -3,5 +3,6 @@
 /.parcel-cache
 /dist
 /.env
-/feedo.db*
+/*.db
 /*.tgz
+/acceptance/screenshots
