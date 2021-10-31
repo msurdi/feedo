@@ -1,5 +1,4 @@
 const html = require("html-string");
-const config = require("../../config");
 const urls = require("../../urls");
 const link = require("./link");
 
@@ -24,7 +23,6 @@ const layout = ({ body }) => html`
       <title>Feedo</title>
       <script src="${urls.public("dist/app.js")}"></script>
       <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
-      ${config.reload && html`<script src="/reload/reload.js"></script>`}
     </head>
     <body class="h-full bg-gray-100 pt-12">
       <header

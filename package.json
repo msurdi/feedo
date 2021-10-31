@@ -10,9 +10,10 @@
     "news"
   ],
   "scripts": {
-    "dev": "NODE_ENV=development run-s migrate:dev dev:start",
+    "dev": "dotenv -e .env -- run-s migrate:dev dev:start",
     "dev:start": "run-p -l dev:watch:*",
-    "dev:watch:server": "nodemon bin/feedo.js start -w server -w bin -w cli",
+    "dev:watch:reload": "browser-sync start --no-open --port 8081 --proxy ${FEEDO_ADDRESS:-localhost}:${FEEDO_PORT:-8080} --files .reload public/dist",
+    "dev:watch:server": "nodemon",
     "dev:watch:js": "esbuild --watch --bundle --sourcemap --outdir=public/dist/ assets/app.js",
     "dev:watch:css": "postcss --map --watch assets/app.css --dir public/dist/",
     "start:acceptance": "dotenv -e .env.test -- run-s build destroy:testdb migrate:dev start",
@@ -75,6 +76,8 @@
     "@types/express": "^4.17.13",
     "@types/jest": "^27.0.2",
     "autoprefixer": "^10.2.6",
+    "browser-sync": "^2.27.7",
+    "browsersync": "^0.0.1-security",
     "cssnano": "^5.0.6",
     "cypress": "^8.5.0",
     "dotenv-cli": "^4.0.0",
@@ -95,8 +98,7 @@
     "postcss-import": "^14.0.2",
     "prettier": "^2.3.1",
     "tailwindcss": "^2.2.2",
-    "unpoly": "^2.0.1",
-    "watch": "^0.13.0"
+    "unpoly": "^2.0.1"
   },
   "dependencies": {
     "@prisma/client": "^3.1.1",
@@ -107,7 +109,6 @@
     "cookie-session": "^1.4.0",
     "csurf": "^1.11.0",
     "date-fns": "^2.22.1",
-    "dotenv": "^10.0.0",
     "downsize": "^0.0.8",
     "execa": "^5.1.1",
     "expand-home-dir": "^0.0.3",
@@ -124,7 +125,6 @@
     "path-to-regexp": "^6.2.0",
     "prisma": "^3.1.1",
     "randomstring": "^1.2.1",
-    "reload": "^3.2.0",
     "rss-parser": "^3.12.0",
     "sanitize-html": "^2.4.0",
     "winston": "^3.3.3",
