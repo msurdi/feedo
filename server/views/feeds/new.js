@@ -4,12 +4,10 @@ const button = require("../components/button");
 const csrfInput = require("../components/csrf-input");
 const input = require("../components/input");
 const layout = require("../components/layout");
-const pageHeader = require("../components/page-header");
 
 const newFeedView = ({ req, feed, errors } = {}) =>
   layout({
     body: html`
-      ${pageHeader({ title: "Add new feed" })}
       <div class="flex flex-row justify-center my-6">
         <form
           up-target="body"
@@ -19,10 +17,11 @@ const newFeedView = ({ req, feed, errors } = {}) =>
         >
           ${csrfInput(req.csrfToken())}
           <fieldset class="m-2 md:flex flex flex-col">
+            <label class="py-1 text-sm font-bold" for="url"> Feed url </label>
             ${input({
               id: "url",
               name: "url",
-              placeholder: "Url",
+              placeholder: "https://example.com/rss",
               autofocus: !feed?.url,
               value: feed?.url || "",
             })}
