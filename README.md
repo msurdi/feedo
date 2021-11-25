@@ -31,7 +31,7 @@ That will start the web application at
     npm install
     ```
 
-2. Create a `.env` based off `.env.example`.
+2. Create a `.env` by copying the provided `.env.example`.
 3. Start the service in development mode
 
     ```shell
@@ -46,7 +46,7 @@ server, here are some guides to do so:
 ### Dokku
 
 If you are using [Dokku](https://dokku.com/), create a new App with `dokku
-apps:create ...` and then setup the `` `DOKKU_*` variables in the `.env file`,
+apps:create ...` and then setup the `DOKKU_*` variables in the `.env file`,
 finally deploy it with:
 
 ```shell
