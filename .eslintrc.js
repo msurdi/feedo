@@ -31,6 +31,16 @@ module.exports = {
       2,
       { namedComponents: "arrow-function" },
     ],
+    "jsx-a11y/label-has-associated-control": [
+      2,
+      {
+        labelComponents: ["Label"],
+        labelAttributes: ["label"],
+        controlComponents: ["Input"],
+        depth: 3,
+        assert: "either",
+      },
+    ],
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
