@@ -1,8 +1,9 @@
 import urls from "../lib/urls";
+import Link from "./link";
 
 const ArticleTitle = ({ article }) => (
   <h1 className="text-lg font-bold">
-    <a href={urls.articleDetail(article.id)}>{article.title}</a>
+    <Link href={urls.articleDetail(article.id)}>{article.title}</Link>
   </h1>
 );
 
