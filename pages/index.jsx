@@ -1,9 +1,18 @@
 import getConfig from "next/config";
-import Layout from "../components/layout";
+import ArticleList from "../components/article-list";
 import { getUnreadArticles } from "../lib/core/articles";
 import withSerialize from "../lib/helpers/pages/with-serialize";
 
-const IndexPage = () => <Layout>Hello feedo</Layout>;
+const IndexPage = ({ articles, hasMoreArticles }) => (
+  <>
+    <ArticleList articles={articles} />
+    {!hasMoreArticles && (
+      <div className="flex flex-col items-center justify-center h-full">
+        <span className="text-gray-400">That&apos;s all for now.</span>
+      </div>
+    )}
+  </>
+);
 
 const {
   serverRuntimeConfig: { unreadPageSize },

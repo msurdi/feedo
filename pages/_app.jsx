@@ -2,9 +2,13 @@ import Layout from "../components/layout";
 import "../styles/app.css";
 
 const FeedoApp = ({ Component, pageProps }) => {
-  const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
+  const PageLayout = Component.layout || Layout;
 
-  return getLayout(<Component {...pageProps} />);
+  return (
+    <PageLayout>
+      <Component {...pageProps} />
+    </PageLayout>
+  );
 };
 
 export default FeedoApp;
