@@ -1,4 +1,6 @@
 import Head from "next/head";
+import urls from "../lib/urls";
+import Link from "./link";
 
 const Layout = ({ children }) => (
   <>
@@ -14,8 +16,12 @@ const Layout = ({ children }) => (
       />
     </Head>
     <header className="fixed top-0 left-0 right-0 z-50 flex flex-row items-baseline justify-between h-12 shadow bg-primary">
-      <a href="#1">Feedo</a>
-      <a href="#2">Feeds</a>
+      <Link variant={Link.variants.brand} href={urls.home()}>
+        Feedo
+      </Link>
+      <Link variant={Link.variants.nav} href={urls.feeds()}>
+        Feeds
+      </Link>
     </header>
     <div className="w-full h-full overflow-y-scroll">
       <main className="w-full max-w-6xl min-h-full p-4 mx-auto bg-white rounded shadow">
