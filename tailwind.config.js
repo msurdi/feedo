@@ -3,11 +3,10 @@ const colors = require("tailwindcss/colors");
 
 module.exports = {
   mode: "jit",
-  purge: ["./server/views/**/*.{js,ts}"],
+  purge: ["./pages/**/*.{js,jsx}", "./components/**/*.{js,jsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     colors: {
-      // primary: colors.purple[900],
       primary: colors.purple[900],
       "primary-light": colors.purple[700],
       black: colors.black,
