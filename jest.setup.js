@@ -1,4 +1,4 @@
-jest.mock("./server/services/logger");
+jest.mock("./lib/services/logger");
 jest.useFakeTimers();
 
 jest.mock("./server/config", () => ({
