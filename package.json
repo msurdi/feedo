@@ -34,7 +34,7 @@
     "start": "node ./bin/feedo.js start"
   },
   "prisma": {
-    "schema": "server/services/db/schema.prisma"
+    "schema": "lib/services/db/schema.prisma"
   },
   "author": {
     "email": "matiassurdi@gmail.com",
