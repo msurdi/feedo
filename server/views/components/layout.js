@@ -1,5 +1,5 @@
 const html = require("html-string");
-const urls = require("../../urls");
+const urls = require("../../../lib/urls");
 const link = require("./link");
 
 const layout = ({ body }) => html`

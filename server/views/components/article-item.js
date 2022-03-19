@@ -1,6 +1,6 @@
 const html = require("html-string");
 const sanitizeHtml = require("sanitize-html");
-const urls = require("../../urls");
+const urls = require("../../../lib/urls");
 const articleMeta = require("./article-meta");
 const articleTitle = require("./article-title");
 const csrfInput = require("./csrf-input");
