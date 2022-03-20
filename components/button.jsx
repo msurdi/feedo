@@ -18,7 +18,7 @@ const getClassesForVariant = (variant) => {
   }
 };
 
-const Button = ({ variant, type = "button", children }, ref) => {
+const ButtonWithRef = ({ variant, type = "button", children }, ref) => {
   const className = getClassesForVariant(variant);
 
   return (
@@ -32,8 +32,8 @@ const Button = ({ variant, type = "button", children }, ref) => {
   );
 };
 
-const ButtonWithRef = forwardRef(Button);
+const Button = forwardRef(ButtonWithRef);
 
-ButtonWithRef.variants = variants;
+Button.variants = variants;
 
-export default ButtonWithRef;
+export default Button;

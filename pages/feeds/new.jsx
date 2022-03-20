@@ -18,11 +18,11 @@ const NewFeedPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { post: createFeed, data } = useApi(urls.feedsApi());
+  const { post, data } = useApi();
 
-  const onSubmit = (values) => {
-    clearErrors();
-    createFeed(values);
+  const onSubmit = async (values) => {
+    await clearErrors();
+    await post(urls.feedsApi(), values);
   };
 
   useSuccess(() => {
