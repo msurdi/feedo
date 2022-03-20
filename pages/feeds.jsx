@@ -9,13 +9,14 @@ import urls from "../lib/urls";
 
 const FeedsPage = ({ feeds }) => {
   const router = useRouter();
-  const { del, data } = useApi();
+  const { del, data, reset } = useApi();
 
   const onUnsubscribe = async (feedId) => {
     await del(urls.feedItemApi(feedId));
   };
 
   useSuccess(() => {
+    reset();
     router.replace(router.asPath);
   }, data?.deleted);
 

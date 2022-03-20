@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 
 const useApi = () => {
   const [data, setData] = useState(null);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const request = async (url, { body, method = "GET" }) => {
@@ -31,10 +31,16 @@ const useApi = () => {
 
   const del = (url, body) => request(url, { method: "DELETE", body });
 
+  const reset = () => {
+    setData(null);
+    setError(null);
+  };
+
   return {
     data,
     error,
     loading,
+    reset: useCallback(reset, []),
     request: useCallback(request, []),
     get: useCallback(get, []),
     post: useCallback(post, []),
