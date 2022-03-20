@@ -1,4 +1,5 @@
 import cn from "classnames";
+import { forwardRef } from "react";
 
 const variants = {
   danger: Symbol("danger"),
@@ -17,11 +18,12 @@ const getClassesForVariant = (variant) => {
   }
 };
 
-const Button = ({ variant, type = "button", children }) => {
+const Button = ({ variant, type = "button", children }, ref) => {
   const className = getClassesForVariant(variant);
 
   return (
     <button
+      ref={ref}
       type={type === "button" ? "button" : "submit"}
       className={className}
     >
@@ -30,6 +32,8 @@ const Button = ({ variant, type = "button", children }) => {
   );
 };
 
-Button.variants = variants;
+const ButtonWithRef = forwardRef(Button);
 
-export default Button;
+ButtonWithRef.variants = variants;
+
+export default ButtonWithRef;

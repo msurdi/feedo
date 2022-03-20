@@ -1,21 +1,58 @@
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import Button from "../../components/button";
 import Input from "../../components/input";
+import useApi from "../../hooks/use-api";
+import useErrors from "../../hooks/use-errors";
+import useSuccess from "../../hooks/use-success";
+import urls from "../../lib/urls";
 
 const NewFeedPage = () => {
-  const errors = {};
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    clearErrors,
+    formState: { errors },
+  } = useForm();
+
+  const { post: createFeed, data } = useApi(urls.feedsApi());
+
+  const onSubmit = (values) => {
+    clearErrors();
+    createFeed(values);
+  };
+
+  useSuccess(() => {
+    router.push(urls.feeds());
+  }, data?.feed);
+
+  useErrors(setError, data?.errors);
 
   return (
     <div className="flex flex-row justify-center my-6">
-      <form className="flex flex-col w-full max-w-xl">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col w-full max-w-xl"
+      >
         <fieldset className="flex flex-col m-2 md:flex">
           <label className="py-1 text-sm font-bold">
             Feed url
-            <Input name="url" placeholder="https://example.com/rss" autoFocus />
+            <Input
+              placeholder="https://example.com/rss"
+              autoFocus
+              required
+              {...register("url", { required: true })}
+            />
           </label>
-          {errors.url && <span className="text-danger">{errors.url}</span>}
+          {errors.url && (
+            <span className="text-sm text-danger">{errors?.url?.message}</span>
+          )}
         </fieldset>
         <div className="flex flex-row justify-end m-2">
-          <Button>Add feed</Button>
+          <Button type="submit">Add feed</Button>
         </div>
       </form>
     </div>
