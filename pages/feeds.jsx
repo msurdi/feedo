@@ -2,23 +2,23 @@ import { useRouter } from "next/router";
 import FeedList from "../components/feed-list";
 import Link from "../components/link";
 import useApi from "../hooks/use-api";
-import useSuccess from "../hooks/use-success";
 import { getAllFeeds } from "../lib/core/feeds";
 import withSerialize from "../lib/helpers/pages/with-serialize";
 import urls from "../lib/urls";
 
 const FeedsPage = ({ feeds }) => {
   const router = useRouter();
-  const { del, data, reset } = useApi();
+  const { del, onSuccess } = useApi();
 
   const onUnsubscribe = async (feedId) => {
     await del(urls.feedItemApi(feedId));
   };
 
-  useSuccess(() => {
-    reset();
-    router.replace(router.asPath);
-  }, data?.deleted);
+  onSuccess((response) => {
+    if (response.deleted) {
+      router.replace(router.asPath);
+    }
+  });
 
   return (
     <div>

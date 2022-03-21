@@ -4,7 +4,6 @@ import Button from "../../components/button";
 import Input from "../../components/input";
 import useApi from "../../hooks/use-api";
 import useErrors from "../../hooks/use-errors";
-import useSuccess from "../../hooks/use-success";
 import urls from "../../lib/urls";
 
 const NewFeedPage = () => {
@@ -14,20 +13,20 @@ const NewFeedPage = () => {
     register,
     handleSubmit,
     setError,
-    clearErrors,
     formState: { errors },
   } = useForm();
 
-  const { post, data } = useApi();
+  const { post, data, onSuccess } = useApi();
 
   const onSubmit = async (values) => {
-    await clearErrors();
     await post(urls.feedsApi(), values);
   };
 
-  useSuccess(() => {
-    router.push(urls.feeds());
-  }, data?.feed);
+  onSuccess((response) => {
+    if (response.feed) {
+      router.push(urls.feeds());
+    }
+  });
 
   useErrors(setError, data?.errors);
 
