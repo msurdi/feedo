@@ -1,8 +1,11 @@
 import { program } from "commander";
-import packageJSON from "../package.json" assert { type: "json" };
+import { readFileSync } from "fs";
 import migrate from "./commands/migrate";
 import start from "./commands/start";
 import sync from "./commands/sync";
+
+const packageJSON = JSON.parse(readFileSync("./package.json"));
+
 const cli = async () => {
   const run = (command) => async (options) => {
     try {

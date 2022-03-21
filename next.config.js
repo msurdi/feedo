@@ -1,11 +1,11 @@
 /**
  * @type {import('next').NextConfig}
  */
-const nextConfig = {
+const config = {
   serverRuntimeConfig: {
     oldestArticleDays: 30,
     unreadPageSize: 10,
   },
 };
 
-export default nextConfig;
+export default config;
