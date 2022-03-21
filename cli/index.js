@@ -1,9 +1,8 @@
-const { program } = require("commander");
-const packageJSON = require("../package.json");
-const migrate = require("./commands/migrate");
-const start = require("./commands/start");
-const sync = require("./commands/sync");
-
+import { program } from "commander";
+import packageJSON from "../package.json" assert { type: "json" };
+import migrate from "./commands/migrate";
+import start from "./commands/start";
+import sync from "./commands/sync";
 const cli = async () => {
   const run = (command) => async (options) => {
     try {
@@ -39,4 +38,4 @@ const cli = async () => {
   program.parse(process.argv);
 };
 
-module.exports = cli;
+export default cli;

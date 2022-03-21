@@ -1,5 +1,5 @@
-const { syncAllFeeds } = require("../../server/core/sync");
+import { syncAllFeeds } from "../../lib/core/sync";
 
 const sync = async () => syncAllFeeds();
 
-module.exports = sync;
+export default sync;

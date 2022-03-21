@@ -1,7 +1,7 @@
-const parseDuration = require("parse-duration");
-const runServer = require("../../server");
-const migrateCommand = require("./migrate");
-const syncCommand = require("./sync");
+import execa from "execa";
+import parseDuration from "parse-duration";
+import migrateCommand from "./migrate";
+import syncCommand from "./sync";
 
 let syncing = false;
 
@@ -21,7 +21,14 @@ const periodicSync = async () => {
   }
 };
 
-const start = async ({ migrate, sync }) => {
+const start = async () => {
+  const command = execa("npm start", { shell: true });
+  command.stderr.pipe(process.stderr);
+  command.stdout.pipe(process.stdout);
+  await command;
+};
+
+const run = async ({ migrate, sync }) => {
   if (migrate) {
     await migrateCommand();
   }
@@ -33,7 +40,7 @@ const start = async ({ migrate, sync }) => {
     periodicSync();
   }
 
-  await runServer();
+  await start();
 };
 
-module.exports = start;
+export default run;

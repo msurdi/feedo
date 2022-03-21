@@ -1,9 +1,9 @@
-#!/usr/bin/env node
+#!/usr/bin/env -S node --experimental-specifier-resolution=node
 
-// Prisma relies on relative directories for schema loading, etc.
-process.chdir(`${__dirname}/..`);
+// // Prisma relies on relative directories for schema loading, etc.
+// process.chdir(`${__dirname}/..`);
 
-const cli = require("../cli");
+import cli from "../cli";
 
 cli().catch((e) => {
   // eslint-disable-next-line no-console
