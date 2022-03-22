@@ -3,6 +3,7 @@ import ArticleTitle from "../../components/article-title";
 import Link from "../../components/link";
 import { getArticle } from "../../lib/core/articles";
 import withSerialize from "../../lib/helpers/pages/with-serialize";
+import { withTimeAgo } from "../../lib/presenters";
 
 const ArticleDetailPage = ({ article }) => (
   <div>
@@ -21,6 +22,8 @@ const ArticleDetailPage = ({ article }) => (
   </div>
 );
 
+const articlePresenter = (article) => withTimeAgo(article);
+
 export const getServerSideProps = withSerialize(async ({ params: { id } }) => {
   const article = await getArticle(id);
 
@@ -28,7 +31,7 @@ export const getServerSideProps = withSerialize(async ({ params: { id } }) => {
     return { notFound: true };
   }
 
-  return { props: { article } };
+  return { props: { article: articlePresenter(article) } };
 });
 
 export default ArticleDetailPage;

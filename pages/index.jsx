@@ -2,6 +2,7 @@ import getConfig from "next/config";
 import ArticleList from "../components/article-list";
 import { getUnreadArticles } from "../lib/core/articles";
 import withSerialize from "../lib/helpers/pages/with-serialize";
+import { withExcerpt, withTimeAgo } from "../lib/presenters";
 
 const IndexPage = ({ articles, hasMoreArticles }) => (
   <>
@@ -18,6 +19,8 @@ const {
   serverRuntimeConfig: { unreadPageSize },
 } = getConfig();
 
+const articlePresenter = (article) => withExcerpt(withTimeAgo(article));
+
 export const getServerSideProps = withSerialize(
   async ({ query: { afterArticleId } }) => {
     const unreadArticles = await getUnreadArticles({
@@ -31,7 +34,10 @@ export const getServerSideProps = withSerialize(
     }
 
     return {
-      props: { articles: unreadArticles, hasMoreArticles },
+      props: {
+        articles: unreadArticles.map(articlePresenter),
+        hasMoreArticles,
+      },
     };
   }
 );
