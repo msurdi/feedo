@@ -3,10 +3,10 @@ import { useCallback, useState } from "react";
 const useApi = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const request = useCallback(async (url, { body, method = "GET" }) => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       const response = await fetch(url, {
         headers: {
@@ -23,7 +23,7 @@ const useApi = () => {
       setError(err);
       return { response: null, error: err };
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, []);
 
@@ -56,7 +56,7 @@ const useApi = () => {
   return {
     data,
     error,
-    loading,
+    isLoading,
     reset,
     request,
     get,

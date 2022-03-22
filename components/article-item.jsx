@@ -1,5 +1,5 @@
 import cn from "classnames";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import useApi from "../hooks/use-api";
 import urls from "../lib/urls";
 import ArticleMeta from "./article-meta";
@@ -12,10 +12,10 @@ const ArticleItem = ({ article }) => {
   const [isRead, setIsRead] = useState(article.isRead);
   const { put } = useApi();
 
-  const handleOnExit = () => {
+  const handleOnExit = useCallback(() => {
     setIsRead(true);
     put(urls.articleApi(article.id), { isRead: true });
-  };
+  }, [article.id, put]);
 
   return (
     <article

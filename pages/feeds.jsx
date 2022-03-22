@@ -1,19 +1,19 @@
-import { useRouter } from "next/router";
 import FeedList from "../components/feed-list";
 import Link from "../components/link";
 import useApi from "../hooks/use-api";
+import useRefresh from "../hooks/use-refresh";
 import { getAllFeeds } from "../lib/core/feeds";
 import withSerialize from "../lib/helpers/pages/with-serialize";
 import urls from "../lib/urls";
 
 const FeedsPage = ({ feeds }) => {
-  const router = useRouter();
+  const refresh = useRefresh();
   const { del } = useApi();
 
   const onUnsubscribe = async (feedId) => {
     const { response } = await del(urls.feedApi(feedId));
     if (response?.deleted) {
-      router.replace(router.asPath, router.asPath, { scroll: false });
+      refresh();
     }
   };
 
