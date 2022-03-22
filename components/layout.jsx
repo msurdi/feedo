@@ -15,20 +15,23 @@ const Layout = ({ children }) => (
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
     </Head>
-    <header className="fixed top-0 left-0 right-0 z-50 flex flex-row items-baseline justify-between h-12 shadow bg-primary">
-      <Link variant={Link.variants.brand} href={urls.home()}>
-        Feedo
-      </Link>
-      <Link variant={Link.variants.nav} href={urls.feeds()}>
-        Feeds
-      </Link>
-    </header>
-    <div className="w-full h-full overflow-y-scroll">
-      <main className="w-full max-w-6xl min-h-full p-4 mx-auto bg-white rounded shadow">
+    <div className="h-screen flex flex-col">
+      <header className="fixed top-0 left-0 right-0 z-50 flex flex-row items-baseline justify-between h-12 shadow bg-primary">
+        <Link variant={Link.variants.brand} href={urls.home()}>
+          Feedo
+        </Link>
+        <Link variant={Link.variants.nav} href={urls.feeds()}>
+          Feeds
+        </Link>
+      </header>
+      <main
+        id="viewport"
+        className="w-full mt-12 max-w-6xl p-4 mx-auto bg-white rounded shadow flex-1 overflow-y-scroll"
+      >
         {children}
       </main>
+      <footer />
     </div>
-    <footer />
   </>
 );
 

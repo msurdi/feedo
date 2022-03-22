@@ -8,7 +8,7 @@ const IndexPage = ({ articles, hasMoreArticles }) => (
   <>
     <ArticleList articles={articles} />
     {!hasMoreArticles && (
-      <div className="flex flex-col items-center justify-center h-full">
+      <div className="flex flex-col items-center justify-center">
         <span className="text-gray-400">That&apos;s all for now.</span>
       </div>
     )}

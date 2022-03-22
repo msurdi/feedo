@@ -11,7 +11,7 @@ const FeedsPage = ({ feeds }) => {
   const { del } = useApi();
 
   const onUnsubscribe = async (feedId) => {
-    const { response } = await del(urls.feedItemApi(feedId));
+    const { response } = await del(urls.feedApi(feedId));
     if (response?.deleted) {
       router.replace(router.asPath, router.asPath, { scroll: false });
     }

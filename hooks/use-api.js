@@ -38,6 +38,11 @@ const useApi = () => {
     [request]
   );
 
+  const put = useCallback(
+    (url, body) => request(url, { method: "PUT", body }),
+    [request]
+  );
+
   const del = useCallback(
     (url, body) => request(url, { method: "DELETE", body }),
     [request]
@@ -56,6 +61,7 @@ const useApi = () => {
     request,
     get,
     post,
+    put,
     del,
   };
 };
