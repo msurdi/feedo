@@ -16,17 +16,14 @@ const NewFeedPage = () => {
     formState: { errors },
   } = useForm();
 
-  const { post, data, onSuccess } = useApi();
+  const { post, data } = useApi();
 
   const onSubmit = async (values) => {
-    await post(urls.feedsApi(), values);
-  };
-
-  onSuccess((response) => {
-    if (response.feed) {
+    const { response } = await post(urls.feedsApi(), values);
+    if (response?.feed) {
       router.push(urls.feeds());
     }
-  });
+  };
 
   useErrors(setError, data?.errors);
 

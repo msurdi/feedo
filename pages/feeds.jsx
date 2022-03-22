@@ -8,17 +8,14 @@ import urls from "../lib/urls";
 
 const FeedsPage = ({ feeds }) => {
   const router = useRouter();
-  const { del, onSuccess } = useApi();
+  const { del } = useApi();
 
   const onUnsubscribe = async (feedId) => {
-    await del(urls.feedItemApi(feedId));
-  };
-
-  onSuccess((response) => {
-    if (response.deleted) {
-      router.replace(router.asPath);
+    const { response } = await del(urls.feedItemApi(feedId));
+    if (response?.deleted) {
+      router.replace(router.asPath, router.asPath, { scroll: false });
     }
-  });
+  };
 
   return (
     <div>

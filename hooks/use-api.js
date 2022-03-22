@@ -4,33 +4,28 @@ const useApi = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  let successCb;
-  let errorCb;
 
-  const request = useCallback(
-    async (url, { body, method = "GET" }) => {
-      setLoading(true);
-      try {
-        const response = await fetch(url, {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          method,
-          body: JSON.stringify(body),
-        });
-        const jsonResponse = await response.json();
-        setData(jsonResponse);
-        successCb?.(jsonResponse);
-      } catch (err) {
-        setError(err);
-        errorCb?.(err);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [errorCb, successCb]
-  );
+  const request = useCallback(async (url, { body, method = "GET" }) => {
+    setLoading(true);
+    try {
+      const response = await fetch(url, {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        method,
+        body: JSON.stringify(body),
+      });
+      const jsonResponse = await response.json();
+      setData(jsonResponse);
+      return { response: jsonResponse, error: null };
+    } catch (err) {
+      setError(err);
+      return { response: null, error: err };
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const get = useCallback(
     (url, query) =>
@@ -53,20 +48,10 @@ const useApi = () => {
     setError(null);
   }, []);
 
-  const onSuccess = (cb) => {
-    successCb = cb;
-  };
-
-  const onError = (cb) => {
-    errorCb = cb;
-  };
-
   return {
     data,
     error,
     loading,
-    onSuccess,
-    onError,
     reset,
     request,
     get,
