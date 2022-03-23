@@ -1,5 +1,5 @@
 const ArticleMeta = ({ article }) => (
-  <span className="text-sm tesxt-gray-500">
+  <span className="text-xs text-gray-500">
     <time title={article.publishedAt}>{article.timeAgo}</time> ago
     {article.author && <span>by {article.author}</span>}
   </span>

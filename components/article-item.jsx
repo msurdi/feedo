@@ -35,10 +35,12 @@ const ArticleItem = ({ article }) => {
       <ArticleTitle article={article} />
       <ArticleMeta article={article} />
       <section
-        className={cn("max-w-full mt-2 prose text-gray-600 prose-purple")}
-      >
-        {article.excerpt}
-      </section>
+        className={cn(
+          "max-w-full mt-2 prose text-gray-500 prose-purple line-clamp-3 overflow-ellipsis text-sm"
+        )}
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: article.excerpt }}
+      />
     </article>
   );
 };

@@ -7,7 +7,7 @@ import NoSsr from "../components/no-ssr";
 import useRefresh from "../hooks/use-refresh";
 import { getUnreadArticles } from "../lib/core/articles";
 import withSerialize from "../lib/helpers/pages/with-serialize";
-import { withExcerpt, withTimeAgo } from "../lib/presenters";
+import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 
 const IndexPage = ({ articles, hasMoreArticles }) => {
   const [articlesBuffer, setarticlesBuffer] = useState([]);
@@ -40,7 +40,14 @@ const {
   serverRuntimeConfig: { unreadPageSize },
 } = getConfig();
 
-const articlePresenter = (article) => withExcerpt(withTimeAgo(article));
+const articlePresenter = (article) =>
+  withSafeHtml(
+    withSafeHtml(withExcerpt(withTimeAgo(article)), {
+      source: "excerpt",
+      target: "excerpt",
+    }),
+    { source: "title", target: "title" }
+  );
 
 export const getServerSideProps = withSerialize(
   async ({ query: { afterArticleId } }) => {
