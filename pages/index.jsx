@@ -63,6 +63,7 @@ export const getServerSideProps = withSerialize(
 
     return {
       props: {
+        key: Math.random(),
         articles: unreadArticles.map(articlePresenter),
         hasMoreArticles,
       },

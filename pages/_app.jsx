@@ -3,9 +3,10 @@ import "../styles/app.css";
 
 const FeedoApp = ({ Component, pageProps }) => {
   const PageLayout = Component.layout || Layout;
+  const { key } = pageProps;
 
   return (
-    <PageLayout>
+    <PageLayout key={key}>
       <Component {...pageProps} />
     </PageLayout>
   );
