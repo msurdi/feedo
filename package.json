@@ -55,10 +55,12 @@
     "feedo": "bin/feedo.js"
   },
   "files": [
-    "server/**",
+    ".next/**",
+    "lib/**",
     "bin/**",
     "public/**",
-    "cli/**"
+    "cli/**",
+    "next.config.js"
   ],
   "engines": {
     "node": ">=16",

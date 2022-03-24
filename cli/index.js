@@ -1,10 +1,14 @@
 import { program } from "commander";
 import { readFileSync } from "fs";
+import { join } from "path";
+import findRoot from "../lib/find-root";
 import migrate from "./commands/migrate";
 import start from "./commands/start";
 import sync from "./commands/sync";
 
-const packageJSON = JSON.parse(readFileSync("./package.json"));
+const projectRoot = findRoot();
+const packageJsonPath = join(projectRoot, "./package.json");
+const packageJSON = JSON.parse(readFileSync(packageJsonPath));
 
 const cli = async () => {
   const run = (command) => async (options) => {
