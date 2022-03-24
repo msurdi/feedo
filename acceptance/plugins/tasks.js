@@ -1,6 +1,6 @@
-const articles = require("../../server/core/articles");
-const feeds = require("../../server/core/feeds");
-const db = require("../../server/services/db");
+const articles = import("../../lib/core/articles");
+const feeds = import("../../lib/core/feeds");
+const db = import("../../lib/services/db");
 
 const tasks = {
   async createFeed(feed) {

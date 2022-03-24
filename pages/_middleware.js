@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import urls from "../lib/urls";
 import config from "../next.config";
 
 const {
@@ -9,6 +10,9 @@ const {
 
 // eslint-disable-next-line import/prefer-default-export
 export const middleware = (req) => {
+  if (req.page.name === urls.status()) {
+    return NextResponse.next();
+  }
   if (!enabled) {
     return NextResponse.next();
   }

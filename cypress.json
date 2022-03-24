@@ -5,7 +5,6 @@
   "env": {},
   "fixturesFolder": "acceptance/fixtures",
   "integrationFolder": "acceptance/tests",
-  "nodeVersion": "system",
   "pluginsFile": "acceptance/plugins",
   "retries": {
     "openMode": 0,

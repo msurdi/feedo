@@ -11,28 +11,27 @@
     "news"
   ],
   "scripts": {
+    "postinstall": "npx next telemetry disable > /dev/null",
     "dev": "dotenv -e .env -- run-s migrate:dev dev:start",
     "dev:start": "next dev",
     "start:acceptance": "dotenv -e .env.test -- run-s build destroy:testdb migrate:dev start",
     "destroy:testdb": "dotenv -e .env.test -- rm -f ${FEEDO_DATABASE_URL}",
     "test:unit": "jest --verbose lib/** cli/**",
     "test:unit:watch": "jest --watch --verbose lib/** cli/**",
-    "test:acceptance": "run-p -r start:acceptance cypress:run",
-    "cypress:run": "dotenv -e .env.test -- cypress run",
+    "test:acceptance": "NODE_OPTIONS=--experimental-specifier-resolution=node run-p -r start:acceptance cypress:run",
+    "cypress:run": "NODE_OPTIONS=--experimental-specifier-resolution=node dotenv -e .env.test -- ./bin/cypress.cjs run",
     "test": "run-s lint test:unit test:acceptance",
     "lint": "eslint --ext .js .",
     "migrate:dev": "prisma migrate dev",
     "migrate:production": "prisma migrate deploy",
-    "feed:sync": "node bin/feedo.js sync",
-    "build": "NODE_ENV=production  run-p build:*",
-    "build:js": "esbuild --bundle --sourcemap --minify --outdir=public/dist/ assets/app.js",
-    "build:css": "postcss assets/app.css --dir public/dist/",
+    "feed:sync": "./bin/feedo.js sync",
+    "build": "NODE_ENV=production next build",
     "deploy:dokku": "dotenv run-s deploy:dokku:setup deploy:dokku:push",
     "deploy:dokku:setup": "git remote | grep dokku || git remote add dokku ${DOKKU_USER:-dokku}@${DOKKU_HOST:-example.com}:${DOKKU_APP:-feedo}",
     "deploy:dokku:push": "git push --force dokku main:master",
     "prepack": "npm run build",
-    "cypress:open": "dotenv -e .env.test -- cypress open",
-    "start": "node ./bin/feedo.js start"
+    "cypress:open": "NODE_OPTIONS=--experimental-specifier-resolution=node dotenv -e .env.test -- ./bin/cypress.cjs open",
+    "start": "NODE_ENV=production next start"
   },
   "prisma": {
     "schema": "lib/services/db/schema.prisma"
