@@ -24,12 +24,11 @@ const Layout = ({ children }) => (
           Feeds
         </Link>
       </header>
-      <main
-        id="viewport"
-        className="w-full mt-12 max-w-6xl p-4 mx-auto bg-white rounded shadow flex-1 overflow-y-scroll"
-      >
-        {children}
-      </main>
+      <div className="mt-12 flex-1 overflow-y-scroll">
+        <main className="w-full max-w-6xl p-4 mx-auto bg-white rounded shadow">
+          {children}
+        </main>
+      </div>
       <footer />
     </div>
   </>
