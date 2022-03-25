@@ -3,13 +3,7 @@
 An RSS/Atom feed reader that runs on your laptop or on almost any free hosting
 provider or server.
 
-![home screenshot](./docs/feedo1.png)
-
-![feeds screenshot](./docs/feedo2.png)
-
-![new feed screenshot](./docs/feedo3.png)
-
-![mobile screenshot](./docs/mobile.png)
+![feedo_intro](./docs/feedo-intro.gif)
 
 ## Quick start
 
