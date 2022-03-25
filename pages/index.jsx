@@ -31,8 +31,10 @@ const IndexPage = ({ articles, hasMoreArticles }) => {
         </NoSsr>
       )}
       {!hasMoreArticles && (
-        <div className="flex flex-col items-center justify-center">
-          <span className="text-gray-400">That&apos;s all for now.</span>
+        <div className="flex flex-col items-center justify-center h-screen">
+          <span className="text-gray-400 text-2xl">
+            That&apos;s all for now.
+          </span>
         </div>
       )}
     </>
