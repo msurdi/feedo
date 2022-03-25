@@ -12,7 +12,6 @@ import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 const IndexPage = ({ articles, hasMoreArticles }) => {
   const [articlesBuffer, setarticlesBuffer] = useState([]);
   const refresh = useRefresh();
-
   useEffect(() => {
     setarticlesBuffer((previousArticles) =>
       uniqBy([...previousArticles, ...articles], "id")
@@ -24,7 +23,11 @@ const IndexPage = ({ articles, hasMoreArticles }) => {
       <ArticleList articles={articlesBuffer} />
       {hasMoreArticles && (
         <NoSsr>
-          <IntersectionObserver multiple onEnterBottom={refresh} />
+          <IntersectionObserver
+            rootMargin="200px"
+            multiple
+            onEnterBottom={refresh}
+          />
         </NoSsr>
       )}
       {!hasMoreArticles && (
@@ -63,7 +66,6 @@ export const getServerSideProps = withSerialize(
 
     return {
       props: {
-        key: Math.random(),
         articles: unreadArticles.map(articlePresenter),
         hasMoreArticles,
       },

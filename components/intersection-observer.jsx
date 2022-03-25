@@ -5,6 +5,9 @@ const IntersectionObserver = ({
   onExitTop,
   onEnterBottom,
   intersectionRef,
+  rootElement = document.querySelector("#viewport"),
+  threshold = 0.4,
+  rootMargin = "0px",
   multiple = false,
 }) => {
   const internalIntersectionRef = useRef();
@@ -14,9 +17,9 @@ const IntersectionObserver = ({
   const intersection = useIntersection(
     intersectionRef ?? internalIntersectionRef,
     {
-      root: document.querySelector("#viewport"),
-      rootMargin: "0px",
-      threshold: 0.4,
+      root: rootElement,
+      rootMargin,
+      threshold,
     }
   );
 
