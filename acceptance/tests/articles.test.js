@@ -17,17 +17,15 @@ describe("Articles view", () => {
   beforeEach(() => {
     fakeArticles = [];
     cy.task("resetDatabase");
-    cy.task("createFeed", { url: "https://example.com/rss" }).then(
-      ({ feed }) => {
-        [...Array(25)].forEach(() => {
-          cy.task("createArticle", createFakeArticle({ feedId: feed.id })).then(
-            (fakeArticle) => {
-              fakeArticles.push(fakeArticle);
-            }
-          );
-        });
-      }
-    );
+    cy.task("createFeed", { url: "https://example.com/rss" }).then((feed) => {
+      [...Array(25)].forEach(() => {
+        cy.task("createArticle", createFakeArticle({ feedId: feed.id })).then(
+          (fakeArticle) => {
+            fakeArticles.push(fakeArticle);
+          }
+        );
+      });
+    });
     cy.visit("/", {
       auth: {
         username: "testuser",
@@ -99,9 +97,13 @@ describe("Articles view", () => {
       cy.contains("h1", fakeArticles[24].title).scrollIntoView({
         duration: 1000,
       });
+      cy.contains("span", "That's all for now.").scrollIntoView({
+        duration: 1000,
+      });
     });
+
     it("Marks as read all articles", () => {
-      fakeArticles.slice(0, 24).forEach(({ title }) => {
+      fakeArticles.forEach(({ title }) => {
         cy.contains("article", title).should("have.class", "opacity-50");
       });
     });

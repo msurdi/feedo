@@ -5,7 +5,7 @@
   "env": {},
   "fixturesFolder": "acceptance/fixtures",
   "integrationFolder": "acceptance/tests",
-  "pluginsFile": "acceptance/plugins",
+  "pluginsFile": "acceptance/plugins/index.cjs",
   "retries": {
     "openMode": 0,
     "runMode": 1
