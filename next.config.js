@@ -4,7 +4,7 @@
 const config = {
   serverRuntimeConfig: {
     oldestArticleDays: 30,
-    unreadPageSize: 10,
+    unreadPageSize: 20,
     auth: {
       username: process.env.FEEDO_USERNAME,
       password: process.env.FEEDO_PASSWORD,
