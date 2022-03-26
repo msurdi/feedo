@@ -102,7 +102,7 @@
     "date-fns": "^2.22.1",
     "downsize": "^0.0.8",
     "eslint-config-airbnb": "^19.0.4",
-    "execa": "^5.1.1",
+    "execa": "^6.1.0",
     "http-status-codes": "^2.1.4",
     "lodash": "^4.17.21",
     "next": "^12.1.0",

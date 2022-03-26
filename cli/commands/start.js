@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execa } from "execa";
 import parseDuration from "parse-duration";
 import migrateCommand from "./migrate";
 import syncCommand from "./sync";
