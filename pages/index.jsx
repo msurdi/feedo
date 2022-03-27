@@ -11,7 +11,7 @@ import withSerialize from "../lib/helpers/pages/with-serialize";
 import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 
 const IndexPage = ({ articles, hasMoreArticles }) => {
-  const [articlesBuffer, setarticlesBuffer] = useState([]);
+  const [articlesBuffer, setarticlesBuffer] = useState(articles);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const refresh = useRefresh();
   useEffect(() => {
