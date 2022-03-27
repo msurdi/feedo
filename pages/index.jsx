@@ -3,6 +3,7 @@ import getConfig from "next/config";
 import { useEffect, useState } from "react";
 import ArticleList from "../components/article-list";
 import IntersectionObserver from "../components/intersection-observer";
+import LoadingSpinner from "../components/loading-spinner";
 import NoSsr from "../components/no-ssr";
 import useRefresh from "../hooks/use-refresh";
 import { getUnreadArticles } from "../lib/core/articles";
@@ -11,12 +12,19 @@ import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 
 const IndexPage = ({ articles, hasMoreArticles }) => {
   const [articlesBuffer, setarticlesBuffer] = useState([]);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
   const refresh = useRefresh();
   useEffect(() => {
     setarticlesBuffer((previousArticles) =>
       uniqBy([...previousArticles, ...articles], "id")
     );
   }, [articles]);
+
+  const refreshArticles = async () => {
+    setIsLoadingMore(true);
+    await refresh();
+    setIsLoadingMore(false);
+  };
 
   return (
     <>
@@ -26,8 +34,13 @@ const IndexPage = ({ articles, hasMoreArticles }) => {
           <IntersectionObserver
             rootMargin="200px"
             multiple
-            onEnterBottom={refresh}
+            onEnterBottom={refreshArticles}
           />
+          {isLoadingMore && (
+            <div className="flex justify-center m-4">
+              <LoadingSpinner />
+            </div>
+          )}
         </NoSsr>
       )}
       {!hasMoreArticles && (

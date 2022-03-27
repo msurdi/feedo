@@ -5,9 +5,8 @@ const useRefresh = () => {
   const router = useRouter();
 
   const refresh = useCallback(
-    ({ scroll = false } = {}) => {
-      router.replace(router.asPath, null, { scroll });
-    },
+    async ({ scroll = false } = {}) =>
+      router.replace(router.asPath, null, { scroll }),
     [router]
   );
 
