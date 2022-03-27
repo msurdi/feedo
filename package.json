@@ -18,7 +18,9 @@
     "destroy:testdb": "dotenv -e .env.test -- rm -f ${FEEDO_DATABASE_URL}",
     "test:unit": "NODE_ENV=test jest --verbose lib/** cli/**",
     "test:unit:watch": "NODE_ENV=test jest --watch --verbose lib/** cli/**",
-    "test:acceptance": "run-p -r start:acceptance cypress:run",
+    "test:acceptance": "dotenv -e .env.test -- run-p -r start:acceptance cypress:start",
+    "cypress:start": "run-s cypress:wait cypress:run",
+    "cypress:wait": "echo $PORT;wait-on -t 60000 http-get://0.0.0.0:3001/status",
     "cypress:run": "NODE_OPTIONS=--experimental-specifier-resolution=node dotenv -e .env.test -- ./bin/cypress.cjs run",
     "test": "run-s lint test:unit test:acceptance",
     "lint": "eslint --ext .js .",
@@ -92,7 +94,8 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.4.3",
     "prettier": "^2.3.1",
-    "tailwindcss": "^3.0.23"
+    "tailwindcss": "^3.0.23",
+    "wait-on": "^6.0.1"
   },
   "dependencies": {
     "@faker-js/faker": "^6.0.0",

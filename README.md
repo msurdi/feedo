@@ -1,3 +1,5 @@
+[![tests](https://github.com/msurdi/feedo/actions/workflows/test.yml/badge.svg)](https://github.com/msurdi/feedo/actions/workflows/test.yml)
+
 # Feedo
 
 An RSS/Atom feed reader that runs on your laptop or on almost any free hosting
