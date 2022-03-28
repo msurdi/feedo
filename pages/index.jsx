@@ -1,4 +1,4 @@
-import { uniqBy } from "lodash";
+import { flow, uniqBy } from "lodash";
 import getConfig from "next/config";
 import { useEffect, useState } from "react";
 import ArticleList from "../components/article-list";
@@ -58,14 +58,12 @@ const {
   serverRuntimeConfig: { unreadPageSize },
 } = getConfig();
 
-const articlePresenter = (article) =>
-  withSafeHtml(
-    withSafeHtml(withExcerpt(withTimeAgo(article)), {
-      source: "excerpt",
-      target: "excerpt",
-    }),
-    { source: "title", target: "title" }
-  );
+const articlePresenter = flow(
+  withSafeHtml(),
+  withSafeHtml({ source: "title" }),
+  withTimeAgo(),
+  withExcerpt()
+);
 
 export const getServerSideProps = withSerialize(
   async ({ query: { afterArticleId } }) => {
