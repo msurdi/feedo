@@ -1,18 +1,21 @@
+import { flow } from "lodash";
 import ArticleMeta from "../../components/article-meta";
 import ArticleTitle from "../../components/article-title";
 import Link from "../../components/link";
 import { getArticle } from "../../lib/core/articles";
 import withSerialize from "../../lib/helpers/pages/with-serialize";
-import { withTimeAgo } from "../../lib/presenters";
+import { withSafeHtml, withTimeAgo } from "../../lib/presenters";
 
 const ArticleDetailPage = ({ article }) => (
   <div>
     <article className="flex flex-col px-2 py-6 break-words">
       <ArticleTitle article={article} />
       <ArticleMeta article={article} />
-      <div className="max-w-full mt-2 prose text-gray-600 prose-purple">
-        {article.content}
-      </div>
+      <div
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: article.content }}
+        className="max-w-full mt-2 prose text-gray-600 prose-purple"
+      />
     </article>
     <div className="flex flex-row justify-center">
       <Link href={article.link} variant={Link.variants.button}>
@@ -22,7 +25,11 @@ const ArticleDetailPage = ({ article }) => (
   </div>
 );
 
-const articlePresenter = (article) => withTimeAgo(article);
+const articlePresenter = flow(
+  withSafeHtml(),
+  withTimeAgo(),
+  withSafeHtml({ source: "title" })
+);
 
 export const getServerSideProps = withSerialize(async ({ params: { id } }) => {
   const article = await getArticle(id);
