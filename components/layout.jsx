@@ -35,10 +35,10 @@ const Layout = ({ children }) => {
         </header>
         <div
           id="viewport"
-          className="mt-12 flex-1 overflow-y-scroll"
+          className="mt-12 flex-1 overflow-y-scroll h-full"
           key={contentKey}
         >
-          <main className="w-full max-w-6xl p-4 mx-auto bg-white rounded shadow">
+          <main className="w-full max-w-6xl p-4 mx-auto bg-white rounded shadow h-full">
             {children}
           </main>
         </div>
