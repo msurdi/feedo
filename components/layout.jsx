@@ -33,14 +33,16 @@ const Layout = ({ children }) => {
             Feeds
           </Link>
         </header>
-        <div
-          id="viewport"
-          className="mt-12 flex-1 overflow-y-scroll h-full"
-          key={contentKey}
-        >
-          <main className="w-full max-w-6xl p-4 mx-auto bg-white rounded shadow h-full">
-            {children}
-          </main>
+        <div className="pt-12 h-full">
+          <div
+            id="viewport"
+            className="flex-1 overflow-y-scroll h-full"
+            key={contentKey}
+          >
+            <main className="w-full content-area max-w-6xl px-4 mx-auto bg-white rounded shadow">
+              {children}
+            </main>
+          </div>
         </div>
         <footer />
       </div>

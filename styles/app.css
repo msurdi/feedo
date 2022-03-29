@@ -32,3 +32,8 @@
   -ms-transform: rotate(3deg) translate(0px, -4px);
   transform: rotate(3deg) translate(0px, -4px);
 }
+
+/* Full screen height minus header size*/
+.content-area {
+  height: calc(100vh - theme("spacing.12"));
+}
