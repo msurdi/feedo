@@ -1,7 +1,9 @@
 import Layout from "../components/layout";
+import useProgress from "../hooks/use-progress";
 import "../styles/app.css";
 
 const FeedoApp = ({ Component, pageProps }) => {
+  useProgress();
   const PageLayout = Component.layout || Layout;
   const { key } = pageProps;
 
