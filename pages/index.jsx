@@ -11,11 +11,11 @@ import withSerialize from "../lib/helpers/pages/with-serialize";
 import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 
 const IndexPage = ({ articles, hasMoreArticles }) => {
-  const [articlesBuffer, setarticlesBuffer] = useState(articles);
+  const [articlesBuffer, setArticlesBuffer] = useState(articles);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const refresh = useRefresh();
   useEffect(() => {
-    setarticlesBuffer((previousArticles) =>
+    setArticlesBuffer((previousArticles) =>
       uniqBy([...previousArticles, ...articles], "id")
     );
   }, [articles]);
