@@ -37,3 +37,7 @@
 .h-content {
   height: calc(100vh - theme("spacing.12"));
 }
+
+.min-h-content {
+  min-height: calc(100vh - theme("spacing.12"));
+}
