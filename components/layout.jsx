@@ -1,11 +1,12 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useRouter } from "next/router";
 import urls from "../lib/urls";
 import Link from "./link";
 
 const Layout = ({ children }) => {
-  const [contentKey, setContentKey] = useState();
-  const rerenderContent = () => setContentKey(Math.random());
+  const router = useRouter();
+
+  const isHome = router.asPath === urls.home();
 
   return (
     <>
@@ -23,7 +24,7 @@ const Layout = ({ children }) => {
       <div className="h-screen flex flex-col">
         <header className="fixed top-0 left-0 right-0 z-50 flex flex-row items-baseline justify-between h-12 shadow bg-primary">
           <Link
-            onClick={rerenderContent}
+            external={isHome}
             variant={Link.variants.brand}
             href={urls.home()}
           >
@@ -33,17 +34,12 @@ const Layout = ({ children }) => {
             Feeds
           </Link>
         </header>
-        <div className="pt-12 h-full">
-          <div
-            id="viewport"
-            className="flex-1 overflow-y-scroll h-full"
-            key={contentKey}
-          >
-            <main className="w-full content-area max-w-6xl px-4 mx-auto bg-white rounded shadow">
-              {children}
-            </main>
-          </div>
-        </div>
+        <main
+          id="viewport"
+          className="w-full max-w-6xl px-4 mx-auto bg-white rounded shadow overflow-y-scroll mt-12 h-content"
+        >
+          {children}
+        </main>
         <footer />
       </div>
     </>

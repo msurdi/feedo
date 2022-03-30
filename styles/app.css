@@ -34,6 +34,6 @@
 }
 
 /* Full screen height minus header size*/
-.content-area {
+.h-content {
   height: calc(100vh - theme("spacing.12"));
 }
