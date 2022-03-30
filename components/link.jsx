@@ -22,8 +22,16 @@ const getClassesForVariant = (variant) => {
   }
 };
 
-const Link = ({ children, variant, href, ...attrs }) => {
+const Link = ({ children, variant, href, external, ...attrs }) => {
   const linkClasses = getClassesForVariant(variant);
+
+  if (external) {
+    return (
+      <a href={href} className={linkClasses} {...attrs}>
+        {children}
+      </a>
+    );
+  }
 
   return (
     <NextLink href={href}>
