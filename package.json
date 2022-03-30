@@ -1,6 +1,6 @@
 {
   "name": "feedo",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "An RSS/Atom feed reader that runs on your laptop or on almost any free hosting provider or server.",
   "type": "module",
   "keywords": [
