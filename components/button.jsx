@@ -19,7 +19,10 @@ const getClassesForVariant = (variant) => {
 };
 
 const ButtonWithRef = ({ variant, type = "button", children }, ref) => {
-  const className = getClassesForVariant(variant);
+  const className = cn(
+    "focus:active:scale-95 shadow-none transition-transform ease-out",
+    getClassesForVariant(variant)
+  );
 
   return (
     <button
