@@ -38,15 +38,15 @@ const IndexPage = (props) => {
             onEnterBottom={refreshArticles}
           />
           {isLoadingMore && (
-            <div className="flex justify-center m-4">
+            <div className="m-4 flex justify-center">
               <LoadingSpinner />
             </div>
           )}
         </NoSsr>
       )}
       {!hasMoreArticles && (
-        <div className="flex flex-col items-center justify-center h-content">
-          <span className="text-gray-400 text-2xl">
+        <div className="h-content flex flex-col items-center justify-center">
+          <span className="text-2xl text-gray-400">
             That&apos;s all for now.
           </span>
         </div>

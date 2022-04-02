@@ -8,13 +8,13 @@ import { withSafeHtml, withTimeAgo } from "../../lib/presenters";
 
 const ArticleDetailPage = ({ article }) => (
   <div>
-    <article className="flex flex-col px-2 py-6 break-words">
+    <article className="flex flex-col break-words px-2 py-6">
       <ArticleTitle article={article} />
       <ArticleMeta article={article} />
       <div
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: article.content }}
-        className="max-w-full mt-2 prose text-gray-600 prose-purple"
+        className="prose prose-purple mt-2 max-w-full text-gray-600"
       />
     </article>
     <div className="flex flex-row justify-center">

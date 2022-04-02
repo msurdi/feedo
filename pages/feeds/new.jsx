@@ -28,12 +28,12 @@ const NewFeedPage = () => {
   useErrors(setError, data?.errors);
 
   return (
-    <div className="flex flex-row justify-center my-6">
+    <div className="my-6 flex flex-row justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col w-full max-w-xl"
+        className="flex w-full max-w-xl flex-col"
       >
-        <fieldset className="flex flex-col m-2 md:flex">
+        <fieldset className="m-2 flex flex-col md:flex">
           <label className="py-1 text-sm font-bold">
             Feed url
             <Input
@@ -47,7 +47,7 @@ const NewFeedPage = () => {
             <span className="text-sm text-danger">{errors?.url?.message}</span>
           )}
         </fieldset>
-        <div className="flex flex-row justify-end m-2">
+        <div className="m-2 flex flex-row justify-end">
           <Button type="submit">Add feed</Button>
         </div>
       </form>

@@ -21,8 +21,8 @@ const Layout = ({ children }) => {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
         />
       </Head>
-      <div className="h-screen flex flex-col">
-        <header className="fixed top-0 left-0 right-0 z-50 flex flex-row items-baseline justify-between h-12 shadow bg-primary">
+      <div className="flex h-screen flex-col">
+        <header className="fixed top-0 left-0 right-0 z-50 flex h-12 flex-row items-baseline justify-between bg-primary shadow">
           <Link
             external={isHome}
             variant={Link.variants.brand}
@@ -34,8 +34,8 @@ const Layout = ({ children }) => {
             Feeds
           </Link>
         </header>
-        <main id="viewport" className="h-content overflow-y-scroll mt-12 ">
-          <div className="w-full max-w-6xl px-4 mx-auto bg-white rounded shadow min-h-content">
+        <main id="viewport" className="h-content mt-12 overflow-y-scroll ">
+          <div className="min-h-content mx-auto w-full max-w-6xl rounded bg-white px-4 shadow">
             {children}
           </div>
         </main>

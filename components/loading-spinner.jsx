@@ -1,6 +1,6 @@
 const LoadingSpinner = () => (
   <svg
-    className="animate-spin h-10 w-10 fill-primary"
+    className="h-10 w-10 animate-spin fill-primary"
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"

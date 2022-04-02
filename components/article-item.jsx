@@ -20,7 +20,7 @@ const ArticleItem = ({ article }) => {
   return (
     <article
       ref={intersectionRef}
-      className={cn("flex flex-col px-2 py-6 break-words", {
+      className={cn("flex flex-col break-words px-2 py-6", {
         "opacity-50": isRead,
       })}
     >
@@ -36,7 +36,7 @@ const ArticleItem = ({ article }) => {
       <ArticleMeta article={article} />
       <section
         className={cn(
-          "max-w-full mt-2 prose text-gray-500 prose-purple line-clamp-3 overflow-ellipsis text-sm"
+          "prose prose-purple mt-2 max-w-full overflow-ellipsis text-sm text-gray-500 line-clamp-3"
         )}
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: article.excerpt }}

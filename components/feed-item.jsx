@@ -7,7 +7,7 @@ const FeedItem = ({ feed, onUnsubscribe }) => {
   };
 
   return (
-    <div className="flex flex-col items-start py-2 sm:flex-row sm:justify-between sm:items-baseline">
+    <div className="flex flex-col items-start py-2 sm:flex-row sm:items-baseline sm:justify-between">
       {feed.url}
       <form onSubmit={onSubmit} className="flex flex-col">
         <Button type="submit" variant={Button.variants.danger}>

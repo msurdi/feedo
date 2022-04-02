@@ -23,7 +23,7 @@
     "cypress:wait": "echo $PORT;wait-on -t 60000 http-get://0.0.0.0:3001/status",
     "cypress:run": "NODE_OPTIONS=--experimental-specifier-resolution=node dotenv -e .env.test -- ./bin/cypress.cjs run",
     "test": "run-s lint test:unit test:acceptance",
-    "lint": "eslint --ext .js .",
+    "lint": "eslint '**/*.{js,jsx}'",
     "migrate:dev": "prisma migrate dev",
     "migrate:production": "prisma migrate deploy",
     "feed:sync": "./bin/feedo.js sync",
@@ -93,7 +93,8 @@
     "npm-run-all": "^4.1.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^7.4.3",
-    "prettier": "^2.3.1",
+    "prettier": "^2.6.1",
+    "prettier-plugin-tailwindcss": "^0.1.8",
     "tailwindcss": "^3.0.23",
     "wait-on": "^6.0.1"
   },
