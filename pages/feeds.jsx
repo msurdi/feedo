@@ -1,13 +1,13 @@
 import FeedList from "../components/feed-list";
 import Link from "../components/link";
 import useApi from "../hooks/use-api";
-import useRefresh from "../hooks/use-refresh";
 import { getAllFeeds } from "../lib/core/feeds";
 import withSerialize from "../lib/helpers/pages/with-serialize";
+import { useLazyRefresh } from "../lib/next-lazy";
 import urls from "../lib/urls";
 
 const FeedsPage = ({ feeds }) => {
-  const refresh = useRefresh();
+  const refresh = useLazyRefresh();
   const { del } = useApi();
 
   const onUnsubscribe = async (feedId) => {

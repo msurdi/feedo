@@ -5,15 +5,16 @@ import ArticleList from "../components/article-list";
 import IntersectionObserver from "../components/intersection-observer";
 import LoadingSpinner from "../components/loading-spinner";
 import NoSsr from "../components/no-ssr";
-import useRefresh from "../hooks/use-refresh";
 import { getUnreadArticles } from "../lib/core/articles";
 import withSerialize from "../lib/helpers/pages/with-serialize";
+import { useLazyProps, useLazyRefresh, withLazy } from "../lib/next-lazy";
 import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 
-const IndexPage = ({ articles, hasMoreArticles }) => {
+const IndexPage = (props) => {
+  const { articles, hasMoreArticles } = useLazyProps(props);
   const [articlesBuffer, setArticlesBuffer] = useState(articles);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const refresh = useRefresh();
+  const refresh = useLazyRefresh();
   useEffect(() => {
     setArticlesBuffer((previousArticles) =>
       uniqBy([...previousArticles, ...articles], "id")
@@ -66,7 +67,7 @@ const articlePresenter = flow(
 );
 
 export const getServerSideProps = withSerialize(
-  async ({ query: { afterArticleId } }) => {
+  withLazy(async ({ query: { afterArticleId } }) => {
     const unreadArticles = await getUnreadArticles({
       afterArticleId,
       pageSize: unreadPageSize + 1,
@@ -83,7 +84,7 @@ export const getServerSideProps = withSerialize(
         hasMoreArticles,
       },
     };
-  }
+  })
 );
 
 export default IndexPage;
