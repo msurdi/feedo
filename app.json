@@ -1,7 +1,7 @@
 {
   "cron": [
     {
-      "command": "./bin/feedo.js sync",
+      "command": "npm run feed:sync",
       "schedule": "@hourly"
     }
   ]
