@@ -1,8 +1,0 @@
-{
-  "events": {
-    "restart": "touch .reload"
-  },
-  "exec": "bin/feedo.js start",
-  "verbose": true,
-  "watch": ["server", "bin", "cli"]
-}
