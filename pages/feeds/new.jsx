@@ -13,8 +13,8 @@ const NewFeedPage = () => {
     register,
     handleSubmit,
     setError,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm({ mode: "onChange" });
 
   const { post, data } = useApi();
 
@@ -48,7 +48,9 @@ const NewFeedPage = () => {
           )}
         </fieldset>
         <div className="m-2 flex flex-row justify-end">
-          <Button type="submit">Add feed</Button>
+          <Button disabled={!isValid} type="submit">
+            Add feed
+          </Button>
         </div>
       </form>
     </div>

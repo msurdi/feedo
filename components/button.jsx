@@ -18,17 +18,22 @@ const getClassesForVariant = (variant) => {
   }
 };
 
-const ButtonWithRef = ({ variant, type = "button", children }, ref) => {
-  const className = cn(
+const ButtonWithRef = (
+  { children, variant, className, type = "button", ...props },
+  ref
+) => {
+  const classes = cn(
     "focus:active:scale-95 shadow-none transition-transform ease-out",
-    getClassesForVariant(variant)
+    getClassesForVariant(variant),
+    className
   );
 
   return (
     <button
       ref={ref}
       type={type === "button" ? "button" : "submit"}
-      className={className}
+      className={classes}
+      {...props}
     >
       {children}
     </button>
