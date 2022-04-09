@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useErrors = (cb, errors) => {
+const useServerErrors = (cb, errors) => {
   useEffect(() => {
     if (errors) {
       Object.keys(errors).forEach((field) => {
@@ -10,4 +10,4 @@ const useErrors = (cb, errors) => {
   }, [cb, errors]);
 };
 
-export default useErrors;
+export default useServerErrors;

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/button";
 import Input from "../../components/input";
 import useApi from "../../hooks/use-api";
-import useErrors from "../../hooks/use-errors";
+import useServerErrors from "../../hooks/use-server-errors";
 import urls from "../../lib/urls";
 
 const NewFeedPage = () => {
@@ -25,7 +25,7 @@ const NewFeedPage = () => {
     }
   };
 
-  useErrors(setError, data?.errors);
+  useServerErrors(setError, data?.errors);
 
   return (
     <div className="my-6 flex flex-row justify-center">
