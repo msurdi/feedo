@@ -1,14 +1,15 @@
-import { flow, uniqBy } from "lodash";
+import { uniqBy } from "lodash";
 import getConfig from "next/config";
 import { useEffect, useState } from "react";
 import ArticleList from "../components/article-list";
 import IntersectionObserver from "../components/intersection-observer";
 import LoadingSpinner from "../components/loading-spinner";
 import NoSsr from "../components/no-ssr";
+import ReadableArticleItem from "../components/readable-article-item";
 import { getUnreadArticles } from "../lib/core/articles";
 import withSerialize from "../lib/helpers/pages/with-serialize";
 import { useLazyRefresh, withLazy } from "../lib/next-lazy";
-import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
+import { articleListPresenter } from "../lib/presenters";
 
 const IndexPage = (props) => {
   const { articles, hasMoreArticles } = props;
@@ -30,7 +31,11 @@ const IndexPage = (props) => {
 
   return (
     <>
-      <ArticleList articles={articlesBuffer} />
+      <ArticleList>
+        {articlesBuffer.map((article) => (
+          <ReadableArticleItem key={article.id} article={article} />
+        ))}
+      </ArticleList>
       {hasMoreArticles && (
         <NoSsr>
           <IntersectionObserver
@@ -60,13 +65,6 @@ const {
   serverRuntimeConfig: { unreadPageSize },
 } = getConfig();
 
-const articlePresenter = flow(
-  withSafeHtml(),
-  withSafeHtml({ source: "title" }),
-  withTimeAgo(),
-  withExcerpt()
-);
-
 export const getServerSideProps = withSerialize(
   withLazy(async ({ query: { afterArticleId } }) => {
     const unreadArticles = await getUnreadArticles({
@@ -81,7 +79,7 @@ export const getServerSideProps = withSerialize(
 
     return {
       props: {
-        articles: unreadArticles.map(articlePresenter),
+        articles: unreadArticles.map(articleListPresenter),
         hasMoreArticles,
       },
     };

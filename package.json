@@ -12,8 +12,8 @@
   ],
   "scripts": {
     "postinstall": "npx next telemetry disable > /dev/null",
-    "dev": "dotenv -e .env -- run-s migrate:dev dev:start",
-    "dev:start": "next dev",
+    "dev": "dotenv -e .env -- run-s migrate:dev start:dev",
+    "start:dev": "next dev",
     "start:acceptance": "dotenv -e .env.test -- run-s build destroy:testdb migrate:dev start",
     "destroy:testdb": "dotenv -e .env.test -- rm -f ${FEEDO_DATABASE_URL}",
     "test:unit": "NODE_ENV=test jest --verbose lib/** cli/**",
@@ -107,6 +107,7 @@
     "downsize": "^0.0.8",
     "eslint-config-airbnb": "^19.0.4",
     "execa": "^6.1.0",
+    "feedrat": "^0.4.12",
     "http-status-codes": "^2.1.4",
     "lodash": "^4.17.21",
     "next": "^12.1.0",

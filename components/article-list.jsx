@@ -1,11 +1,5 @@
-import ArticleItem from "./article-item";
-
-const ArticleList = ({ articles }) => (
-  <div className=" divide-y divide-gray-300">
-    {articles.map((article) => (
-      <ArticleItem key={article.id} article={article} />
-    ))}
-  </div>
+const ArticleList = ({ children }) => (
+  <div className=" divide-y divide-gray-300">{children}</div>
 );
 
 export default ArticleList;
