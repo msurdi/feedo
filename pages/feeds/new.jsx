@@ -40,6 +40,7 @@ const NewFeedPage = () => {
               placeholder="https://example.com/rss"
               autoFocus
               required
+              autoComplete="off"
               {...register("url", { required: true })}
             />
           </label>
