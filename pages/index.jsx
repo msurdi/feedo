@@ -7,14 +7,15 @@ import LoadingSpinner from "../components/loading-spinner";
 import NoSsr from "../components/no-ssr";
 import { getUnreadArticles } from "../lib/core/articles";
 import withSerialize from "../lib/helpers/pages/with-serialize";
-import { useLazyProps, useLazyRefresh, withLazy } from "../lib/next-lazy";
+import { useLazyRefresh, withLazy } from "../lib/next-lazy";
 import { withExcerpt, withSafeHtml, withTimeAgo } from "../lib/presenters";
 
 const IndexPage = (props) => {
-  const { articles, hasMoreArticles } = useLazyProps(props);
+  const { articles, hasMoreArticles } = props;
   const [articlesBuffer, setArticlesBuffer] = useState(articles);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const refresh = useLazyRefresh();
+
   useEffect(() => {
     setArticlesBuffer((previousArticles) =>
       uniqBy([...previousArticles, ...articles], "id")
