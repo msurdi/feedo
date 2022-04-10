@@ -17,7 +17,9 @@ handler.get(async (req, res) => {
 
   const articles = await fetchFeed(url);
 
-  res.status(StatusCodes.OK).json(articles.map(articleListPresenter));
+  res
+    .status(StatusCodes.OK)
+    .json({ articles: articles.map(articleListPresenter) });
 });
 
 export default handler;

@@ -24,25 +24,31 @@ const NewFeedPage = () => {
 
   const url = watch("url");
 
-  const { clearPreview, fetchPreview, preview } = usePreview();
-  const { post, data } = useApi();
+  const preview = usePreview();
+  const api = useApi();
 
   const onSubmit = async (values) => {
-    const { response } = await post(urls.feedsApi(), values);
+    if (!preview.ok) {
+      preview.get(getValues("url"));
+      return;
+    }
+    const { response } = await api.post(urls.feedsApi(), values);
     if (response?.feed) {
       router.push(urls.feeds());
     }
   };
 
-  const onClickPreview = async () => {
-    fetchPreview(getValues("url"));
-  };
+  useServerErrors(setError, api.data?.errors);
+  useServerErrors(setError, preview?.data?.errors);
 
-  useServerErrors(setError, data?.errors);
-
+  const { reset } = preview;
   useEffect(() => {
-    clearPreview();
-  }, [clearPreview, url]);
+    reset();
+  }, [reset, url]);
+
+  const submitEnabled =
+    (isValid && !preview.isLoading && !api.isLoading) ||
+    (url && preview?.data?.errors);
 
   return (
     <div className="flex flex-col items-center">
@@ -67,13 +73,8 @@ const NewFeedPage = () => {
         </fieldset>
         <div className="m-2 flex flex-row justify-end">
           {!preview?.ok && (
-            <Button onClick={onClickPreview} disabled={!isValid} type="button">
-              Preview
-            </Button>
-          )}
-          {preview.ok && (
-            <Button disabled={!isValid} type="submit">
-              Subscribe
+            <Button disabled={!submitEnabled} type="submit">
+              {!preview?.ok ? "Preview" : "Subscribe"}
             </Button>
           )}
         </div>
@@ -81,15 +82,15 @@ const NewFeedPage = () => {
       {preview.isLoading && (
         <span className="text-sm text-gray-600">Loading...</span>
       )}
-      {preview.ok && (
+      {preview.ok && preview?.data?.articles && (
         <>
           <ArticleList>
-            {preview.articles.map((article) => (
+            {preview?.data?.articles.map((article) => (
               <ArticleItem key={article.id} article={article} />
             ))}
           </ArticleList>
           <div className=" my-4 flex justify-center">
-            <Button disabled={!isValid} type="submit">
+            <Button disabled={!submitEnabled} type="submit">
               Subscribe
             </Button>
           </div>

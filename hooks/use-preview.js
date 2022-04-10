@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import urls from "../lib/urls";
 import useApi from "./use-api";
 
 const usePreview = () => {
@@ -6,15 +7,17 @@ const usePreview = () => {
 
   const fetchPreview = useCallback(
     async (url) => {
-      get("/api/feeds/preview", { url });
+      get(urls.feedPreviewApi(), { url });
     },
     [get]
   );
 
   return {
-    fetchPreview,
-    preview: { ok: !errors && data, isLoading, articles: data },
-    clearPreview: reset,
+    get: fetchPreview,
+    ok: (!errors && !data?.errors && data?.articles?.length) || false,
+    isLoading,
+    data,
+    reset,
   };
 };
 
