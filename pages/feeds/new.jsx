@@ -45,7 +45,7 @@ const NewFeedPage = () => {
   }, [clearPreview, url]);
 
   return (
-    <div className="my-6 flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full max-w-xl flex-col"
