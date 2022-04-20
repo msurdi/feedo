@@ -27,8 +27,10 @@ const NewFeedPage = () => {
   const preview = usePreview();
   const api = useApi();
 
+  const canSubscribe = preview.ok && preview?.data?.articles;
+
   const onSubmit = async (values) => {
-    if (!preview.ok) {
+    if (!canSubscribe) {
       preview.get(getValues("url"));
       return;
     }
@@ -72,17 +74,15 @@ const NewFeedPage = () => {
           )}
         </fieldset>
         <div className="m-2 flex flex-row justify-end">
-          {!preview?.ok && (
-            <Button disabled={!submitEnabled} type="submit">
-              {!preview?.ok ? "Preview" : "Subscribe"}
-            </Button>
-          )}
+          <Button disabled={!submitEnabled} type="submit">
+            {canSubscribe ? "Subscribe" : "Preview"}
+          </Button>
         </div>
       </form>
       {preview.isLoading && (
         <span className="text-sm text-gray-600">Loading...</span>
       )}
-      {preview.ok && preview?.data?.articles && (
+      {canSubscribe && (
         <>
           <ArticleList>
             {preview?.data?.articles.map((article) => (
