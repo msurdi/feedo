@@ -4,7 +4,6 @@
     "public/dist": true,
     ".parcel-cache": true,
     "dist": true,
-    ".env": true,
     "feedo.db*": true
   },
   "editor.codeActionsOnSave": {
