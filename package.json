@@ -65,8 +65,8 @@
     "next.config.js"
   ],
   "engines": {
-    "node": ">=16",
-    "npm": ">=7"
+    "node": ">=18",
+    "npm": ">=8"
   },
   "cacheDirectories": [
     "node_modules",
