@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { createFeed } from "../../lib/core/feeds";
-import apiHandler from "../../lib/helpers/api/handler";
+import { createFeed } from "../../lib/core/feeds.js";
+import apiHandler from "../../lib/helpers/api/handler.js";
 
 const handler = apiHandler();
 

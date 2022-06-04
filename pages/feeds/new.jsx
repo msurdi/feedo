@@ -1,14 +1,14 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import ArticleItem from "../../components/article-item";
-import ArticleList from "../../components/article-list";
-import Button from "../../components/button";
-import Input from "../../components/input";
-import useApi from "../../hooks/use-api";
-import usePreview from "../../hooks/use-preview";
-import useServerErrors from "../../hooks/use-server-errors";
-import urls from "../../lib/urls";
+import ArticleItem from "../../components/article-item.jsx";
+import ArticleList from "../../components/article-list.jsx";
+import Button from "../../components/button.jsx";
+import Input from "../../components/input.jsx";
+import useApi from "../../hooks/use-api.js";
+import usePreview from "../../hooks/use-preview.js";
+import useServerErrors from "../../hooks/use-server-errors.js";
+import urls from "../../lib/urls.js";
 
 const NewFeedPage = () => {
   const router = useRouter();

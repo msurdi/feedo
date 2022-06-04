@@ -1,5 +1,5 @@
-import urls from "../lib/urls";
-import Link from "./link";
+import urls from "../lib/urls.js";
+import Link from "./link.jsx";
 
 const ArticleTitle = ({ article }) => (
   <h1 className="text-lg font-bold">

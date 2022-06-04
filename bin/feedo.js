@@ -1,8 +1,8 @@
 #!/usr/bin/env -S node --experimental-specifier-resolution=node
 
 // Prisma relies on relative directories for schema loading, etc.
-import cli from "../cli";
-import findRoot from "../lib/find-root";
+import cli from "../cli/index.js";
+import findRoot from "../lib/find-root.js";
 
 process.chdir(findRoot());
 

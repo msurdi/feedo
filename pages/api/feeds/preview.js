@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { fetchFeed } from "../../../lib/core/sync";
-import apiHandler from "../../../lib/helpers/api/handler";
-import { articleListPresenter } from "../../../lib/presenters";
+import { fetchFeed } from "../../../lib/core/sync.js";
+import apiHandler from "../../../lib/helpers/api/handler.js";
+import { articleListPresenter } from "../../../lib/presenters.js";
 
 const handler = apiHandler();
 

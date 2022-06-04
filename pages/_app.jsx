@@ -1,6 +1,6 @@
-import Layout from "../components/layout";
-import useProgress from "../hooks/use-progress";
-import { lazyApp } from "../lib/next-lazy";
+import Layout from "../components/layout.jsx";
+import useProgress from "../hooks/use-progress.js";
+import { lazyApp } from "../lib/next-lazy.js";
 import "../styles/app.css";
 
 const FeedoApp = ({ Component, pageProps }) => {

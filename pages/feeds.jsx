@@ -1,10 +1,10 @@
-import FeedList from "../components/feed-list";
-import Link from "../components/link";
-import useApi from "../hooks/use-api";
-import { getAllFeeds } from "../lib/core/feeds";
-import withSerialize from "../lib/helpers/pages/with-serialize";
-import { useLazyRefresh } from "../lib/next-lazy";
-import urls from "../lib/urls";
+import FeedList from "../components/feed-list.jsx";
+import Link from "../components/link.jsx";
+import useApi from "../hooks/use-api.js";
+import { getAllFeeds } from "../lib/core/feeds.js";
+import withSerialize from "../lib/helpers/pages/with-serialize.js";
+import { useLazyRefresh } from "../lib/next-lazy.js";
+import urls from "../lib/urls.js";
 
 const FeedsPage = ({ feeds }) => {
   const refresh = useLazyRefresh();

@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import parseDuration from "parse-duration";
-import migrateCommand from "./migrate";
-import syncCommand from "./sync";
+import migrateCommand from "./migrate.js";
+import syncCommand from "./sync.js";
 
 let syncing = false;
 

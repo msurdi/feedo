@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import urls from "../lib/urls";
-import config from "../next.config";
+import urls from "../lib/urls.js";
+import config from "../next.config.js";
 
 const {
   serverRuntimeConfig: {
@@ -20,9 +20,7 @@ export const middleware = (req) => {
 
   if (basicAuth) {
     const auth = basicAuth.split(" ")[1];
-    const [providedUsername, providedPassword] = Buffer.from(auth, "base64")
-      .toString()
-      .split(":");
+    const [providedUsername, providedPassword] = atob(auth).split(":");
 
     if (providedUsername === username && providedPassword === password) {
       return NextResponse.next();

@@ -1,4 +1,4 @@
-import Button from "./button";
+import Button from "./button.jsx";
 
 const FeedItem = ({ feed, onUnsubscribe }) => {
   const onSubmit = (event) => {

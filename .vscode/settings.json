@@ -17,6 +17,8 @@
   ],
   "editor.quickSuggestions": {
     "strings": true
-  }
+  },
+  "javascript.preferences.importModuleSpecifierEnding": "js"
+
   // "tailwindCSS.includeLanguages": { "javascript": "html" }
 }

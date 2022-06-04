@@ -1,10 +1,10 @@
 import { program } from "commander";
 import { readFileSync } from "fs";
 import { join } from "path";
-import findRoot from "../lib/find-root";
-import migrate from "./commands/migrate";
-import start from "./commands/start";
-import sync from "./commands/sync";
+import findRoot from "../lib/find-root.js";
+import migrate from "./commands/migrate.js";
+import start from "./commands/start.js";
+import sync from "./commands/sync.js";
 
 const projectRoot = findRoot();
 const packageJsonPath = join(projectRoot, "./package.json");

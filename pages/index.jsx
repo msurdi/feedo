@@ -1,15 +1,15 @@
 import { uniqBy } from "lodash";
 import getConfig from "next/config";
 import { useEffect, useState } from "react";
-import ArticleList from "../components/article-list";
-import IntersectionObserver from "../components/intersection-observer";
-import LoadingSpinner from "../components/loading-spinner";
-import NoSsr from "../components/no-ssr";
-import ReadableArticleItem from "../components/readable-article-item";
-import { getUnreadArticles } from "../lib/core/articles";
-import withSerialize from "../lib/helpers/pages/with-serialize";
-import { useLazyRefresh, withLazy } from "../lib/next-lazy";
-import { articleListPresenter } from "../lib/presenters";
+import ArticleList from "../components/article-list.jsx";
+import IntersectionObserver from "../components/intersection-observer.jsx";
+import LoadingSpinner from "../components/loading-spinner.jsx";
+import NoSsr from "../components/no-ssr.jsx";
+import ReadableArticleItem from "../components/readable-article-item.jsx";
+import { getUnreadArticles } from "../lib/core/articles.js";
+import withSerialize from "../lib/helpers/pages/with-serialize.js";
+import { useLazyRefresh, withLazy } from "../lib/next-lazy.js";
+import { articleListPresenter } from "../lib/presenters.js";
 
 const IndexPage = (props) => {
   const { articles, hasMoreArticles } = props;

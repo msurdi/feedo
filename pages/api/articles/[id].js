@@ -1,7 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { markArticlesAsRead } from "../../../lib/core/articles";
-import apiHandler from "../../../lib/helpers/api/handler";
+import { markArticlesAsRead } from "../../../lib/core/articles.js";
+import apiHandler from "../../../lib/helpers/api/handler.js";
 
 const handler = apiHandler();
 

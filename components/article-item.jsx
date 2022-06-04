@@ -1,6 +1,6 @@
 import cn from "classnames";
-import ArticleMeta from "./article-meta";
-import ArticleTitle from "./article-title";
+import ArticleMeta from "./article-meta.jsx";
+import ArticleTitle from "./article-title.jsx";
 
 const ArticleItem = ({ article }) => (
   <article

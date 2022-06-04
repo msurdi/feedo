@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
-import useApi from "../hooks/use-api";
-import urls from "../lib/urls";
-import ArticleItem from "./article-item";
-import IntersectionObserver from "./intersection-observer";
-import NoSsr from "./no-ssr";
+import useApi from "../hooks/use-api.js";
+import urls from "../lib/urls.js";
+import ArticleItem from "./article-item.jsx";
+import IntersectionObserver from "./intersection-observer.jsx";
+import NoSsr from "./no-ssr.jsx";
 
 const ReadableArticleItem = ({ article }) => {
   const intersectionRef = useRef(null);

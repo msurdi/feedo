@@ -1,10 +1,10 @@
 import { flow } from "lodash";
-import ArticleMeta from "../../components/article-meta";
-import ArticleTitle from "../../components/article-title";
-import Link from "../../components/link";
-import { getArticle } from "../../lib/core/articles";
-import withSerialize from "../../lib/helpers/pages/with-serialize";
-import { withSafeHtml, withTimeAgo } from "../../lib/presenters";
+import ArticleMeta from "../../components/article-meta.jsx";
+import ArticleTitle from "../../components/article-title.jsx";
+import Link from "../../components/link.jsx";
+import { getArticle } from "../../lib/core/articles.js";
+import withSerialize from "../../lib/helpers/pages/with-serialize.js";
+import { withSafeHtml, withTimeAgo } from "../../lib/presenters.js";
 
 const ArticleDetailPage = ({ article }) => (
   <div>

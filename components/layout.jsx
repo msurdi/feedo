@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import urls from "../lib/urls";
-import Link from "./link";
+import urls from "../lib/urls.js";
+import Link from "./link.jsx";
 
 const Layout = ({ children }) => {
   const router = useRouter();

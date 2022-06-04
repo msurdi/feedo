@@ -21,6 +21,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    "import/extensions": ["error", "always", { ignorePackages: true }],
     "no-restricted-syntax": "off",
     "no-continue": "off",
     "no-await-in-loop": "off",
