@@ -1,4 +1,4 @@
-import { flow } from "lodash";
+import { flow } from "lodash-es";
 import ArticleMeta from "../../components/article-meta.jsx";
 import ArticleTitle from "../../components/article-title.jsx";
 import Link from "../../components/link.jsx";

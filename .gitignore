@@ -9,3 +9,9 @@
 /acceptance/screenshots
 /.reload
 /.next
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/

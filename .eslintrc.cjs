@@ -1,18 +1,13 @@
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
     node: true,
     "jest/globals": true,
   },
-  extends: [
-    "airbnb",
-    "airbnb/hooks",
-    "plugin:react/recommended",
-    "prettier",
-    "plugin:jest/recommended",
-  ],
-  plugins: ["react", "prettier", "jest"],
+  extends: ["airbnb", "airbnb/hooks", "plugin:react/recommended", "prettier"],
+  plugins: ["react", "prettier"],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -20,6 +15,16 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
+  overrides: [
+    {
+      files: "./*",
+      extends: ["plugin:jest/recommended", "plugin:jest/style"],
+    },
+    {
+      files: "./test/*",
+      extends: ["plugin:playwright/playwright-test"],
+    },
+  ],
   rules: {
     "import/extensions": ["error", "always", { ignorePackages: true }],
     "no-restricted-syntax": "off",

@@ -1,4 +1,4 @@
-import { uniqBy } from "lodash";
+import { uniqBy } from "lodash-es";
 import getConfig from "next/config";
 import { useEffect, useState } from "react";
 import ArticleList from "../components/article-list.jsx";
