@@ -11,7 +11,6 @@ test.describe("Articles", () => {
 
   test.describe("Initial reading page", () => {
     test("Lists only first 10 articles", async ({ page }) => {
-      // await page.goto("/");
       await Promise.all(
         mockArticles
           .slice(0, 1)
