@@ -7,6 +7,7 @@ const handler = apiHandler();
 
 const createFeedSchema = yup.object().shape({
   url: yup.string().trim().url().required(),
+  name: yup.string().trim().required(),
 });
 
 handler.post(async (req, res) => {

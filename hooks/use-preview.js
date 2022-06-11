@@ -6,9 +6,7 @@ const usePreview = () => {
   const { get, data, errors, isLoading, reset } = useApi();
 
   const fetchPreview = useCallback(
-    async (url) => {
-      get(urls.feedPreviewApi(), { url });
-    },
+    async (url) => get(urls.feedPreviewApi(), { url }),
     [get]
   );
 

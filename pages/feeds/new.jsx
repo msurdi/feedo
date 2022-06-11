@@ -20,9 +20,10 @@ const NewFeedPage = () => {
     handleSubmit,
     setError,
     getValues,
+    setValue,
     watch,
     formState: { errors, isValid },
-  } = useForm({ mode: "onChange" });
+  } = useForm({ mode: "onChange", shouldUnregister: true });
 
   const url = watch("url");
 
@@ -41,6 +42,12 @@ const NewFeedPage = () => {
       router.push(urls.feeds());
     }
   };
+
+  useEffect(() => {
+    if (preview?.data?.name) {
+      setValue("name", preview.data.name, { shouldValidate: true });
+    }
+  }, [preview?.data?.name, setValue]);
 
   useServerErrors(setError, api.data?.errors);
   useServerErrors(setError, preview?.data?.errors);
@@ -72,15 +79,27 @@ const NewFeedPage = () => {
           "justify-between bg-white shadow-sm": isScrolling,
         })}
       >
-        <InputField
-          label="Feed URL"
-          error={errors?.url?.message}
-          placeholder="https://example.com/rss"
-          autoFocus
-          required
-          autoComplete="off"
-          {...register("url", { required: true })}
-        />
+        <div className={classNames({ hidden: isScrolling })}>
+          <InputField
+            label="Feed URL"
+            error={errors?.url?.message}
+            placeholder="https://example.com/rss"
+            autoFocus
+            autoComplete="off"
+            {...register("url", { required: true })}
+          />
+        </div>
+        {canSubscribe && (
+          <InputField
+            className={classNames({ "w-full": isScrolling })}
+            labelClassName={classNames({ hidden: isScrolling })}
+            label="Feed Name"
+            error={errors?.name?.message}
+            required
+            autoComplete="off"
+            {...register("name", { required: canSubscribe })}
+          />
+        )}
         <div className="m-2 flex flex-row items-center justify-end">
           <Button disabled={!submitEnabled} type="submit">
             {canSubscribe ? "Subscribe" : "Preview"}
@@ -93,7 +112,7 @@ const NewFeedPage = () => {
       {canSubscribe && (
         <ArticleList>
           {preview?.data?.articles.map((article) => (
-            <ArticleItem key={article.id} article={article} />
+            <ArticleItem key={article.guid} article={article} />
           ))}
         </ArticleList>
       )}
