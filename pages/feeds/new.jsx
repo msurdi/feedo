@@ -6,7 +6,7 @@ import { useIntersection } from "react-use";
 import ArticleItem from "../../components/article-item.jsx";
 import ArticleList from "../../components/article-list.jsx";
 import Button from "../../components/button.jsx";
-import Input from "../../components/input.jsx";
+import InputField from "../../components/input-field.jsx";
 import useApi from "../../hooks/use-api.js";
 import usePreview from "../../hooks/use-preview.js";
 import useServerErrors from "../../hooks/use-server-errors.js";
@@ -72,21 +72,15 @@ const NewFeedPage = () => {
           "justify-between bg-white shadow-sm": isScrolling,
         })}
       >
-        <fieldset className="m-2 flex flex-col md:flex">
-          <label className="py-1 text-sm font-bold">
-            Feed url
-            <Input
-              placeholder="https://example.com/rss"
-              autoFocus
-              required
-              autoComplete="off"
-              {...register("url", { required: true })}
-            />
-          </label>
-          {errors.url && (
-            <span className="text-sm text-danger">{errors?.url?.message}</span>
-          )}
-        </fieldset>
+        <InputField
+          label="Feed URL"
+          error={errors?.url?.message}
+          placeholder="https://example.com/rss"
+          autoFocus
+          required
+          autoComplete="off"
+          {...register("url", { required: true })}
+        />
         <div className="m-2 flex flex-row items-center justify-end">
           <Button disabled={!submitEnabled} type="submit">
             {canSubscribe ? "Subscribe" : "Preview"}
