@@ -31,7 +31,7 @@ model Article {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  Feed   Feed   @relation(fields: [feedId], references: [id])
+  feed   Feed   @relation(fields: [feedId], references: [id])
   feedId String
   @@unique([guid, feedId])
 }
