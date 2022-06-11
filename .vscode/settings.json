@@ -4,7 +4,17 @@
     "public/dist": true,
     ".parcel-cache": true,
     "dist": true,
-    "feedo.db*": true
+    "feedo.db*": true,
+    ".env": true,
+    "*.db": true,
+    "*.db-journal": true,
+    "*.tgz": true,
+    "acceptance/screenshots": true,
+    ".reload": true,
+    ".next": true,
+    "test-results/": true,
+    "playwright-report/": true,
+    "playwright/.cache/": true
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,
