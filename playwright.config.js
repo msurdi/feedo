@@ -39,8 +39,8 @@ const config = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     httpCredentials: {
-      username: process.env.FEEDO_USERNAME,
-      password: process.env.FEEDO_PASSWORD,
+      username: process.env.FEEDO_USERNAME ?? "",
+      password: process.env.FEEDO_PASSWORD ?? "",
     },
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
