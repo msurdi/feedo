@@ -43,7 +43,10 @@ export const test = base.extend({
   },
 
   articles: async ({}, use) => {
-    const feed = await createFeed({ url: "https://example.com/rss" });
+    const feed = await createFeed({
+      url: "https://example.com/rss",
+      name: "Example feed",
+    });
     const fakeArticles = [...Array(25)].map(() =>
       createFakeArticle({ feedId: feed.id })
     );
