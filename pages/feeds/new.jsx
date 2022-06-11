@@ -83,18 +83,11 @@ const NewFeedPage = () => {
         <span className="text-sm text-gray-600">Loading...</span>
       )}
       {canSubscribe && (
-        <>
-          <ArticleList>
-            {preview?.data?.articles.map((article) => (
-              <ArticleItem key={article.id} article={article} />
-            ))}
-          </ArticleList>
-          <div className=" my-4 flex justify-center">
-            <Button disabled={!submitEnabled} type="submit">
-              Subscribe
-            </Button>
-          </div>
-        </>
+        <ArticleList>
+          {preview?.data?.articles.map((article) => (
+            <ArticleItem key={article.id} article={article} />
+          ))}
+        </ArticleList>
       )}
     </div>
   );
