@@ -15,11 +15,11 @@ handler.get(async (req, res) => {
     abortEarly: false,
   });
 
-  const articles = await fetchFeed(url);
+  const { title, articles } = await fetchFeed(url);
 
   res
     .status(StatusCodes.OK)
-    .json({ articles: articles.map(articleListPresenter) });
+    .json({ title, articles: articles.map(articleListPresenter) });
 });
 
 export default handler;
