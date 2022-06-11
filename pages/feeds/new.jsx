@@ -1,6 +1,8 @@
+import classNames from "classnames";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useIntersection } from "react-use";
 import ArticleItem from "../../components/article-item.jsx";
 import ArticleList from "../../components/article-list.jsx";
 import Button from "../../components/button.jsx";
@@ -52,11 +54,23 @@ const NewFeedPage = () => {
     (isValid && !preview.isLoading && !api.isLoading) ||
     (url && preview?.data?.errors);
 
+  const intersectionRef = useRef(null);
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 1,
+  });
+  const isScrolling = intersection && intersection.intersectionRatio < 1;
+
   return (
     <div className="flex flex-col items-center">
       <form
+        ref={intersectionRef}
         onSubmit={handleSubmit(onSubmit)}
-        className="flex w-full max-w-xl flex-col"
+        className={classNames("sticky -top-1 flex w-full", {
+          "max-w-xl flex-col": !isScrolling,
+          "justify-between bg-white shadow-sm": isScrolling,
+        })}
       >
         <fieldset className="m-2 flex flex-col md:flex">
           <label className="py-1 text-sm font-bold">
@@ -73,7 +87,7 @@ const NewFeedPage = () => {
             <span className="text-sm text-danger">{errors?.url?.message}</span>
           )}
         </fieldset>
-        <div className="m-2 flex flex-row justify-end">
+        <div className="m-2 flex flex-row items-center justify-end">
           <Button disabled={!submitEnabled} type="submit">
             {canSubscribe ? "Subscribe" : "Preview"}
           </Button>
