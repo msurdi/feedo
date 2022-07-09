@@ -31,7 +31,7 @@ const articlePresenter = flow(
   withSafeHtml({ source: "title" })
 );
 
-export const serverSideProps = async ({ params: { id } }) => {
+const serverSideProps = async ({ params: { id } }) => {
   const article = await getArticle(id);
 
   if (!article) {

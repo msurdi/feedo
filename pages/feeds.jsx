@@ -32,7 +32,7 @@ const FeedsPage = ({ feeds }) => {
   );
 };
 
-export const serverSideProps = async () => {
+const serverSideProps = async () => {
   const feeds = await getAllFeeds();
 
   return { props: { feeds } };
