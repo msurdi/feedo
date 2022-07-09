@@ -7,8 +7,8 @@ import LoadingSpinner from "../components/loading-spinner.jsx";
 import NoSsr from "../components/no-ssr.jsx";
 import ReadableArticleItem from "../components/readable-article-item.jsx";
 import { getUnreadArticles } from "../lib/core/articles.js";
-import withSerialize from "../lib/helpers/pages/with-serialize.js";
-import { useLazyRefresh, withLazy } from "../lib/next-lazy.js";
+import withDefault from "../lib/helpers/pages/with-default.js";
+import { useLazyRefresh } from "../lib/next-lazy.js";
 import { articleListPresenter } from "../lib/presenters.js";
 
 const IndexPage = (props) => {
@@ -65,25 +65,25 @@ const {
   serverRuntimeConfig: { unreadPageSize },
 } = getConfig();
 
-export const getServerSideProps = withSerialize(
-  withLazy(async ({ query: { afterArticleId } }) => {
-    const unreadArticles = await getUnreadArticles({
-      afterArticleId,
-      pageSize: unreadPageSize + 1,
-    });
-    const hasMoreArticles = unreadArticles.length === unreadPageSize + 1;
+const serverSideProps = async ({ query: { afterArticleId } }) => {
+  const unreadArticles = await getUnreadArticles({
+    afterArticleId,
+    pageSize: unreadPageSize + 1,
+  });
+  const hasMoreArticles = unreadArticles.length === unreadPageSize + 1;
 
-    if (hasMoreArticles) {
-      unreadArticles.pop();
-    }
+  if (hasMoreArticles) {
+    unreadArticles.pop();
+  }
 
-    return {
-      props: {
-        articles: unreadArticles.map(articleListPresenter),
-        hasMoreArticles,
-      },
-    };
-  })
-);
+  return {
+    props: {
+      articles: unreadArticles.map(articleListPresenter),
+      hasMoreArticles,
+    },
+  };
+};
+
+export const getServerSideProps = withDefault(serverSideProps);
 
 export default IndexPage;

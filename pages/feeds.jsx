@@ -2,7 +2,7 @@ import FeedList from "../components/feed-list.jsx";
 import Link from "../components/link.jsx";
 import useApi from "../hooks/use-api.js";
 import { getAllFeeds } from "../lib/core/feeds.js";
-import withSerialize from "../lib/helpers/pages/with-serialize.js";
+import withDefault from "../lib/helpers/pages/with-default.js";
 import { useLazyRefresh } from "../lib/next-lazy.js";
 import urls from "../lib/urls.js";
 
@@ -32,10 +32,12 @@ const FeedsPage = ({ feeds }) => {
   );
 };
 
-export const getServerSideProps = withSerialize(async () => {
+export const serverSideProps = async () => {
   const feeds = await getAllFeeds();
 
   return { props: { feeds } };
-});
+};
+
+export const getServerSideProps = withDefault(serverSideProps);
 
 export default FeedsPage;

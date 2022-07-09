@@ -3,7 +3,7 @@ import ArticleMeta from "../../components/article-meta.jsx";
 import ArticleTitle from "../../components/article-title.jsx";
 import Link from "../../components/link.jsx";
 import { getArticle } from "../../lib/core/articles.js";
-import withSerialize from "../../lib/helpers/pages/with-serialize.js";
+import withDefault from "../../lib/helpers/pages/with-default.js";
 import { withSafeHtml, withTimeAgo } from "../../lib/presenters.js";
 
 const ArticleDetailPage = ({ article }) => (
@@ -31,7 +31,7 @@ const articlePresenter = flow(
   withSafeHtml({ source: "title" })
 );
 
-export const getServerSideProps = withSerialize(async ({ params: { id } }) => {
+export const serverSideProps = async ({ params: { id } }) => {
   const article = await getArticle(id);
 
   if (!article) {
@@ -39,6 +39,8 @@ export const getServerSideProps = withSerialize(async ({ params: { id } }) => {
   }
 
   return { props: { article: articlePresenter(article) } };
-});
+};
+
+export const getServerSideProps = withDefault(serverSideProps);
 
 export default ArticleDetailPage;

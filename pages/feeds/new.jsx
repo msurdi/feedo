@@ -9,6 +9,7 @@ import InputField from "../../components/input-field.jsx";
 import useApi from "../../hooks/use-api.js";
 import usePreview from "../../hooks/use-preview.js";
 import useServerErrors from "../../hooks/use-server-errors.js";
+import withDefault from "../../lib/helpers/pages/with-default.js";
 import urls from "../../lib/urls.js";
 
 const FormActions = ({ submitEnabled, canSubscribe }) => (
@@ -144,5 +145,9 @@ const NewFeedPage = () => {
     </div>
   );
 };
+
+const serverSideProps = () => ({ props: {} });
+
+export const getServerSideProps = withDefault(serverSideProps);
 
 export default NewFeedPage;
