@@ -1,16 +1,15 @@
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { fetchFeed } from "../../../lib/core/sync.js";
-import apiHandler from "../../../lib/helpers/api/handler.js";
+import authenticate from "../../../lib/middleware/authenticate.js";
+import handle from "../../../lib/middleware/handle.js";
 import { articleListPresenter } from "../../../lib/presenters.js";
-
-const handler = apiHandler();
 
 const previewFeedSchema = yup.object().shape({
   url: yup.string().trim().url().required(),
 });
 
-handler.get(async (req, res) => {
+const get = async (req, res) => {
   const { url } = await previewFeedSchema.validate(req.query, {
     abortEarly: false,
   });
@@ -20,6 +19,6 @@ handler.get(async (req, res) => {
   res
     .status(StatusCodes.OK)
     .json({ name, articles: articles.map(articleListPresenter) });
-});
+};
 
-export default handler;
+export default authenticate(handle({ get }));
