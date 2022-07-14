@@ -6,7 +6,13 @@ module.exports = {
     node: true,
     "jest/globals": true,
   },
-  extends: ["airbnb", "airbnb/hooks", "plugin:react/recommended", "prettier"],
+  extends: [
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended",
+    "prettier",
+  ],
   plugins: ["react", "prettier"],
   parserOptions: {
     ecmaFeatures: {
