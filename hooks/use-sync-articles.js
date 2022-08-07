@@ -1,28 +1,21 @@
 import { milliseconds } from "date-fns";
-import { useCallback, useEffect, useRef } from "react";
-import { useIdle, useInterval, useNetworkState } from "react-use";
+import { useIdle, useInterval, useMount, useNetworkState } from "react-use";
 import { sync } from "../lib/store/articles.js";
+import useHandler from "./use-handler.js";
 
 const useSyncArticles = ({ onSynced } = {}) => {
   const networkState = useNetworkState();
   const isIdle = useIdle();
   const isRunning = networkState.online && !isIdle;
-  const onSyncedRef = useRef();
 
-  useEffect(() => {
-    onSyncedRef.current = onSynced;
-  }, [onSynced]);
-
-  const syncArticles = useCallback(async () => {
+  const syncHandler = useHandler(async () => {
     await sync();
-    onSyncedRef.current?.();
-  }, []);
+    onSynced?.();
+  });
 
-  useEffect(() => {
-    syncArticles();
-  }, [syncArticles]);
+  useMount(syncHandler);
 
-  useInterval(syncArticles, isRunning ? milliseconds({ minutes: 1 }) : null);
+  useInterval(syncHandler, isRunning ? milliseconds({ minutes: 1 }) : null);
 };
 
 export default useSyncArticles;

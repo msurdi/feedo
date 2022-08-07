@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
+import { useMount } from "react-use";
 import {
   getUnreadArticles,
   markArticleIdAsRead,
 } from "../lib/store/articles.js";
 import config from "../next.config.js";
+import useHandler from "./use-handler.js";
 import useSyncArticles from "./use-sync-articles.js";
 
 const {
@@ -15,35 +17,36 @@ const useArticles = () => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const loadMore = useCallback(async () => {
+  const loadMore = useHandler(async () => {
     setIsLoadingMore(true);
+    const lastLoadedArticle = articles.at(-1);
+
     try {
-      const unreadArticles = await getUnreadArticles({
+      const unreadArticlesPage = await getUnreadArticles({
+        afterId: lastLoadedArticle?.id ?? "",
         limit: unreadPageSize + 1,
       });
-      const hasMoreArticles = unreadArticles.length === unreadPageSize + 1;
+      const hasMoreArticles = unreadArticlesPage.length === unreadPageSize + 1;
+      const unreadArticles = unreadArticlesPage.slice(0, 5);
+
       setHasMore(hasMoreArticles);
-      setArticles(
-        hasMoreArticles ? unreadArticles.slice(0, -1) : unreadArticles
-      );
+      setArticles([...articles, ...unreadArticles]);
     } finally {
       setIsLoadingMore(false);
     }
-  }, []);
+  });
 
-  const onSynced = useCallback(async () => {
+  const onSynced = useHandler(async () => {
     if (!articles.length) {
       loadMore();
     }
-  }, [articles.length, loadMore]);
+  });
 
   useSyncArticles({ onSynced });
 
-  useEffect(() => {
-    loadMore();
-  }, [loadMore]);
+  useMount(loadMore);
 
-  const markAsRead = useCallback(async (readArticle) => {
+  const markAsRead = useHandler(async (readArticle) => {
     await markArticleIdAsRead(readArticle);
     setArticles((currentArticles) =>
       currentArticles.map((currentArticle) =>
@@ -52,8 +55,7 @@ const useArticles = () => {
           : currentArticle
       )
     );
-  }, []);
-
+  });
   return { data: articles, markAsRead, loadMore, hasMore, isLoadingMore };
 };
 
