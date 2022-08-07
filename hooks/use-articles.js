@@ -1,3 +1,4 @@
+import { filter } from "lodash-es";
 import { useState } from "react";
 import { useMount } from "react-use";
 import {
@@ -27,7 +28,7 @@ const useArticles = () => {
         limit: unreadPageSize + 1,
       });
       const hasMoreArticles = unreadArticlesPage.length === unreadPageSize + 1;
-      const unreadArticles = unreadArticlesPage.slice(0, 5);
+      const unreadArticles = unreadArticlesPage.slice(0, unreadPageSize);
 
       setHasMore(hasMoreArticles);
       setArticles([...articles, ...unreadArticles]);
@@ -37,7 +38,8 @@ const useArticles = () => {
   });
 
   const onSynced = useHandler(async () => {
-    if (!articles.length) {
+    const readArticles = filter(articles, { isRead: true });
+    if (readArticles.length < unreadPageSize) {
       loadMore();
     }
   });

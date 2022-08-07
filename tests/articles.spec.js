@@ -79,43 +79,47 @@ test.describe("Articles", () => {
       scrollToArticle,
       scrollToEndOfViewport,
     }) => {
-      for (const [article, position] of mockArticles.map(
-        (mockArticle, index) => [mockArticle, index]
-      )) {
-        // Ensure the current article we're scrolling to exists
-        await expect(
-          page.locator(`h1:has-text("${article.title}")`)
-        ).toHaveCount(1);
-
-        // Scroll to the current article
-        await scrollToArticle(article);
-
-        // If there is a previous article, ensure it's marked as read
-        if (position > 0) {
+      try {
+        for (const [article, position] of mockArticles.map(
+          (mockArticle, index) => [mockArticle, index]
+        )) {
+          // Ensure the current article we're scrolling to exists
           await expect(
-            page.locator(
-              `article:has-text("${mockArticles[position - 1].title}")`
-            )
-          ).toHaveClass(/opacity-50/);
+            page.locator(`h1:has-text("${article.title}")`)
+          ).toHaveCount(1);
+
+          // Scroll to the current article
+          await scrollToArticle(article);
+
+          // If there is a previous article, ensure it's marked as read
+          if (position > 0) {
+            await expect(
+              page.locator(
+                `article:has-text("${mockArticles[position - 1].title}")`
+              )
+            ).toHaveClass(/opacity-50/);
+          }
         }
-      }
 
-      // Scroll to the end of the viewport
-      await scrollToEndOfViewport();
+        // Scroll to the end of the viewport
+        await scrollToEndOfViewport();
 
-      // Ensure the last article is marked as read too
-      await expect(
-        page.locator(`article:has-text("${mockArticles.at(-1).title}")`)
-      ).toHaveClass(/opacity-50/);
-
-      // Reload the page
-      await page.reload();
-
-      // Ensure read articles are not shown anymore
-      for (const article of mockArticles) {
+        // Ensure the last article is marked as read too
         await expect(
-          page.locator(`h1:has-text("${article.title}")`)
-        ).toHaveCount(0);
+          page.locator(`article:has-text("${mockArticles.at(-1).title}")`)
+        ).toHaveClass(/opacity-50/);
+
+        // Reload the page
+        await page.reload();
+
+        // Ensure read articles are not shown anymore
+        for (const article of mockArticles) {
+          await expect(
+            page.locator(`h1:has-text("${article.title}")`)
+          ).toHaveCount(0);
+        }
+      } catch (e) {
+        await page.pause();
       }
     });
   });

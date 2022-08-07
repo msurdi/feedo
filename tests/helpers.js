@@ -32,13 +32,18 @@ export const test = base.extend({
       const nthArticle = await page.waitForSelector(
         `h1:has-text("${article.title}")`
       );
-      await nthArticle.evaluate((e) =>
-        e.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest",
-        })
-      );
+      await page.evaluate(async (articleElement) => {
+        const viewport = document.getElementById("viewport");
+        while (viewport.scrollTop < articleElement.offsetTop) {
+          viewport.scroll({
+            top: articleElement.offsetTop + 10,
+            behavior: "smooth",
+          });
+          await new Promise((resolve) => {
+            setTimeout(resolve, 100);
+          });
+        }
+      }, nthArticle);
     };
     await use(scroll);
   },
@@ -47,7 +52,7 @@ export const test = base.extend({
     const scroll = async () => {
       await page.evaluate(() => {
         const viewport = document.getElementById("viewport");
-        viewport.scrollTop = viewport.scrollHeight;
+        viewport.scroll({ top: viewport.scrollHeight, behavior: "smooth" });
       });
     };
     use(scroll);
