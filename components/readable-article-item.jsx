@@ -1,19 +1,10 @@
-import { useCallback, useRef, useState } from "react";
-import useApi from "../hooks/use-api.js";
-import urls from "../lib/urls.js";
+import { useRef } from "react";
 import ArticleItem from "./article-item.jsx";
 import IntersectionObserver from "./intersection-observer.jsx";
 import NoSsr from "./no-ssr.jsx";
 
-const ReadableArticleItem = ({ article }) => {
+const ReadableArticleItem = ({ article, onRead }) => {
   const intersectionRef = useRef(null);
-  const [isRead, setIsRead] = useState(article.isRead);
-  const { put } = useApi();
-
-  const handleOnExit = useCallback(() => {
-    setIsRead(true);
-    put(urls.articleApi(article.id), { isRead: true });
-  }, [article.id, put]);
 
   return (
     <div ref={intersectionRef}>
@@ -21,11 +12,11 @@ const ReadableArticleItem = ({ article }) => {
         {!article.isRead && (
           <IntersectionObserver
             intersectionRef={intersectionRef}
-            onExitTop={handleOnExit}
+            onExitTop={() => onRead?.(article)}
           />
         )}
       </NoSsr>
-      <ArticleItem article={{ ...article, isRead }} />
+      <ArticleItem article={article} />
     </div>
   );
 };

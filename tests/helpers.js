@@ -6,6 +6,7 @@ import { createFeed } from "../lib/core/feeds.js";
 import db from "../lib/services/db/index.js";
 
 const createFakeArticle = (props) => ({
+  id: faker.datatype.string(26),
   guid: faker.datatype.uuid(),
   link: faker.internet.url(),
   title: faker.lorem.sentence(),
@@ -42,12 +43,23 @@ export const test = base.extend({
     await use(scroll);
   },
 
+  scrollToEndOfViewport: async ({ page }, use) => {
+    const scroll = async () => {
+      await page.evaluate(() => {
+        const viewport = document.getElementById("viewport");
+        viewport.scrollTop = viewport.scrollHeight;
+      });
+    };
+    use(scroll);
+  },
+
   articles: async ({}, use) => {
     const feed = await createFeed({
+      id: faker.datatype.string(26),
       url: "https://example.com/rss",
       name: "Example feed",
     });
-    const fakeArticles = [...Array(25)].map(() =>
+    const fakeArticles = [...Array(20)].map(() =>
       createFakeArticle({ feedId: feed.id })
     );
     const articles = [];

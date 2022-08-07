@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import apiRequest from "../lib/api-request.js";
 
 const useApi = () => {
   const [data, setData] = useState(null);
@@ -8,17 +9,9 @@ const useApi = () => {
   const request = useCallback(async (url, { body, method = "GET" }) => {
     setIsLoading(true);
     try {
-      const response = await fetch(url, {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        method,
-        body: JSON.stringify(body),
-      });
-      const jsonResponse = await response.json();
-      setData(jsonResponse);
-      return { response: jsonResponse, error: null };
+      const response = await apiRequest(url, { body, method });
+      setData(response);
+      return { response, error: null };
     } catch (err) {
       setError(err);
       return { response: null, error: err };

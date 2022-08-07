@@ -1,4 +1,3 @@
-import { chunk } from "lodash-es";
 import { expect, test } from "./helpers.js";
 
 test.describe("Articles", () => {
@@ -75,58 +74,49 @@ test.describe("Articles", () => {
   });
 
   test.describe("Scrolling to the end", () => {
-    test.beforeEach(async ({ page, scrollToArticle }) => {
-      for (const articlesChunk of chunk(mockArticles, 2)) {
-        const targetArticle = articlesChunk.slice(-1)[0];
+    test("Marks as read all articles", async ({
+      page,
+      scrollToArticle,
+      scrollToEndOfViewport,
+    }) => {
+      for (const [article, position] of mockArticles.map(
+        (mockArticle, index) => [mockArticle, index]
+      )) {
+        // Ensure the current article we're scrolling to exists
         await expect(
-          page.locator(`h1:has-text("${targetArticle.title}")`)
+          page.locator(`h1:has-text("${article.title}")`)
         ).toHaveCount(1);
-        await scrollToArticle(targetArticle);
-        // FIXME: Go slow to avoid overwheelming the database with request
-        await page.waitForTimeout(500);
+
+        // Scroll to the current article
+        await scrollToArticle(article);
+
+        // If there is a previous article, ensure it's marked as read
+        if (position > 0) {
+          await expect(
+            page.locator(
+              `article:has-text("${mockArticles[position - 1].title}")`
+            )
+          ).toHaveClass(/opacity-50/);
+        }
       }
 
-      const doneText = await page.waitForSelector(
-        `span:has-text("That's all for now.")`
-      );
-      await doneText.evaluate((e) =>
-        e.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest",
-        })
-      );
-      await page.waitForTimeout(500);
-    });
+      // Scroll to the end of the viewport
+      await scrollToEndOfViewport();
 
-    test("Marks as read all articles", async ({ page }) => {
+      // Ensure the last article is marked as read too
+      await expect(
+        page.locator(`article:has-text("${mockArticles.at(-1).title}")`)
+      ).toHaveClass(/opacity-50/);
+
+      // Reload the page
+      await page.reload();
+
+      // Ensure read articles are not shown anymore
       for (const article of mockArticles) {
         await expect(
-          page.locator(`article:has-text("${article.title}")`)
-        ).toHaveClass(/opacity-50/);
+          page.locator(`h1:has-text("${article.title}")`)
+        ).toHaveCount(0);
       }
-    });
-
-    test.describe("Reloading the page", () => {
-      test.beforeEach(async ({ page }) => {
-        await page.reload();
-      });
-
-      test("Shows 'no more articles' message when reloading", async ({
-        page,
-      }) => {
-        await expect(
-          page.locator(`span:has-text("That's all for now.")`)
-        ).toHaveCount(1);
-      });
-
-      test("Shows no articles", async ({ page }) => {
-        for (const article of mockArticles) {
-          await expect(
-            page.locator(`h1:has-text("${article.title}")`)
-          ).toHaveCount(0);
-        }
-      });
     });
   });
 });
