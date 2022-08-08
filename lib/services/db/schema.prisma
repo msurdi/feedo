@@ -8,7 +8,7 @@ generator client {
 }
 
 model Feed {
-  id           String    @id @default(uuid())
+  id           String    @id
   name         String
   url          String    @unique
   lastSyncedAt DateTime?
@@ -19,7 +19,7 @@ model Feed {
 }
 
 model Article {
-  id           String   @id @default(uuid())
+  id           String   @id
   guid         String
   link         String
   title        String
@@ -33,5 +33,6 @@ model Article {
 
   feed   Feed   @relation(fields: [feedId], references: [id])
   feedId String
+
   @@unique([guid, feedId])
 }
