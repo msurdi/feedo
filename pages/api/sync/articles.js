@@ -7,7 +7,7 @@ import {
 } from "../../../lib/core/articles.js";
 import authenticate from "../../../lib/middleware/authenticate.js";
 import handle from "../../../lib/middleware/handle.js";
-import config from "../../../next.config.js";
+import { config } from "../../../next.config.js";
 
 const {
   serverRuntimeConfig: { syncPageSize },

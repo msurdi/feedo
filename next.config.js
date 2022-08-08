@@ -1,7 +1,13 @@
+import withPWA from "next-pwa";
+
 /**
  * @type {import('next').NextConfig}
  */
-const config = {
+export const config = {
+  pwa: {
+    dest: "public",
+    disable: process.env.NODE_ENV === "development",
+  },
   serverRuntimeConfig: {
     oldestArticleDays: 30,
     unreadPageSize: 20,
@@ -14,4 +20,4 @@ const config = {
   },
 };
 
-export default config;
+export default withPWA(config);

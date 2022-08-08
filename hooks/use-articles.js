@@ -1,17 +1,18 @@
 import { filter } from "lodash-es";
+import getConfig from "next/config";
 import { useState } from "react";
 import { useMount } from "react-use";
 import {
   getUnreadArticles,
   markArticleIdAsRead,
 } from "../lib/store/articles.js";
-import config from "../next.config.js";
+
 import useHandler from "./use-handler.js";
 import useSyncArticles from "./use-sync-articles.js";
 
 const {
   serverRuntimeConfig: { unreadPageSize },
-} = config;
+} = getConfig.default();
 
 const useArticles = () => {
   const [articles, setArticles] = useState([]);
