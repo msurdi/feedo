@@ -30,15 +30,20 @@ const post = async (req, res) => {
     await markArticlesAsRead(lastReadArticleId);
   }
 
-  const articles = await getUnreadArticles({
+  const articlesPage = await getUnreadArticles({
     afterId: lastSyncedArticleId,
-    pageSize: syncPageSize,
+    pageSize: syncPageSize + 1,
   });
+
+  const hasMoreUnreadArticles = articlesPage.length >= syncPageSize;
+  const articles = articlesPage.slice(0, syncPageSize);
   const lastReadArticle = await getLastReadArticle();
 
-  res
-    .status(StatusCodes.OK)
-    .json({ articles, lastReadArticleId: lastReadArticle?.id });
+  return res.status(StatusCodes.OK).json({
+    articles,
+    lastReadArticleId: lastReadArticle?.id,
+    hasMoreUnreadArticles,
+  });
 };
 
 export default authenticate(handle({ post }));

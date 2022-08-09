@@ -9,8 +9,7 @@ const useSyncArticles = ({ onSynced } = {}) => {
   const isRunning = networkState.online && !isIdle;
 
   const syncHandler = useHandler(async () => {
-    await sync();
-    onSynced?.();
+    await sync({ onPageSynced: onSynced });
   });
 
   useMount(syncHandler);
