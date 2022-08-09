@@ -10,7 +10,7 @@ import handle from "../../../lib/middleware/handle.js";
 import { config } from "../../../next.config.js";
 
 const {
-  serverRuntimeConfig: { syncPageSize },
+  publicRuntimeConfig: { syncPageSize },
 } = config;
 
 const syncSchema = yup.object().shape({

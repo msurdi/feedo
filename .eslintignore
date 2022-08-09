@@ -1,1 +1,4 @@
 public/dist/**
+public/sw.js
+public/workbox-*.js
+public/fallback-*.js

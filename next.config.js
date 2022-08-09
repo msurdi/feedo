@@ -6,12 +6,16 @@ import withPWA from "next-pwa";
 export const config = {
   pwa: {
     dest: "public",
-    disable: process.env.NODE_ENV === "development",
+    disable:
+      process.env.NODE_ENV === "development" ||
+      process.env.PWA_DISABLE === "true",
   },
-  serverRuntimeConfig: {
+  publicRuntimeConfig: {
     oldestArticleDays: 30,
     unreadPageSize: 20,
     syncPageSize: 200,
+  },
+  serverRuntimeConfig: {
     auth: {
       username: process.env.FEEDO_USERNAME,
       password: process.env.FEEDO_PASSWORD,

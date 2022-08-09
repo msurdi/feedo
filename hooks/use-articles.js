@@ -11,7 +11,7 @@ import useHandler from "./use-handler.js";
 import useSyncArticles from "./use-sync-articles.js";
 
 const {
-  serverRuntimeConfig: { unreadPageSize },
+  publicRuntimeConfig: { unreadPageSize },
 } = getConfig.default();
 
 const useArticles = () => {
