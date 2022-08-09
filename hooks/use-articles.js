@@ -20,17 +20,29 @@ const useArticles = () => {
   const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   const loadMore = useHandler(async () => {
+    // Do not load more articles in memory if there are enough unreads shown already
+    const unreadArticlesLoaded = articles.filter((article) => !article.isRead);
+    if (unreadArticlesLoaded.length >= unreadPageSize) {
+      return;
+    }
+
+    // Start loading more unread articles from local store
     setIsLoadingMore(true);
     const lastLoadedArticle = articles.at(-1);
 
     try {
+      // Get a page of unread articles from local store (+1 to decide if there are still more to load or not)
       const unreadArticlesPage = await getUnreadArticles({
         afterId: lastLoadedArticle?.id ?? "",
         limit: unreadPageSize + 1,
       });
+
       const hasMoreArticles = unreadArticlesPage.length === unreadPageSize + 1;
+
+      // Take just a page of unreads from the query result
       const unreadArticles = unreadArticlesPage.slice(0, unreadPageSize);
 
+      // Update state with the new articles
       setHasMore(hasMoreArticles);
       setArticles([...articles, ...unreadArticles]);
     } finally {
