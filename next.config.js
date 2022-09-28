@@ -1,15 +1,16 @@
-import withPWA from "next-pwa";
+import nextPWA from "next-pwa";
+
+const withPWA = nextPWA({
+  dest: "public",
+  disable:
+    process.env.NODE_ENV === "development" ||
+    process.env.PWA_DISABLE === "true",
+});
 
 /**
  * @type {import('next').NextConfig}
  */
 export const config = {
-  pwa: {
-    dest: "public",
-    disable:
-      process.env.NODE_ENV === "development" ||
-      process.env.PWA_DISABLE === "true",
-  },
   publicRuntimeConfig: {
     oldestArticleDays: 30,
     unreadPageSize: 20,
