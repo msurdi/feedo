@@ -21,23 +21,23 @@ const useApi = () => {
   }, []);
 
   const get = useCallback(
-    (url, query) =>
+    async (url, query) =>
       request(`${url}?${new URLSearchParams(query)}`, { method: "GET" }),
     [request]
   );
 
   const post = useCallback(
-    (url, body) => request(url, { method: "POST", body }),
+    async (url, body) => request(url, { method: "POST", body }),
     [request]
   );
 
   const put = useCallback(
-    (url, body) => request(url, { method: "PUT", body }),
+    async (url, body) => request(url, { method: "PUT", body }),
     [request]
   );
 
   const del = useCallback(
-    (url, body) => request(url, { method: "DELETE", body }),
+    async (url, body) => request(url, { method: "DELETE", body }),
     [request]
   );
 
