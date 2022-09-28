@@ -1,6 +1,5 @@
 import Layout from "../components/layout.jsx";
 import useProgress from "../hooks/use-progress.js";
-import { lazyApp } from "../lib/next-lazy.js";
 import "../styles/app.css";
 
 const FeedoApp = ({ Component, pageProps }) => {
@@ -15,4 +14,4 @@ const FeedoApp = ({ Component, pageProps }) => {
   );
 };
 
-export default lazyApp(FeedoApp);
+export default FeedoApp;
