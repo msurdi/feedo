@@ -7,10 +7,10 @@ import withDefault from "../lib/helpers/pages/with-default.js";
 import urls from "../lib/urls.js";
 
 const FeedsPage = ({ feeds }) => {
-  const { del } = useApi();
+  const api = useApi();
 
   const onUnsubscribe = async (feedId) => {
-    const { response } = await del(urls.feedApi(feedId));
+    const { response } = await api.del(urls.feedApi(feedId));
     if (response?.deleted) {
       router.replace(router.asPath);
     }
