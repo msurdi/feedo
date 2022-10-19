@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import ArticleItem from "./article-item.jsx";
 import IntersectionObserver from "./intersection-observer.jsx";
 import NoSsr from "./no-ssr.jsx";
@@ -21,4 +21,4 @@ const ReadableArticleItem = ({ article, onRead }) => {
   );
 };
 
-export default ReadableArticleItem;
+export default memo(ReadableArticleItem);
