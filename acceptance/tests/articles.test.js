@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-import faker from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 const createFakeArticle = (props) => ({
   guid: faker.datatype.uuid(),
