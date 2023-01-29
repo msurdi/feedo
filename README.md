@@ -43,16 +43,15 @@ That will start the web application at
 If instead of running feedo on your own latop, you would prefer to run it on a
 server, here are some guides to do so:
 
-### Dokku
+### Git based deployment
 
-If you are using [Dokku](https://dokku.com/), create a new App with `dokku
-apps:create ...` and then setup the `DOKKU_*` variables in the `.env file`,
-finally deploy it with:
+If you are using [Dokku](https://dokku.com/) or a similar system that allows you to deploy
+via pushing to a git repository the configure then setup the `DEPLOY_*` variables in the
+`.env file`, finally deploy it with:
 
 ```shell
-    npm run deploy:dokku
+    npm run deploy
 ```
 
-Ensure you also setup all the necessary environment variables in dokku, with
-`dokku config:set ...`. You can see which ones are supported by looking at the
-[.env.example](./.env.example) file.
+Ensure you also setup all the necessary environment variables in your server.
+You can see which ones are supported by looking at the [.env.example](./.env.example) file.
