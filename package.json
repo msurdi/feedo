@@ -80,7 +80,7 @@
     "browser-sync": "^2.27.7",
     "browsersync": "^0.0.1-security",
     "cssnano": "^5.0.6",
-    "cypress": "^11.2.0",
+    "cypress": "^12.4.1",
     "dotenv-cli": "^7.0.0",
     "esbuild": "^0.17.5",
     "esbuild-plugin-postcss2": "^0.1.0",
