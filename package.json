@@ -65,7 +65,7 @@
     "cli/**"
   ],
   "engines": {
-    "node": ">=16",
+    "node": ">=19",
     "npm": ">=7"
   },
   "devDependencies": {
