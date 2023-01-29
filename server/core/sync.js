@@ -1,12 +1,15 @@
+const { sortBy } = require("lodash");
 const RSSParser = require("rss-parser");
+const { ValidationError } = require("../exceptions");
 const logger = require("../services/logger");
 const { putArticle } = require("./articles");
+const findFeeds = require("../lib/find-feeds");
+
 const {
   clearFeedLastError,
   getAllFeeds,
   setFeedLastError,
 } = require("./feeds");
-const { isExpired } = require("./is-expired");
 
 const getAuthorFromFeedItem = (feedItem) => {
   if (typeof feedItem?.author === "string") {
@@ -22,45 +25,100 @@ const getAuthorFromFeedItem = (feedItem) => {
   return null;
 };
 
-const processFeed = async (feed) => {
-  const processFeedItems = async (feedData) => {
-    for (const feedItem of feedData.items) {
-      const articleId = feedItem.id ?? feedItem.guid ?? feedItem.link;
-      const author = getAuthorFromFeedItem(feedItem);
-      const publishedAtDate = new Date(feedItem.isoDate);
+const extractArticlesFromFeed = (feedData) => {
+  const articles = [];
+  for (const feedItem of feedData.items) {
+    const articleId = feedItem.id ?? feedItem.guid ?? feedItem.link;
+    const author = getAuthorFromFeedItem(feedItem);
+    const publishedAt = new Date(feedItem.isoDate);
 
-      if (isExpired(publishedAtDate)) {
-        logger.info(`Skipping sync of old article (${publishedAtDate})`);
-        continue;
-      }
+    const article = {
+      guid: articleId,
+      link: feedItem.link,
+      title: feedItem.title,
+      author,
+      content: feedItem.content || feedItem.summary || "",
+      publishedAt,
+      commentsLink: feedItem.comments,
+    };
+    articles.push(article);
+  }
+  return articles;
+};
 
-      const article = {
-        guid: articleId,
-        link: new URL(feedItem.link, feed.url).href,
-        title: feedItem.title,
-        author,
-        content: feedItem.content || feedItem.summary || "",
-        publishedAt: feedItem.isoDate,
-        commentsLink: feedItem.comments,
-        feedId: feed.id,
-      };
-      await putArticle(article);
-    }
-  };
+const findEffectiveFeedUrls = async (feedUrl) => {
+  try {
+    const effectiveFeeds = await findFeeds(feedUrl);
+    return effectiveFeeds;
+  } catch (err) {
+    logger.error(
+      `Error while searching effective feed URL for ${feedUrl}: ${err}`
+    );
+  }
+  return null;
+};
 
+const effectiveFeedurl = async (feedUrl) => {
+  const effectiveFeeds = await findEffectiveFeedUrls(feedUrl);
+  if (!effectiveFeeds || !effectiveFeeds.length) {
+    throw new ValidationError({
+      url: "No articles found. Check the URL or try again later.",
+    });
+  }
+  return effectiveFeeds[0];
+};
+
+const parseFeedUrl = async (feedUrl) => {
   const parser = new RSSParser();
+  try {
+    const feedData = await parser.parseURL(feedUrl);
+    return feedData;
+  } catch (error) {
+    logger.error(`Error while fetching feed ${feedUrl}: ${error}`);
+  }
+  return null;
+};
 
+const fetchFeed = async (feedUrl) => {
+  const effectiveFeedUrl = await effectiveFeedurl(feedUrl);
+  const feedData = await parseFeedUrl(effectiveFeedUrl);
+  if (!feedData) {
+    throw new ValidationError({
+      url: "Error while fetching feed. Check the URL or try again later.",
+    });
+  }
+  const articles = extractArticlesFromFeed(feedData);
+
+  if (!articles?.length) {
+    throw new ValidationError({
+      url: "Couldn't find any articles in the feed. Check the URL or try again later.",
+    });
+  }
+
+  const name = feedData.title ?? "";
+  return { name, articles };
+};
+
+const syncFeed = async (feed) => {
   try {
     logger.info(`Syncing ${feed.url}`);
-    const feedData = await parser.parseURL(feed.url);
-    await processFeedItems(feedData);
+    const { articles } = await fetchFeed(feed.url);
+    const sortedArticles = sortBy(articles, "publishedAt");
+    for (const article of sortedArticles) {
+      await putArticle({
+        ...article,
+        feedId: feed.id,
+        link: new URL(article.link, feed.url).href,
+      });
+    }
     if (feed.lastError) {
       await clearFeedLastError(feed.id);
     }
   } catch (error) {
     if (
       error.message.match(/Status code (4|5).*/) ||
-      error.message.match(/Invalid character/)
+      error.message.match(/Invalid character/) ||
+      error instanceof ValidationError
     ) {
       logger.error(`Failed syncing ${feed.url}: ${error.message}`);
       await setFeedLastError(feed.id, error.message);
@@ -74,9 +132,13 @@ const syncAllFeeds = async () => {
   const feeds = await getAllFeeds();
   logger.info(`Starting sync of ${feeds.length} feeds`);
   for (const feed of feeds) {
-    await processFeed(feed);
+    await syncFeed(feed);
   }
   logger.info("Sync completed");
 };
 
-module.exports = { syncAllFeeds, processFeed };
+module.exports = {
+  syncAllFeeds,
+  syncFeed,
+  fetchFeed,
+};
