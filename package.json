@@ -116,7 +116,7 @@
     "express-async-errors": "^3.1.1",
     "express-basic-auth": "^1.2.0",
     "find-root": "^1.1.0",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.1.0",
     "helmet": "^5.0.2",
     "html-string": "^3.0.1",
     "http-status-codes": "^2.1.4",
