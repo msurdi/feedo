@@ -29,7 +29,7 @@ const isAuthEnabled = !!(env("USERNAME") || env("PASSWORD"));
 
 const config = {
   port: parseInt(env("PORT"), 10) || 8080,
-  address: env("ADDRESS") ?? "0.0.0.0",
+  address: env("ADDRESS") ?? "127.0.0.1",
   auth: {
     username: env("USERNAME"),
     password: env("PASSWORD"),
