@@ -52,7 +52,6 @@ router.post(urls.markAsRead(), async (req, res) => {
   return res.send(
     articlesList({
       articles: updatedArticles,
-      csrfToken: req.csrfToken(),
     }).render()
   );
 });

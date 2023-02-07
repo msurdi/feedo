@@ -109,7 +109,6 @@
     "content-type": "^1.0.4",
     "cookie-parser": "^1.4.5",
     "cookie-session": "^2.0.0",
-    "csurf": "^1.11.0",
     "date-fns": "^2.22.1",
     "downsize": "^0.0.8",
     "execa": "^5.1.1",

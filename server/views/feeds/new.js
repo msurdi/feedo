@@ -1,11 +1,10 @@
 const html = require("html-string");
 const urls = require("../../urls");
 const button = require("../components/button");
-const csrfInput = require("../components/csrf-input");
 const input = require("../components/input");
 const layout = require("../components/layout");
 
-const newFeedView = ({ req, feed, errors } = {}) =>
+const newFeedView = ({ feed, errors } = {}) =>
   layout({
     body: html`
       <div class="flex flex-row justify-center my-6">
@@ -15,7 +14,6 @@ const newFeedView = ({ req, feed, errors } = {}) =>
           action="${urls.newFeed()}"
           class="flex flex-col w-full max-w-xl"
         >
-          ${csrfInput(req.csrfToken())}
           <fieldset class="m-2 md:flex flex flex-col">
             <label class="py-1 text-sm font-bold" for="url"> Feed url </label>
             ${input({

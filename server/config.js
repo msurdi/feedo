@@ -47,6 +47,7 @@ const config = {
     maxAge: milliseconds({ years: 1 }),
     secure: !devMode,
     httpOnly: true,
+    sameSite: "lax",
     keys: [secretKey],
   },
   feedo: {

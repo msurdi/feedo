@@ -3,14 +3,13 @@ const urls = require("../urls");
 const articlesList = require("./components/articles-list");
 const layout = require("./components/layout");
 
-const articlesView = ({ req, articles, hasMoreArticles }) =>
+const articlesView = ({ articles, hasMoreArticles }) =>
   layout({
     body: html`
       ${!!articles.length &&
       html`
         ${articlesList({
           articles,
-          csrfToken: req.csrfToken(),
           id: "articles-list",
         })}
       `}

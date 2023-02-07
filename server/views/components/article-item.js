@@ -3,9 +3,8 @@ const sanitizeHtml = require("sanitize-html");
 const urls = require("../../urls");
 const articleMeta = require("./article-meta");
 const articleTitle = require("./article-title");
-const csrfInput = require("./csrf-input");
 
-const articleItem = ({ article, csrfToken }) => html`
+const articleItem = ({ article }) => html`
   <article
     id="article-${article.id}"
     class="px-2 py-6 flex flex-col break-words ${article.isRead
@@ -29,7 +28,6 @@ const articleItem = ({ article, csrfToken }) => html`
       up-target="#article-${article.id}"
       method="post"
     >
-      ${csrfInput(csrfToken)}
       <input type="hidden" name="articleIds[]" value="${article.id}" />
     </form>
   </article>
