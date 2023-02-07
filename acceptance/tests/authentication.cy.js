@@ -2,9 +2,9 @@
 
 describe("Authentication", () => {
   it("Returns 401 when credentials are missing", () => {
-    cy.request({ url: "/", failOnStatusCode: false }).then((response) => {
-      expect(response.status).to.eq(401);
-    });
+    cy.request({ url: "/", failOnStatusCode: false })
+      .its("status")
+      .should("eq", 401);
   });
 
   it("Returns 401 when credentials are wrong", () => {
@@ -12,9 +12,9 @@ describe("Authentication", () => {
       url: "/",
       failOnStatusCode: false,
       auth: { username: "wronguser", password: "wrongpassword" },
-    }).then((response) => {
-      expect(response.status).to.eq(401);
-    });
+    })
+      .its("status")
+      .should("eq", 401);
   });
 
   it("Returns 200 when credentials are correct", () => {
@@ -24,16 +24,16 @@ describe("Authentication", () => {
         username: Cypress.env("username"),
         password: Cypress.env("password"),
       },
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-    });
+    })
+      .its("status")
+      .should("eq", 200);
   });
 
   it("Returns 200 for /status even when there are no credentials provided", () => {
     cy.request({
       url: "/status",
-    }).then((response) => {
-      expect(response.status).to.eq(200);
-    });
+    })
+      .its("status")
+      .should("eq", 200);
   });
 });
