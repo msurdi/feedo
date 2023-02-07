@@ -20,7 +20,10 @@ describe("Authentication", () => {
   it("Returns 200 when credentials are correct", () => {
     cy.request({
       url: "/",
-      auth: { username: "testuser", password: "testpassword" },
+      auth: {
+        username: Cypress.env("username"),
+        password: Cypress.env("password"),
+      },
     }).then((response) => {
       expect(response.status).to.eq(200);
     });

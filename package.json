@@ -34,7 +34,7 @@
     "deploy:setup": "git remote | grep deploy || git remote add deploy ${DEPLOY_USER:-feedo}@${DEPLOY_HOST:-feedo}:${DEPLOY_REPO:-feedo}",
     "deploy:push": "git push --force deploy HEAD:main",
     "prepack": "npm run build",
-    "cypress:open": "dotenv -e .env.test -- cypress open",
+    "cypress:open": "dotenv -- cypress open",
     "start": "node ./bin/feedo.js start"
   },
   "prisma": {

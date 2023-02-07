@@ -1,9 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const { defineConfig } = require("cypress");
+const appConfig = require("./server/config");
 
 module.exports = defineConfig({
   downloadsFolder: "acceptance/downloads",
-  env: {},
+  env: {
+    username: appConfig.auth.username,
+    password: appConfig.auth.password,
+  },
   fixturesFolder: "acceptance/fixtures",
   nodeVersion: "system",
   retries: {
@@ -20,7 +24,7 @@ module.exports = defineConfig({
       // eslint-disable-next-line global-require
       return require("./acceptance/plugins")(on, config);
     },
-    baseUrl: "http://localhost:3001",
+    baseUrl: `http://${appConfig.address}:${appConfig.port}`,
     specPattern: "acceptance/tests/**/*.cy.{js,jsx,ts,tsx}",
     supportFile: "acceptance/support",
   },
