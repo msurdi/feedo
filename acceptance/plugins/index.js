@@ -3,8 +3,8 @@
  * @type {Cypress.PluginConfig}
  */
 
-const tasks = require("./tasks");
+import tasks from "./tasks.js";
 
-module.exports = (on) => {
+export default (on) => {
   on("task", tasks);
 };

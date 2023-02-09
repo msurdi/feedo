@@ -1,8 +1,6 @@
-const { pathToRegexp } = require("path-to-regexp");
-
-const expressBasicAuth = require("express-basic-auth");
-
-const config = require("../config");
+import expressBasicAuth from "express-basic-auth";
+import { pathToRegexp } from "path-to-regexp";
+import config from "../config.js";
 
 const authMiddleware = ({ excludeUrls = [] } = {}) => {
   const { username, password } = config.auth;
@@ -27,4 +25,4 @@ const authMiddleware = ({ excludeUrls = [] } = {}) => {
   };
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

@@ -1,5 +1,5 @@
-const createApp = require("./app");
-const config = require("./config");
+import createApp from "./app.js";
+import config from "./config.js";
 
 const runServer = async () => {
   const server = await createApp();
@@ -17,4 +17,4 @@ const runServer = async () => {
   });
 };
 
-module.exports = runServer;
+export default runServer;

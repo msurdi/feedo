@@ -1,4 +1,4 @@
-const { PrismaClientKnownRequestError } = require("@prisma/client/runtime");
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/index.js";
 
 const getErrorMessageFromPrismaCode = (prismaCode) => {
   switch (prismaCode) {
@@ -28,4 +28,4 @@ const withPrismaErrors = async (prismaQuery) => {
   }
 };
 
-module.exports = withPrismaErrors;
+export default withPrismaErrors;

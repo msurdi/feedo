@@ -1,5 +1,5 @@
-const html = require("html-string");
-const articleItem = require("./article-item");
+import html from "html-string";
+import articleItem from "./article-item.js";
 
 const articlesList = ({ articles, ...rest }) => html`
   <div class="divide-y divide-gray-300" ${rest}:attrs>
@@ -7,4 +7,4 @@ const articlesList = ({ articles, ...rest }) => html`
   </div>
 `;
 
-module.exports = articlesList;
+export default articlesList;

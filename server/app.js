@@ -1,17 +1,17 @@
-require("express-async-errors");
-const express = require("express");
-const morgan = require("morgan");
-const helmet = require("helmet");
-const compression = require("compression");
-const cookieSession = require("cookie-session");
-const cookieParser = require("cookie-parser");
-const config = require("./config");
-const logger = require("./services/logger");
-const handlers = require("./handlers");
-const urls = require("./urls");
-const authMiddleware = require("./middlewares/auth");
+import compression from "compression";
+import cookieParser from "cookie-parser";
+import cookieSession from "cookie-session";
+import express from "express";
+import "express-async-errors";
+import helmet from "helmet";
+import morgan from "morgan";
+import config from "./config.js";
+import handlers from "./handlers/index.js";
+import authMiddleware from "./middlewares/auth.js";
+import logger from "./services/logger.js";
+import urls from "./urls.js";
 
-module.exports = async () => {
+export default async () => {
   const app = express();
 
   app.set("trust proxy", true);

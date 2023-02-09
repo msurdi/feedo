@@ -1,7 +1,7 @@
-const { formatDistanceToNowStrict } = require("date-fns");
-const downsize = require("downsize");
-const db = require("../services/db");
-const { getOldestDate } = require("./is-expired");
+import { formatDistanceToNowStrict } from "date-fns";
+import downsize from "downsize";
+import db from "../services/db/index.js";
+import { getOldestDate } from "./is-expired.js";
 
 const asArticle = (article) => ({
   ...article,
@@ -9,7 +9,7 @@ const asArticle = (article) => ({
   timeAgo: formatDistanceToNowStrict(article.publishedAt),
 });
 
-const getArticle = async (articleId) => {
+export const getArticle = async (articleId) => {
   const article = await db.article.findUnique({ where: { id: articleId } });
   if (article) {
     return asArticle(article);
@@ -17,7 +17,7 @@ const getArticle = async (articleId) => {
   return null;
 };
 
-const putArticle = async ({
+export const putArticle = async ({
   guid,
   link,
   title,
@@ -42,12 +42,15 @@ const putArticle = async ({
     },
   });
 
-const getAllArticles = async () => {
+export const getAllArticles = async () => {
   const articles = await db.article.findMany();
   return articles.map(asArticle);
 };
 
-const getUnreadArticles = async ({ afterArticleId, pageSize = 10 } = {}) => {
+export const getUnreadArticles = async ({
+  afterArticleId,
+  pageSize = 10,
+} = {}) => {
   const paginationParams = {
     cursor: {
       id: afterArticleId,
@@ -64,32 +67,22 @@ const getUnreadArticles = async ({ afterArticleId, pageSize = 10 } = {}) => {
   return articles.map(asArticle);
 };
 
-const getArticlesByIds = async (articleIds) => {
+export const getArticlesByIds = async (articleIds) => {
   const articles = await db.article.findMany({
     where: { id: { in: articleIds } },
   });
   return articles.map(asArticle);
 };
 
-const markArticlesAsRead = async (articleIds) =>
+export const markArticlesAsRead = async (articleIds) =>
   db.article.updateMany({
     data: { isRead: true },
     where: { id: { in: articleIds } },
   });
 
-const removeReadAndExpiredArticles = async () => {
+export const removeReadAndExpiredArticles = async () => {
   const oldestArticleDate = getOldestDate();
   await db.article.deleteMany({
     where: { isRead: true, publishedAt: { lt: oldestArticleDate } },
   });
-};
-
-module.exports = {
-  getArticle,
-  putArticle,
-  getAllArticles,
-  getUnreadArticles,
-  markArticlesAsRead,
-  removeReadAndExpiredArticles,
-  getArticlesByIds,
 };

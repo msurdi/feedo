@@ -1,7 +1,7 @@
-const cheerio = require("cheerio");
-const contentType = require("content-type");
-const { join } = require("path");
-const userAgents = require("top-user-agents");
+import cheerio from "cheerio";
+import contentType from "content-type";
+import { join } from "path";
+import userAgents from "top-user-agents";
 
 /**
  * List of content types that are considered to be feeds.
@@ -113,4 +113,4 @@ const findFeeds = async (url) => {
   return [];
 };
 
-module.exports = findFeeds;
+export default findFeeds;

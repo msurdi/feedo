@@ -1,8 +1,8 @@
-const html = require("html-string");
-const sanitizeHtml = require("sanitize-html");
-const urls = require("../../urls");
-const articleMeta = require("./article-meta");
-const articleTitle = require("./article-title");
+import html from "html-string";
+import sanitizeHtml from "sanitize-html";
+import urls from "../../urls.js";
+import articleMeta from "./article-meta.js";
+import articleTitle from "./article-title.js";
 
 const articleItem = ({ article }) => html`
   <article
@@ -33,4 +33,4 @@ const articleItem = ({ article }) => html`
   </article>
 `;
 
-module.exports = articleItem;
+export default articleItem;

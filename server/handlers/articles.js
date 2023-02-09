@@ -1,16 +1,16 @@
-const express = require("express");
-const { StatusCodes, ReasonPhrases } = require("http-status-codes");
-const config = require("../config");
-const {
-  getUnreadArticles,
+import express from "express";
+import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import config from "../config.js";
+import {
   getArticle,
-  markArticlesAsRead,
   getArticlesByIds,
-} = require("../core/articles");
-const urls = require("../urls");
-const articlesView = require("../views/articles");
-const articleDetailView = require("../views/articles/detail");
-const articlesList = require("../views/components/articles-list");
+  getUnreadArticles,
+  markArticlesAsRead,
+} from "../core/articles.js";
+import urls from "../urls.js";
+import articlesView from "../views/articles.js";
+import articleDetailView from "../views/articles/detail.js";
+import articlesList from "../views/components/articles-list.js";
 
 const router = express.Router();
 
@@ -56,4 +56,4 @@ router.post(urls.markAsRead(), async (req, res) => {
   );
 });
 
-module.exports = router;
+export default router;

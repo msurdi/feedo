@@ -1,8 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const { defineConfig } = require("cypress");
-const appConfig = require("./server/config");
+import { defineConfig } from "cypress";
+import appConfig from "./server/config.js";
 
-module.exports = defineConfig({
+export default defineConfig({
   downloadsFolder: "acceptance/downloads",
   env: {
     username: appConfig.auth.username,
@@ -20,9 +20,12 @@ module.exports = defineConfig({
   e2e: {
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
-    setupNodeEvents(on, config) {
+    async setupNodeEvents(on, config) {
       // eslint-disable-next-line global-require
-      return require("./acceptance/plugins")(on, config);
+      return (await import("./acceptance/plugins/index.js")).default(
+        on,
+        config
+      );
     },
     baseUrl: `http://${appConfig.address}:${appConfig.port}`,
     specPattern: "acceptance/tests/**/*.cy.{js,jsx,ts,tsx}",

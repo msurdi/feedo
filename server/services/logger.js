@@ -1,4 +1,4 @@
-const winston = require("winston");
+import winston from "winston";
 
 const logger = winston.createLogger({
   level: "info",
@@ -13,4 +13,4 @@ logger.stream = {
   },
 };
 
-module.exports = logger;
+export default logger;

@@ -1,7 +1,7 @@
-const express = require("express");
-const feedsHandlers = require("./feeds");
-const articlesHandlers = require("./articles");
-const statusHandlers = require("./status");
+import express from "express";
+import articlesHandlers from "./articles.js";
+import feedsHandlers from "./feeds.js";
+import statusHandlers from "./status.js";
 
 const router = express.Router();
 
@@ -9,4 +9,4 @@ router.use(articlesHandlers);
 router.use(statusHandlers);
 router.use(feedsHandlers);
 
-module.exports = router;
+export default router;

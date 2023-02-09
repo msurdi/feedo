@@ -1,5 +1,6 @@
-const yup = require("yup");
-const validate = require("./validate");
+import { beforeEach, describe, expect, it } from "vitest";
+import yup from "yup";
+import validate from "./validate.js";
 
 const testSchema = yup.object().shape({
   url: yup.string().trim().url().required(),

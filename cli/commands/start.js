@@ -1,7 +1,7 @@
-const parseDuration = require("parse-duration");
-const runServer = require("../../server");
-const migrateCommand = require("./migrate");
-const syncCommand = require("./sync");
+import parseDuration from "parse-duration";
+import runServer from "../../server/index.js";
+import migrateCommand from "./migrate.js";
+import syncCommand from "./sync.js";
 
 let syncing = false;
 
@@ -36,4 +36,4 @@ const start = async ({ migrate, sync }) => {
   await runServer();
 };
 
-module.exports = start;
+export default start;

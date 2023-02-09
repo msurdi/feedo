@@ -1,6 +1,5 @@
-const cn = require("classnames");
-
-const html = require("html-string");
+import cn from "classnames";
+import html from "html-string";
 
 const variants = {
   button: Symbol("button"),
@@ -31,4 +30,4 @@ const link = (children, { variant, ...attrs } = {}) => {
 
 link.variants = variants;
 
-module.exports = link;
+export default link;

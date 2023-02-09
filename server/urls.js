@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   home: () => "/",
   public: (path = "") => `/${path}`,
   status: () => "/status",

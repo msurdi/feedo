@@ -1,8 +1,8 @@
-const html = require("html-string");
-const urls = require("../../urls");
-const button = require("../components/button");
-const input = require("../components/input");
-const layout = require("../components/layout");
+import html from "html-string";
+import urls from "../../urls.js";
+import button from "../components/button.js";
+import input from "../components/input.js";
+import layout from "../components/layout.js";
 
 const newFeedView = ({ feed, errors } = {}) =>
   layout({
@@ -37,4 +37,4 @@ const newFeedView = ({ feed, errors } = {}) =>
     `,
   });
 
-module.exports = newFeedView;
+export default newFeedView;

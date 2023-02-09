@@ -1,5 +1,5 @@
-const html = require("html-string");
-const sanitizeHtml = require("sanitize-html");
+import html from "html-string";
+import sanitizeHtml from "sanitize-html";
 
 const articleMeta = ({ article }) => html`
   <span class="text-sm text-gray-500">
@@ -10,4 +10,4 @@ const articleMeta = ({ article }) => html`
   </span>
 `;
 
-module.exports = articleMeta;
+export default articleMeta;

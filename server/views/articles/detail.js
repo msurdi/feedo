@@ -1,12 +1,12 @@
-const html = require("html-string");
-const sanitizeHtml = require("sanitize-html");
-const articleMeta = require("../components/article-meta");
-const articleTitle = require("../components/article-title");
-const layout = require("../components/layout");
-const link = require("../components/link");
+import html from "html-string";
+import sanitizeHtml from "sanitize-html";
+import articleMeta from "../components/article-meta.js";
+import articleTitle from "../components/article-title.js";
+import layout from "../components/layout.js";
+import link from "../components/link.js";
 
 const articleDetailView = ({ article }) =>
-  layout({
+  layout.js({
     body: html`
       <article class="px-2 py-6 flex flex-col break-words">
         ${articleTitle({
@@ -27,4 +27,4 @@ const articleDetailView = ({ article }) =>
     `,
   });
 
-module.exports = articleDetailView;
+export default articleDetailView;

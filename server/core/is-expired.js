@@ -1,11 +1,10 @@
-const { isBefore, subDays } = require("date-fns");
-const config = require("../config");
+import { isBefore, subDays } from "date-fns";
+import config from "../config.js";
 
-const getOldestDate = () => subDays(new Date(), config.feedo.oldestArticleDays);
+export const getOldestDate = () =>
+  subDays(new Date(), config.feedo.oldestArticleDays);
 
-const isExpired = (date) => {
+export const isExpired = (date) => {
   const oldestDate = getOldestDate();
   return isBefore(date, oldestDate);
 };
-
-module.exports = { isExpired, getOldestDate };

@@ -1,7 +1,7 @@
-const html = require("html-string");
-const urls = require("../urls");
-const articlesList = require("./components/articles-list");
-const layout = require("./components/layout");
+import html from "html-string";
+import urls from "../urls.js";
+import articlesList from "./components/articles-list.js";
+import layout from "./components/layout.js";
 
 const articlesView = ({ articles, hasMoreArticles }) =>
   layout({
@@ -49,4 +49,4 @@ const articlesView = ({ articles, hasMoreArticles }) =>
     `,
   });
 
-module.exports = articlesView;
+export default articlesView;

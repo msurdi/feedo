@@ -1,8 +1,8 @@
-const html = require("html-string");
-const urls = require("../urls");
-const button = require("./components/button");
-const layout = require("./components/layout");
-const link = require("./components/link");
+import html from "html-string";
+import urls from "../urls.js";
+import button from "./components/button.js";
+import layout from "./components/layout.js";
+import link from "./components/link.js";
 
 const feedsView = ({ feeds } = {}) =>
   layout({
@@ -46,4 +46,4 @@ const feedsView = ({ feeds } = {}) =>
     `,
   });
 
-module.exports = feedsView;
+export default feedsView;

@@ -1,15 +1,11 @@
-const { sortBy } = require("lodash");
-const RSSParser = require("rss-parser");
-const { ValidationError } = require("../exceptions");
-const logger = require("../services/logger");
-const { putArticle } = require("./articles");
-const findFeeds = require("../lib/find-feeds");
+import { sortBy } from "lodash-es";
+import RSSParser from "rss-parser";
+import { ValidationError } from "../exceptions.js";
+import findFeeds from "../lib/find-feeds.js";
+import logger from "../services/logger.js";
+import { putArticle } from "./articles.js";
 
-const {
-  clearFeedLastError,
-  getAllFeeds,
-  setFeedLastError,
-} = require("./feeds");
+import { clearFeedLastError, getAllFeeds, setFeedLastError } from "./feeds.js";
 
 const getAuthorFromFeedItem = (feedItem) => {
   if (typeof feedItem?.author === "string") {
@@ -79,7 +75,7 @@ const parseFeedUrl = async (feedUrl) => {
   return null;
 };
 
-const fetchFeed = async (feedUrl) => {
+export const fetchFeed = async (feedUrl) => {
   const effectiveFeedUrl = await effectiveFeedurl(feedUrl);
   const feedData = await parseFeedUrl(effectiveFeedUrl);
   if (!feedData) {
@@ -99,7 +95,7 @@ const fetchFeed = async (feedUrl) => {
   return { name, articles };
 };
 
-const syncFeed = async (feed) => {
+export const syncFeed = async (feed) => {
   try {
     logger.info(`Syncing ${feed.url}`);
     const { articles } = await fetchFeed(feed.url);
@@ -128,17 +124,11 @@ const syncFeed = async (feed) => {
   }
 };
 
-const syncAllFeeds = async () => {
+export const syncAllFeeds = async () => {
   const feeds = await getAllFeeds();
   logger.info(`Starting sync of ${feeds.length} feeds`);
   for (const feed of feeds) {
     await syncFeed(feed);
   }
   logger.info("Sync completed");
-};
-
-module.exports = {
-  syncAllFeeds,
-  syncFeed,
-  fetchFeed,
 };

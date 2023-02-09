@@ -1,13 +1,12 @@
 module.exports = {
   env: {
     browser: false,
-    commonjs: true,
+    commonjs: false,
     es2021: true,
     node: true,
-    "jest/globals": true,
   },
-  extends: ["airbnb-base", "prettier", "plugin:jest/recommended"],
-  plugins: ["prettier", "jest"],
+  extends: ["airbnb-base", "prettier"],
+  plugins: ["prettier"],
   parserOptions: {
     ecmaVersion: 12,
   },
@@ -15,5 +14,6 @@ module.exports = {
     "no-restricted-syntax": "off",
     "no-continue": "off",
     "no-await-in-loop": "off",
+    "import/extensions": ["error", "always", { ignorePackages: true }],
   },
 };

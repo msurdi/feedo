@@ -1,5 +1,5 @@
-const html = require("html-string");
-const cn = require("classnames");
+import cn from "classnames";
+import html from "html-string";
 
 const variants = {
   danger: Symbol("danger"),
@@ -31,4 +31,4 @@ const button = (
 
 button.variants = variants;
 
-module.exports = button;
+export default button;

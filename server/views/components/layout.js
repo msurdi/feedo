@@ -1,6 +1,6 @@
-const html = require("html-string");
-const urls = require("../../urls");
-const link = require("./link");
+import html from "html-string";
+import urls from "../../urls.js";
+import link from "./link.js";
 
 const layout = ({ body }) => html`
   <!DOCTYPE html>
@@ -51,4 +51,4 @@ const layout = ({ body }) => html`
   </html>
 `;
 
-module.exports = layout;
+export default layout;

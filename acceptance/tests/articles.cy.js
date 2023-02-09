@@ -31,8 +31,8 @@ describe("Articles view", () => {
     );
     cy.visit("/", {
       auth: {
-        username: "testuser",
-        password: "testpassword",
+        username: Cypress.env("username"),
+        password: Cypress.env("password"),
       },
     });
   });

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 // Prisma relies on relative directories for schema loading, etc.
-process.chdir(`${__dirname}/..`);
+import cli from "../cli/index.js";
 
-const cli = require("../cli");
+// process.chdir(`${__dirname}/..`);
 
 cli().catch((e) => {
   // eslint-disable-next-line no-console

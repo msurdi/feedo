@@ -1,8 +1,14 @@
-const { program } = require("commander");
-const packageJSON = require("../package.json");
-const migrate = require("./commands/migrate");
-const start = require("./commands/start");
-const sync = require("./commands/sync");
+import { program } from "commander";
+import fs from "fs-extra";
+import { join } from "path";
+import { fileURLToPath } from "url";
+import migrate from "./commands/migrate.js";
+import start from "./commands/start.js";
+import sync from "./commands/sync.js";
+
+const packageJSON = fs.readJson(
+  fileURLToPath(join(import.meta.url, "../../package.json"))
+);
 
 const cli = async () => {
   const run = (command) => async (options) => {
@@ -39,4 +45,4 @@ const cli = async () => {
   program.parse(process.argv);
 };
 
-module.exports = cli;
+export default cli;

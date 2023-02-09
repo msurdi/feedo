@@ -1,5 +1,5 @@
-const html = require("html-string");
-const sanitizeHtml = require("sanitize-html");
+import html from "html-string";
+import sanitizeHtml from "sanitize-html";
 
 const articleTitle = ({ article, href }) => html`
   <h1 class="font-bold text-lg">
@@ -7,4 +7,4 @@ const articleTitle = ({ article, href }) => html`
   </h1>
 `;
 
-module.exports = articleTitle;
+export default articleTitle;

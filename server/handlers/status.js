@@ -1,8 +1,8 @@
-const express = require("express");
-const urls = require("../urls");
+import express from "express";
+import urls from "../urls.js";
 
 const router = express.Router();
 
 router.get(urls.status(), async (req, res) => res.send("ok"));
 
-module.exports = router;
+export default router;

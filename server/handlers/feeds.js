@@ -1,9 +1,9 @@
-const express = require("express");
-const { StatusCodes } = require("http-status-codes");
-const { createFeed, getAllFeeds, removeFeed } = require("../core/feeds");
-const urls = require("../urls");
-const feedsView = require("../views/feeds");
-const newFeedView = require("../views/feeds/new");
+import express from "express";
+import { StatusCodes } from "http-status-codes";
+import { createFeed, getAllFeeds, removeFeed } from "../core/feeds.js";
+import urls from "../urls.js";
+import feedsView from "../views/feeds.js";
+import newFeedView from "../views/feeds/new.js";
 
 const router = express.Router();
 
@@ -36,4 +36,4 @@ router.post(urls.deleteFeed(":feedId"), async (req, res) => {
   return res.redirect(urls.feeds());
 });
 
-module.exports = router;
+export default router;

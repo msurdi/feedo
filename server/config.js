@@ -1,9 +1,9 @@
-const findRoot = require("find-root");
-const os = require("os");
-const path = require("path");
-const fs = require("fs-extra");
-const { milliseconds } = require("date-fns");
-const randomstring = require("randomstring");
+import { milliseconds } from "date-fns";
+import findRoot from "find-root";
+import fs from "fs-extra";
+import os from "os";
+import path from "path";
+import randomstring from "randomstring";
 
 const homedir = os.homedir();
 
@@ -18,7 +18,7 @@ const env = (name) => {
   return process.env[appSpecificEnv] ?? process.env[normalizedName];
 };
 
-const rootDir = findRoot(__dirname);
+const rootDir = findRoot(import.meta.url);
 const defaultDataDir = path.join(os.homedir(), ".feedo");
 const dataDir = env("DATA_DIR") ?? defaultDataDir;
 fs.ensureDirSync(dataDir);
@@ -29,7 +29,7 @@ const isAuthEnabled = !!(env("USERNAME") || env("PASSWORD"));
 
 const config = {
   port: parseInt(env("PORT"), 10) || 8080,
-  address: env("ADDRESS") ?? "127.0.0.1",
+  address: env("ADDRESS") ?? "localhost",
   auth: {
     username: env("USERNAME"),
     password: env("PASSWORD"),
@@ -55,4 +55,5 @@ const config = {
     unreadPageSize: 10,
   },
 };
-module.exports = config;
+
+export default config;

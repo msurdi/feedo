@@ -1,4 +1,4 @@
-const html = require("html-string");
+import html from "html-string";
 
 const input = ({ type = "text", ...attrs }) => html`
   <input
@@ -8,4 +8,4 @@ const input = ({ type = "text", ...attrs }) => html`
   />
 `;
 
-module.exports = input;
+export default input;
