@@ -1,4 +1,5 @@
 import html from "html-string";
+import config from "../../config.js";
 import urls from "../../urls.js";
 import link from "./link.js";
 
@@ -21,8 +22,17 @@ const layout = ({ body }) => html`
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
       <title>Feedo</title>
-      <script src="${urls.public("dist/app.js")}"></script>
-      <link rel="stylesheet" href="${urls.public("dist/app.css")}" />
+      ${config.devMode &&
+      html`<script
+          type="module"
+          src="http://localhost:5173/@vite/client"
+        ></script>
+        <script
+          type="module"
+          src="http://localhost:5173/assets/app.js"
+        ></script>`}
+      ${!config.devMode &&
+      html`<script src="${urls.public("dist/app.js")}"></script>`}
     </head>
     <body class="h-full bg-gray-100 pt-12">
       <header

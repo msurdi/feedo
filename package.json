@@ -13,10 +13,8 @@
   "scripts": {
     "dev": "dotenv -e .env -- run-s migrate:dev dev:start",
     "dev:start": "run-p -l dev:watch:*",
-    "dev:watch:reload": "browser-sync start --no-open --port 8081 --proxy ${FEEDO_ADDRESS:-localhost}:${FEEDO_PORT:-8080} --files .reload public/dist",
     "dev:watch:server": "nodemon",
-    "dev:watch:js": "esbuild --watch --bundle --sourcemap --outdir=public/dist/ assets/app.js",
-    "dev:watch:css": "postcss --map --watch assets/app.css --dir public/dist/",
+    "dev:watch:assets": "vite",
     "start:acceptance": "dotenv -e .env.test -- run-s build destroy:testdb migrate:dev start",
     "destroy:testdb": "dotenv -e .env.test -- rm -f ${FEEDO_DATABASE_URL}",
     "test:unit": "vitest run",
@@ -29,8 +27,7 @@
     "migrate:production": "prisma migrate deploy",
     "feed:sync": "dotenv node bin/feedo.js sync",
     "build": "NODE_ENV=production  run-p build:*",
-    "build:js": "esbuild --bundle --sourcemap --minify --outdir=public/dist/ assets/app.js",
-    "build:css": "postcss assets/app.css --dir public/dist/",
+    "build:assets": "vite build",
     "deploy": "dotenv run-s deploy:setup deploy:push",
     "deploy:setup": "git remote | grep deploy || git remote add deploy ${DEPLOY_USER:-feedo}@${DEPLOY_HOST:-feedo}:${DEPLOY_REPO:-feedo}",
     "deploy:push": "git push --force deploy HEAD:main",
@@ -82,7 +79,6 @@
     "cssnano": "^5.0.6",
     "cypress": "^12.4.1",
     "dotenv-cli": "^7.0.0",
-    "esbuild": "^0.17.5",
     "esbuild-plugin-postcss2": "^0.1.0",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
@@ -97,6 +93,8 @@
     "prettier": "^2.3.1",
     "tailwindcss": "^3.0.23",
     "unpoly": "^2.0.1",
+    "vite": "^4.1.1",
+    "vite-plugin-full-reload": "^1.0.5",
     "vitest": "^0.28.4"
   },
   "dependencies": {

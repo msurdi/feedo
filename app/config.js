@@ -28,6 +28,7 @@ const secretKey = env("SECRET_KEY") ?? randomstring.generate();
 const isAuthEnabled = !!(env("USERNAME") || env("PASSWORD"));
 
 const config = {
+  devMode,
   port: parseInt(env("PORT"), 10) || 8080,
   address: env("ADDRESS") ?? "localhost",
   auth: {
@@ -37,6 +38,7 @@ const config = {
   rootDir,
   dataDir,
   dbUrl: env("DATABASE_URL"),
+  reloadFile: path.join(rootDir, ".reload"),
   publicRoot: path.resolve(path.join(rootDir, "public")),
   helmet: {
     contentSecurityPolicy: isAuthEnabled && !devMode,

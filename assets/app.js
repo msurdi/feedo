@@ -1,4 +1,5 @@
 import "unpoly";
+import "./app.css";
 import "./compilers/up-disable.js";
 import "./compilers/up-submit-observer.js";
 
