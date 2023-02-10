@@ -29,7 +29,7 @@
     "build": "NODE_ENV=production  run-p build:*",
     "build:assets": "vite build",
     "deploy": "dotenv run-s deploy:setup deploy:push",
-    "deploy:setup": "git remote | grep deploy || git remote add deploy ${DEPLOY_USER:-feedo}@${DEPLOY_HOST:-feedo}:${DEPLOY_REPO:-feedo}",
+    "deploy:setup": "( git remote remove deploy > /dev/null 2>&1 || true ) && git remote add deploy ${DEPLOY_USER:-feedo}@${DEPLOY_HOST:-feedo}:${DEPLOY_REPO:-feedo}",
     "deploy:push": "git push --force deploy HEAD:main",
     "prepack": "npm run build",
     "cypress:open": "dotenv -- cypress open",
