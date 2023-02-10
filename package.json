@@ -39,7 +39,7 @@
     "start": "node ./bin/feedo.js start"
   },
   "prisma": {
-    "schema": "server/services/db/schema.prisma"
+    "schema": "app/services/db/schema.prisma"
   },
   "author": {
     "email": "matiassurdi@gmail.com",
@@ -60,7 +60,7 @@
     "feedo": "bin/feedo.js"
   },
   "files": [
-    "server/**",
+    "app/**",
     "bin/**",
     "public/**",
     "cli/**"

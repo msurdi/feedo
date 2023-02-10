@@ -1,4 +1,4 @@
-import { syncAllFeeds } from "../../server/core/sync.js";
+import { syncAllFeeds } from "../../app/core/sync.js";
 
 const sync = async () => syncAllFeeds();
 

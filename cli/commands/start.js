@@ -1,5 +1,5 @@
 import parseDuration from "parse-duration";
-import runServer from "../../server/index.js";
+import runServer from "../../app/index.js";
 import migrateCommand from "./migrate.js";
 import syncCommand from "./sync.js";
 

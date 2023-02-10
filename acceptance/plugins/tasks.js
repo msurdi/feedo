@@ -1,6 +1,6 @@
-import * as articles from "../../server/core/articles.js";
-import * as feeds from "../../server/core/feeds.js";
-import db from "../../server/services/db/index.js";
+import * as articles from "../../app/core/articles.js";
+import * as feeds from "../../app/core/feeds.js";
+import db from "../../app/services/db/index.js";
 
 const tasks = {
   async createFeed(feed) {

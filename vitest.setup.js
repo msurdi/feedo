@@ -4,7 +4,7 @@ import { vi } from "vitest";
 
 const rootDir = fileURLToPath(import.meta.url);
 
-vi.mock("./server/services/logger.js", () => ({
+vi.mock("./app/services/logger.js", () => ({
   default: {
     info: vi.fn(),
     warning: vi.fn(),
@@ -13,7 +13,7 @@ vi.mock("./server/services/logger.js", () => ({
 }));
 vi.useFakeTimers();
 
-vi.mock("./server/config.js", () => ({
+vi.mock("./app/config.js", () => ({
   default: {
     port: 8080,
     address: "0.0.0.0",

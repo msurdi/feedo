@@ -2,7 +2,7 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  content: ["./server/views/**/*.{js,ts}"],
+  content: ["./app/views/**/*.{js,ts}"],
   theme: {
     colors: {
       // primary: colors.purple[900],

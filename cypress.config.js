@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from "cypress";
-import appConfig from "./server/config.js";
+import appConfig from "./app/config.js";
 
 export default defineConfig({
   downloadsFolder: "acceptance/downloads",
