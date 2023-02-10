@@ -4,7 +4,7 @@ import touch from "./lib/touch.js";
 
 const runServer = async () => {
   const server = await createApp();
-  server.listen(config.port, config.addres, async () => {
+  server.listen(config.port, config.address, async () => {
     // eslint-disable-next-line no-console
     console.log(`Server Ready at http://${config.address}:${config.port}`);
     if (config.devMode && config.reloadFile) {
