@@ -1,4 +1,4 @@
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/index.js";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library.js";
 
 const getErrorMessageFromPrismaCode = (prismaCode) => {
   switch (prismaCode) {

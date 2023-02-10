@@ -1,4 +1,4 @@
-import execa from "execa";
+import { execa } from "execa";
 
 const migrate = async () => {
   const command = execa("npm run migrate:production", { shell: true });

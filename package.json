@@ -106,7 +106,7 @@
     "cookie-session": "^2.0.0",
     "date-fns": "^2.22.1",
     "downsize": "^0.0.8",
-    "execa": "^5.1.1",
+    "execa": "^6.1.0",
     "expand-home-dir": "^0.0.3",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -126,6 +126,6 @@
     "sanitize-html": "^2.4.0",
     "top-user-agents": "^1.0.50",
     "winston": "^3.3.3",
-    "yup": "^0.32.9"
+    "yup": "^1.0.0"
   }
 }
