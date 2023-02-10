@@ -4,11 +4,15 @@ import FullReload from "vite-plugin-full-reload";
 
 export default defineConfig({
   build: {
+    copyPublicDir: false,
     manifest: true,
     rollupOptions: {
-      input: "assets/app.js",
+      input: ["assets/app.js", "assets/app.css"],
     },
-    outDir: "public/assets",
+    outDir: "public/dist",
+  },
+  server: {
+    origin: "http://localhost:8080",
   },
   test: {
     setupFiles: ["./vitest.setup.js"],

@@ -1,5 +1,6 @@
 import html from "html-string";
 import config from "../../config.js";
+import assets from "../../lib/assets.js";
 import urls from "../../urls.js";
 import link from "./link.js";
 
@@ -30,9 +31,14 @@ const layout = ({ body }) => html`
         <script
           type="module"
           src="http://localhost:5173/assets/app.js"
-        ></script>`}
+        ></script>
+        <link rel="stylesheet" href="http://localhost:5173/assets/app.css" /> `}
       ${!config.devMode &&
-      html`<script src="${urls.public("dist/app.js")}"></script>`}
+      html`<script src="${urls.asset(assets["assets/app.js"].file)}"></script>
+        <link
+          rel="stylesheet"
+          href="${urls.asset(assets["assets/app.css"].file)}"
+        />`}
     </head>
     <body class="h-full bg-gray-100 pt-12">
       <header

@@ -1,14 +1,8 @@
 import { program } from "commander";
-import fs from "fs-extra";
-import { join } from "path";
-import { fileURLToPath } from "url";
+import packageJSON from "../app/lib/package.js";
 import migrate from "./commands/migrate.js";
 import start from "./commands/start.js";
 import sync from "./commands/sync.js";
-
-const packageJSON = fs.readJson(
-  fileURLToPath(join(import.meta.url, "../../package.json"))
-);
 
 const cli = async () => {
   const run = (command) => async (options) => {
