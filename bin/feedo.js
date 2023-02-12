@@ -1,9 +1,9 @@
 #!/usr/bin/env node
+import dotenv from "dotenv";
 
-// Prisma relies on relative directories for schema loading, etc.
-import cli from "../cli/index.js";
+dotenv.config();
 
-// process.chdir(`${__dirname}/..`);
+const cli = (await import("../cli/index.js")).default;
 
 cli().catch((e) => {
   // eslint-disable-next-line no-console
