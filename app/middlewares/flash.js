@@ -1,25 +1,23 @@
 const flashMiddleware = () => async (req, res, next) => {
+  req.session.flash ||= {};
+
   req.flash = (type, message) => {
     if (type && message) {
-      req.flashMessages[type] = message;
+      req.session.flash[type] = message;
       return null;
     }
 
     if (type) {
-      const value = req.flashMessages[type];
-      delete req.flashMessages[type];
+      const value = req.session.flash[type];
+      delete req.session.flash[type];
       return value;
     }
 
-    req.flashMessages = {};
+    req.session.flash = {};
     return null;
   };
 
-  req.flashMessages = req.session.flash || {};
-  const result = await next();
-  req.session.flash = req.flashMessages;
-
-  return result;
+  return next();
 };
 
 export default flashMiddleware;
