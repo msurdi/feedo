@@ -1,7 +1,5 @@
 const flashMiddleware = () => async (req, res, next) => {
   req.flash = (type, message) => {
-    req.flashMessages ||= {};
-
     if (type && message) {
       req.flashMessages[type] = message;
       return null;
@@ -17,7 +15,9 @@ const flashMiddleware = () => async (req, res, next) => {
     return null;
   };
 
+  req.flashMessages = req.session.flash || {};
   const result = await next();
+  req.session.flash = req.flashMessages;
 
   return result;
 };

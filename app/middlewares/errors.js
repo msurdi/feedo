@@ -35,7 +35,7 @@ const errorsMiddleware = async (err, req, res, next) => {
       return req.onValidationErrorHandler(req, res, next);
     }
 
-    return res.status(StatusCodes.UNPROCESSABLE_ENTITY).send(err.message);
+    return res.redirect("back");
   }
 
   if (err instanceof NotFoundError) {
