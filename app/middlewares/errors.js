@@ -3,19 +3,9 @@ import { StatusCodes } from "http-status-codes";
 import config from "../config.js";
 import { NotFoundError, ValidationError } from "../exceptions.js";
 
-const handleInternalRedirect = (req, res) => {
-  req.url = req.headers.referer;
-  req.method = "GET";
-
-  const originalSend = res.send;
-  res.send = function send(body) {
-    if (!this.statusCode || this.statusCode < 400) {
-      this.status(StatusCodes.UNPROCESSABLE_ENTITY);
-    }
-    return originalSend.call(this, body);
-  };
-
-  return req.app.handle(req, res);
+export const validationHandler = (handler) => (req, res, next) => {
+  req.onValidationErrorHandler = handler;
+  return next();
 };
 
 const errorsMiddleware = async (err, req, res, next) => {
@@ -33,11 +23,19 @@ const errorsMiddleware = async (err, req, res, next) => {
       return res.status(StatusCodes.BAD_REQUEST).json(err.errors);
     }
 
-    if (isTurbo) {
-      return handleInternalRedirect(req, res);
+    if (isTurbo && req.onValidationErrorHandler) {
+      const originalSend = res.send;
+      res.send = function send(body) {
+        if (!this.statusCode || this.statusCode < 400) {
+          this.status(StatusCodes.UNPROCESSABLE_ENTITY);
+        }
+        return originalSend.call(this, body);
+      };
+
+      return req.onValidationErrorHandler(req, res, next);
     }
 
-    return res.redirect("back");
+    return res.status(StatusCodes.UNPROCESSABLE_ENTITY).send(err.message);
   }
 
   if (err instanceof NotFoundError) {
