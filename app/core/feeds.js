@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import yup from "yup";
 import validate from "../lib/validate.js";
-import withPrismaErrors from "../lib/with-prisma-errors.js";
 import db from "../services/db/index.js";
 
 const createFeedSchema = yup.object().shape({
@@ -9,19 +8,11 @@ const createFeedSchema = yup.object().shape({
 });
 
 export const createFeed = async ({ url }) => {
-  const { values: feed, errors: validationErrors } = await validate(
-    createFeedSchema,
-    { url }
-  );
-  if (validationErrors) {
-    return { feed, errors: validationErrors };
-  }
-  const { result: newFeed, errors } = await withPrismaErrors(
-    db.feed.create({
-      data: { ...feed, name: "unknown" },
-    })
-  );
-  return { feed: newFeed ?? feed, errors };
+  const values = await validate(createFeedSchema, { url });
+
+  return db.feed.create({
+    data: { ...values, name: "unknown" },
+  });
 };
 
 export const getFeed = async (id) => db.feed.findUnique({ where: { id } });

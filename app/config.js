@@ -41,6 +41,7 @@ const config = {
   reloadFile: path.join(rootDir, ".reload"),
   publicRoot: path.resolve(path.join(rootDir, "public")),
   helmet: {
+    referrerPolicy: { policy: "same-origin" },
     crossOriginEmbedderPolicy: !devMode,
     contentSecurityPolicy: isAuthEnabled && !devMode,
     hsts: isAuthEnabled && !devMode,

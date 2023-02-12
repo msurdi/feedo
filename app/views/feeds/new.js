@@ -36,5 +36,4 @@ const newFeedView = ({ feed, errors } = {}) =>
       </div>
     `,
   });
-
 export default newFeedView;

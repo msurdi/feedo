@@ -1,5 +1,4 @@
 import express from "express";
-import { StatusCodes } from "http-status-codes";
 import { createFeed, getAllFeeds, removeFeed } from "../core/feeds.js";
 import urls from "../urls.js";
 import feedsView from "../views/feeds.js";
@@ -13,19 +12,13 @@ router.get(urls.feeds(), async (req, res) => {
 });
 
 router.get(urls.newFeed(), async (req, res) =>
-  res.send(newFeedView({ req }).render())
+  res.send(newFeedView({ errors: req.flash("errors") }).render())
 );
 
 router.post(urls.newFeed(), async (req, res) => {
   const { url } = req.body;
 
-  const { feed, errors } = await createFeed({ url });
-
-  if (errors) {
-    return res
-      .status(StatusCodes.BAD_REQUEST)
-      .send(newFeedView({ req, feed, errors }).render());
-  }
+  await createFeed({ url });
 
   return res.redirect(urls.feeds());
 });
