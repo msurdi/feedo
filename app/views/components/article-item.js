@@ -10,7 +10,6 @@ const articleItem = ({ article }) => html`
     class="px-2 py-6 flex flex-col break-words ${article.isRead
       ? "opacity-50"
       : ""}"
-    ${!article.isRead ? "up-submit-observer" : ""}
     data-submit-observer-threshold="0.4"
     data-submit-observer-form="#form-mark-as-read-${article.id}"
   >
@@ -25,7 +24,6 @@ const articleItem = ({ article }) => html`
     <form
       id="form-mark-as-read-${article.id}"
       action="${urls.markAsRead()}"
-      up-target="#article-${article.id}"
       method="post"
     >
       <input type="hidden" name="articleIds[]" value="${article.id}" />

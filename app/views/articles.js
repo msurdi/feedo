@@ -17,19 +17,10 @@ const articlesView = ({ articles, hasMoreArticles }) =>
       html`
         <div
           id="fetch-more"
-          up-hungry
-          up-submit-observer
           data-submit-observer-form="#fetch-more-form"
           data-submit-observer-mode="enter-bottom"
         >
-          <form
-            id="fetch-more-form"
-            method="get"
-            action="${urls.home()}"
-            up-hungry
-            up-submit
-            up-target="#articles-list:after"
-          >
+          <form id="fetch-more-form" method="get" action="${urls.home()}">
             <input
               type="hidden"
               name="afterArticleId"
@@ -38,7 +29,7 @@ const articlesView = ({ articles, hasMoreArticles }) =>
           </form>
         </div>
       `}
-      <div id="no-more-articles" up-hungry class="h-[calc(100vh-5rem)]">
+      <div id="no-more-articles" class="h-[calc(100vh-5rem)]">
         ${!hasMoreArticles &&
         html`<div id="articles-list"></div>
           <div id="fetch-more"></div>

@@ -8,11 +8,17 @@ const router = express.Router();
 
 router.get(urls.feeds(), async (req, res) => {
   const feeds = await getAllFeeds();
+
   return res.send(feedsView({ req, feeds }).render());
 });
 
 router.get(urls.newFeed(), async (req, res) =>
-  res.send(newFeedView({ errors: req.flash("errors") }).render())
+  res.send(
+    newFeedView({
+      values: req.flash("values"),
+      errors: req.flash("errors"),
+    }).render()
+  )
 );
 
 router.post(urls.newFeed(), async (req, res) => {
@@ -25,7 +31,9 @@ router.post(urls.newFeed(), async (req, res) => {
 
 router.post(urls.deleteFeed(":feedId"), async (req, res) => {
   const { feedId } = req.params;
+
   await removeFeed(feedId);
+
   return res.redirect(urls.feeds());
 });
 

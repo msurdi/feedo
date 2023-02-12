@@ -16,32 +16,32 @@ const feedsView = ({ feeds } = {}) =>
         })}
       </div>
       <div class="py-4">
-        <ul id="feed-list" class="divide-y divide-gray-300">
-          ${feeds.map(
-            (feed) => html`
-              <li>
-                <div
-                  class="flex flex-col items-start sm:flex-row sm:justify-between py-2 sm:items-baseline"
-                >
-                  ${feed.url}
-                  <form
-                    up-target="#feed-list"
-                    up-method="delete"
-                    up-confirm="Are you sure?"
-                    action="${urls.deleteFeed(feed.id)}"
-                    class="flex flex-col"
+        <turbo-frame id="feed-list">
+          <ul id="feed-list" class="divide-y divide-gray-300">
+            ${feeds.map(
+              (feed) => html`
+                <li>
+                  <div
+                    class="flex flex-col items-start sm:flex-row sm:justify-between py-2 sm:items-baseline"
                   >
-                    ${button("Unsubscribe", {
-                      variant: button.variants.danger,
-                      upDisable: true,
-                      dataDisableWith: "Unsubscribing...",
-                    })}
-                  </form>
-                </div>
-              </li>
-            `
-          )}
-        </ul>
+                    ${feed.url}
+                    <form
+                      method="post"
+                      action="${urls.deleteFeed(feed.id)}"
+                      class="flex flex-col"
+                    >
+                      ${button("Unsubscribe", {
+                        variant: button.variants.danger,
+                        upDisable: true,
+                        dataDisableWith: "Unsubscribing...",
+                      })}
+                    </form>
+                  </div>
+                </li>
+              `
+            )}
+          </ul>
+        </turbo-frame>
       </div>
     `,
   });

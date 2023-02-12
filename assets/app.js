@@ -1,10 +1,8 @@
-import "unpoly";
 import "./app.css";
-import "./compilers/up-disable.js";
-import "./compilers/up-submit-observer.js";
+import Stimulus from "./lib/stimulus.js";
+import Turbo from "./lib/turbo.js";
 
-up.log.config.banner = false;
+Stimulus.debug = process.env.NODE_ENV === "development";
 
-if (process.env.NODE_ENV === "development") {
-  up.log.enable();
-}
+window.Turbo = Turbo;
+window.Stimulus = Stimulus;
