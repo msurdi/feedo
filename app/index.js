@@ -1,8 +1,10 @@
 import createApp from "./app.js";
 import config from "./config.js";
 import touch from "./lib/touch.js";
+import { setupDatabase as initDb } from "./services/db.js";
 
 const runServer = async () => {
+  await initDb();
   const server = await createApp();
   server.listen(config.port, config.address, async () => {
     // eslint-disable-next-line no-console

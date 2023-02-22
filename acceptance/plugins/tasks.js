@@ -1,17 +1,18 @@
 import * as articles from "../../app/core/articles.js";
 import * as feeds from "../../app/core/feeds.js";
-import db from "../../app/services/db/index.js";
+import Article from "../../app/models/article.js";
+import Feed from "../../app/models/feed.js";
 
 const tasks = {
-  async createFeed(feed) {
-    return feeds.createFeed(feed);
+  async createFeed(values) {
+    return feeds.createFeed(values);
   },
-  async createArticle(article) {
-    return articles.putArticle(article);
+  async createArticle(values) {
+    return articles.putArticle(values);
   },
   async resetDatabase() {
-    await db.article.deleteMany({});
-    await db.feed.deleteMany({});
+    await Article.destroy({ truncate: true });
+    await Feed.destroy({ truncate: true });
     return null;
   },
 };

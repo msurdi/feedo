@@ -5,13 +5,6 @@ import os from "os";
 import path from "path";
 import randomstring from "randomstring";
 
-const homedir = os.homedir();
-
-// Ensure a default database is set for Prisma to work
-if (!process.env.FEEDO_DATABASE_URL) {
-  process.env.FEEDO_DATABASE_URL = `file:${homedir}/.feedo.db`;
-}
-
 const env = (name) => {
   const normalizedName = name.toUpperCase();
   const appSpecificEnv = `FEEDO_${normalizedName}`;
@@ -37,7 +30,7 @@ const config = {
   },
   rootDir,
   dataDir,
-  dbUrl: env("DATABASE_URL"),
+  databasePath: env("DATABASE_PATH") ?? path.join(dataDir, "feedo.db"),
   reloadFile: path.join(rootDir, ".reload"),
   publicRoot: path.resolve(path.join(rootDir, "public")),
   helmet: {

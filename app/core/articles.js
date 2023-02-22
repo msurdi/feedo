@@ -1,21 +1,9 @@
-import { formatDistanceToNowStrict } from "date-fns";
-import downsize from "downsize";
-import db from "../services/db/index.js";
+import { Op } from "sequelize";
+import Article from "../models/article.js";
 import { getOldestDate } from "./is-expired.js";
 
-const asArticle = (article) => ({
-  ...article,
-  excerpt: downsize(article.content, { words: 70, append: "..." }),
-  timeAgo: formatDistanceToNowStrict(article.publishedAt),
-});
-
-export const getArticle = async (articleId) => {
-  const article = await db.article.findUnique({ where: { id: articleId } });
-  if (article) {
-    return asArticle(article);
-  }
-  return null;
-};
+export const getArticle = async (articleId) =>
+  Article.findOne({ where: { id: articleId } });
 
 export const putArticle = async ({
   guid,
@@ -26,63 +14,60 @@ export const putArticle = async ({
   content,
   commentsLink,
   feedId,
-}) =>
-  db.article.upsert({
-    where: { guid_feedId: { feedId, guid } },
-    update: { link, title, content, commentsLink, author, publishedAt },
-    create: {
-      link,
-      title,
-      content,
-      commentsLink,
-      author,
-      publishedAt,
-      guid,
-      Feed: { connect: { id: feedId } },
-    },
+}) => {
+  const [article] = await Article.upsert({
+    link,
+    title,
+    content,
+    commentsLink,
+    author,
+    publishedAt,
+    feedId,
+    guid,
   });
-
-export const getAllArticles = async () => {
-  const articles = await db.article.findMany();
-  return articles.map(asArticle);
+  return article;
 };
+
+export const getAllArticles = async () => Article.findAll();
 
 export const getUnreadArticles = async ({
   afterArticleId,
   pageSize = 10,
-} = {}) => {
-  const paginationParams = {
-    cursor: {
-      id: afterArticleId,
+} = {}) =>
+  Article.findAll({
+    where: {
+      isRead: false,
+      id: {
+        [Op.gt]: afterArticleId ?? 0,
+      },
     },
-    skip: 1,
-  };
-
-  const articles = await db.article.findMany({
-    where: { isRead: false },
-    take: pageSize,
-    orderBy: [{ createdAt: "asc" }, { id: "asc" }],
-    ...(afterArticleId ? paginationParams : {}),
+    order: [["id", "ASC"]],
+    limit: pageSize,
   });
-  return articles.map(asArticle);
-};
 
-export const getArticlesByIds = async (articleIds) => {
-  const articles = await db.article.findMany({
-    where: { id: { in: articleIds } },
+export const getArticlesByIds = async (articleIds) =>
+  Article.findAll({
+    where: { id: { [Op.in]: articleIds } },
   });
-  return articles.map(asArticle);
-};
 
 export const markArticlesAsRead = async (articleIds) =>
-  db.article.updateMany({
-    data: { isRead: true },
-    where: { id: { in: articleIds } },
-  });
+  Article.update(
+    {
+      isRead: true,
+    },
+    {
+      where: { id: { [Op.in]: articleIds } },
+    }
+  );
 
 export const removeReadAndExpiredArticles = async () => {
   const oldestArticleDate = getOldestDate();
-  await db.article.deleteMany({
-    where: { isRead: true, publishedAt: { lt: oldestArticleDate } },
+
+  await Article.destroy({
+    where: {
+      isRead: true,
+      publishedAt: { [Op.lt]: oldestArticleDate },
+    },
+    force: true,
   });
 };

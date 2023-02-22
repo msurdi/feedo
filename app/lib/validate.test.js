@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import yup from "yup";
+import { ValidationError } from "../exceptions.js";
 import validate from "./validate.js";
 
 const testSchema = yup.object().shape({
@@ -10,13 +11,17 @@ describe("validate", () => {
   describe("when there are validation errors", () => {
     let validationResult;
 
-    beforeEach(async () => {
-      validationResult = await validate(testSchema, { url: "not_an_url" });
+    beforeEach(() => {
+      validationResult = validate(testSchema, { url: "not_an_url" });
     });
-    it("returns validation result in the expected format", () => {
-      expect(validationResult).toMatchObject({
-        errors: { url: ["url must be a valid URL"] },
-        values: { url: "not_an_url" },
+
+    it("throws a validation error", async () => {
+      await expect(validationResult).rejects.toThrowError(ValidationError);
+    });
+
+    it("validation error contains field error messages", async () => {
+      await expect(validationResult).rejects.toHaveProperty("errors", {
+        url: ["url must be a valid URL"],
       });
     });
   });
@@ -25,15 +30,13 @@ describe("validate", () => {
     let validationResult;
 
     beforeEach(async () => {
-      validationResult = await validate(testSchema, {
+      validationResult = validate(testSchema, {
         url: "http://example.com",
       });
     });
-    it("returns validation result in the expected format", () => {
-      expect(validationResult).toMatchObject({
-        errors: null,
-        values: { url: "http://example.com" },
-      });
+
+    it("returns validation result in the expected format", async () => {
+      await expect(validationResult).resolves.not.toThrow();
     });
   });
 });

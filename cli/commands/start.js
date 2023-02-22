@@ -1,6 +1,5 @@
 import parseDuration from "parse-duration";
 import runServer from "../../app/index.js";
-import migrateCommand from "./migrate.js";
 import syncCommand from "./sync.js";
 
 let syncing = false;
@@ -21,11 +20,7 @@ const periodicSync = async () => {
   }
 };
 
-const start = async ({ migrate, sync }) => {
-  if (migrate) {
-    await migrateCommand();
-  }
-
+const start = async ({ sync }) => {
   const syncInterval = parseDuration(sync);
 
   if (syncInterval) {

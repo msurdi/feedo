@@ -18,17 +18,15 @@ describe("Articles view", () => {
   beforeEach(() => {
     fakeArticles = [];
     cy.task("resetDatabase");
-    cy.task("createFeed", { url: "https://example.com/rss" }).then(
-      ({ feed }) => {
-        [...Array(25)].forEach(() => {
-          cy.task("createArticle", createFakeArticle({ feedId: feed.id })).then(
-            (fakeArticle) => {
-              fakeArticles.push(fakeArticle);
-            }
-          );
-        });
-      }
-    );
+    cy.task("createFeed", { url: "https://example.com/rss" }).then((feed) => {
+      [...Array(25)].forEach(() => {
+        cy.task("createArticle", createFakeArticle({ feedId: feed.id })).then(
+          (fakeArticle) => {
+            fakeArticles.push(fakeArticle);
+          }
+        );
+      });
+    });
     cy.visit("/", {
       auth: {
         username: Cypress.env("username"),

@@ -1,32 +1,38 @@
 /* eslint-disable no-underscore-dangle */
 import yup from "yup";
 import validate from "../lib/validate.js";
-import db from "../services/db/index.js";
+import Article from "../models/article.js";
+import Feed from "../models/feed.js";
+import { sequelize } from "../services/db.js";
+import uniqueValidation from "../validations/unique.js";
 
 const createFeedSchema = yup.object().shape({
-  url: yup.string().trim().url().required(),
+  url: yup
+    .string()
+    .trim()
+    .url()
+    .required()
+    .test(uniqueValidation({ model: Feed, field: "url" })),
 });
 
 export const createFeed = async ({ url }) => {
   const values = await validate(createFeedSchema, { url });
-
-  return db.feed.create({
-    data: { ...values, name: "unknown" },
-  });
+  return Feed.create(values);
 };
 
-export const getFeed = async (id) => db.feed.findUnique({ where: { id } });
+export const getFeed = async (id) => Feed.findOne({ where: { id } });
 
 export const removeFeed = async (id) => {
-  const deleteFeedArticles = db.article.deleteMany({ where: { feedId: id } });
-  const deleteFeed = db.feed.delete({ where: { id } });
-  await db.$transaction([deleteFeedArticles, deleteFeed]);
+  const t = await sequelize.transaction();
+  await Article.destroy({ where: { feedId: id } }, { transaction: t });
+  await Feed.destroy({ where: { id } }, { transaction: t });
+  await t.commit();
 };
 
-export const getAllFeeds = async () => db.feed.findMany();
+export const getAllFeeds = async () => Feed.findAll();
 
 export const setFeedLastError = async (feedId, lastError) =>
-  db.feed.update({ where: { id: feedId }, data: { lastError } });
+  Feed.update({ lastError }, { where: { id: feedId } });
 
 export const clearFeedLastError = async (feedId) =>
-  db.feed.update({ where: { id: feedId }, data: { lastError: null } });
+  Feed.update({ lastError: null }, { where: { id: feedId } });

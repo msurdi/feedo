@@ -1,10 +1,11 @@
 import { program } from "commander";
 import packageJSON from "../app/lib/package.js";
-import migrate from "./commands/migrate.js";
+import { setupDatabase } from "../app/services/db.js";
 import start from "./commands/start.js";
 import sync from "./commands/sync.js";
 
 const cli = async () => {
+  await setupDatabase();
   const run = (command) => async (options) => {
     try {
       await command(options);
@@ -20,7 +21,6 @@ const cli = async () => {
 
   program
     .command("start")
-    .option("-m, --migrate", "Automatically run migrations")
     .option(
       "-s, --sync <minutes>",
       "Automatically sync feeds periodically",
@@ -30,11 +30,6 @@ const cli = async () => {
     .action(run(start));
 
   program.command("sync").description("Sync all feeds").action(run(sync));
-
-  program
-    .command("migrate")
-    .description("Migrate the database to the latest schema")
-    .action(run(migrate));
 
   program.parse(process.argv);
 };

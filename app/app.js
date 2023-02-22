@@ -10,7 +10,6 @@ import handlers from "./handlers/index.js";
 import authMiddleware from "./middlewares/auth.js";
 import errorsMiddleware from "./middlewares/errors.js";
 import flashMiddleware from "./middlewares/flash.js";
-import prismaMiddleware from "./middlewares/prisma.js";
 import logger from "./services/logger.js";
 import urls from "./urls.js";
 
@@ -29,7 +28,6 @@ export default async () => {
   app.use(helmet(config.helmet));
   app.use(urls.public(), express.static(config.publicRoot));
   app.use(handlers);
-  app.use(prismaMiddleware);
   app.use(errorsMiddleware);
 
   return app;
