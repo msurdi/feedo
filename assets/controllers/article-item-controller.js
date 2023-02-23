@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus";
 import { milliseconds } from "date-fns";
 import { debounce } from "lodash-es";
 import { useIntersection } from "stimulus-use";
-import urls from "../../app/urls.js";
+import { apiUrl } from "../../app/urls.js";
 
 const loadReadArticles = () => JSON.parse(localStorage.getItem("readArticles"));
 
@@ -12,7 +12,7 @@ const saveReadArticles = (newReadArticles) =>
 const readArticles = new Set(loadReadArticles());
 
 const syncReadArticles = async () => {
-  const response = await fetch(urls.api.read(), {
+  const response = await fetch(apiUrl.read(), {
     method: "POST",
     body: JSON.stringify({ articleIds: [...readArticles] }),
     headers: {
