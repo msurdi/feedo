@@ -3,14 +3,12 @@ import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import config from "../config.js";
 import {
   getArticle,
-  getArticlesByIds,
   getUnreadArticles,
   markArticlesAsRead,
 } from "../core/articles.js";
 import urls from "../urls.js";
 import articlesView from "../views/articles.js";
 import articleDetailView from "../views/articles/detail.js";
-import articlesList from "../views/components/articles-list.js";
 
 const router = express.Router();
 
@@ -42,18 +40,16 @@ router.get(urls.articleDetail(":articleId"), async (req, res) => {
   if (!article) {
     return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
   }
+
   return res.send(articleDetailView({ article }).render());
 });
 
-router.post(urls.markAsRead(), async (req, res) => {
+router.post(urls.api.read(), async (req, res) => {
   const { articleIds } = req.body;
+
   await markArticlesAsRead(articleIds);
-  const updatedArticles = await getArticlesByIds(articleIds);
-  return res.send(
-    articlesList({
-      articles: updatedArticles,
-    }).render()
-  );
+
+  return res.send({ markedAsRead: articleIds });
 });
 
 export default router;

@@ -50,7 +50,7 @@ export const getArticlesByIds = async (articleIds) =>
     where: { id: { [Op.in]: articleIds } },
   });
 
-export const markArticlesAsRead = async (articleIds) =>
+export const markArticlesAsRead = async (articleIds) => {
   Article.update(
     {
       isRead: true,
@@ -59,6 +59,7 @@ export const markArticlesAsRead = async (articleIds) =>
       where: { id: { [Op.in]: articleIds } },
     }
   );
+};
 
 export const removeReadAndExpiredArticles = async () => {
   const oldestArticleDate = getOldestDate();

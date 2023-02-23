@@ -10,8 +10,9 @@ const articleItem = ({ article }) => html`
     class="px-2 py-6 flex flex-col break-words ${article.isRead
       ? "opacity-50"
       : ""}"
-    data-submit-observer-threshold="0.4"
-    data-submit-observer-form="#form-mark-as-read-${article.id}"
+    data-controller="article-item"
+    data-article-item-id-value="${article.id}"
+    data-article-item-read-class="opacity-50"
   >
     ${articleTitle({
       article,
@@ -21,13 +22,6 @@ const articleItem = ({ article }) => html`
     <section class="text-gray-600 mt-2 prose max-w-full prose-purple">
       ${sanitizeHtml(article.excerpt)}:safe
     </section>
-    <form
-      id="form-mark-as-read-${article.id}"
-      action="${urls.markAsRead()}"
-      method="post"
-    >
-      <input type="hidden" name="articleIds[]" value="${article.id}" />
-    </form>
   </article>
 `;
 

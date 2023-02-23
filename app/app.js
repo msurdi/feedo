@@ -20,6 +20,7 @@ export default async () => {
 
   app.use(authMiddleware({ excludeUrls: [urls.status()] }));
   app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
   app.use(cookieParser());
   app.use(cookieSession(config.session));
   app.use(flashMiddleware());

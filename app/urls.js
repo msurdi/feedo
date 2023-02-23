@@ -7,5 +7,7 @@ export default {
   newFeed: () => "/feeds/new",
   deleteFeed: (feedId) => `/feeds/${feedId}/delete`,
   articleDetail: (articleId) => `/articles/${articleId}`,
-  markAsRead: () => `/read`,
+  api: {
+    read: () => `/api/read`,
+  },
 };
