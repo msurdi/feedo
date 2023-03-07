@@ -10,6 +10,7 @@ import handlers from "./handlers/index.js";
 import authMiddleware from "./middlewares/auth.js";
 import errorsMiddleware from "./middlewares/errors.js";
 import flashMiddleware from "./middlewares/flash.js";
+import turboMiddleware from "./middlewares/turbo.js";
 import logger from "./services/logger.js";
 import urls from "./urls.js";
 
@@ -18,6 +19,7 @@ export default async () => {
 
   app.set("trust proxy", true);
 
+  app.use(turboMiddleware());
   app.use(authMiddleware({ excludeUrls: [urls.status()] }));
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());

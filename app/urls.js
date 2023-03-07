@@ -6,6 +6,8 @@ export const feedsUrl = () => "/feeds";
 export const newFeedUrl = () => "/feeds/new";
 export const deleteFeedUrl = (feedId) => `/feeds/${feedId}/delete`;
 export const articleDetailUrl = (articleId) => `/articles/${articleId}`;
+export const moreArticlesUrl = () => "/more";
+
 export const apiUrl = {
   read: () => `/api/read`,
 };
@@ -19,5 +21,6 @@ export default {
   newFeed: newFeedUrl,
   deleteFeed: deleteFeedUrl,
   articleDetail: articleDetailUrl,
+  moreArticles: moreArticlesUrl,
   api: apiUrl,
 };

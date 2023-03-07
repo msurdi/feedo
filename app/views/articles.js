@@ -10,25 +10,20 @@ const articlesView = ({ articles, hasMoreArticles }) =>
       html`
         ${articlesList({
           articles,
-          id: "articles-list",
+          id: "article-list",
         })}
       `}
-      ${hasMoreArticles &&
-      html`
-        <div
-          id="fetch-more"
-          data-submit-observer-form="#fetch-more-form"
-          data-submit-observer-mode="enter-bottom"
-        >
-          <form id="fetch-more-form" method="get" action="${urls.home()}">
-            <input
-              type="hidden"
-              name="afterArticleId"
-              value="${articles.slice(-1)[0].id}"
-            />
-          </form>
-        </div>
-      `}
+      <form
+        data-controller="fetch-more"
+        method="get"
+        action="${urls.moreArticles()}"
+      >
+        <input
+          type="hidden"
+          name="afterArticleId"
+          value="${articles.slice(-1)[0].id}"
+        />
+      </form>
       <div id="no-more-articles" class="h-[calc(100vh-5rem)]">
         ${!hasMoreArticles &&
         html`<div id="articles-list"></div>

@@ -9,6 +9,7 @@ import {
 import urls from "../urls.js";
 import articlesView from "../views/articles.js";
 import articleDetailView from "../views/articles/detail.js";
+import articleItem from "../views/components/article-item.js";
 
 const router = express.Router();
 
@@ -20,17 +21,10 @@ router.get(urls.home(), async (req, res) => {
   const { afterArticleId } = req.query;
   const unreadArticles = await getUnreadArticles({
     afterArticleId,
-    pageSize: unreadPageSize + 1,
+    pageSize: unreadPageSize,
   });
-  const hasMoreArticles = unreadArticles.length === unreadPageSize + 1;
 
-  if (hasMoreArticles) {
-    unreadArticles.pop();
-  }
-
-  res.send(
-    articlesView({ req, articles: unreadArticles, hasMoreArticles }).render()
-  );
+  res.send(articlesView({ articles: unreadArticles }).render());
 });
 
 router.get(urls.articleDetail(":articleId"), async (req, res) => {
@@ -50,6 +44,22 @@ router.post(urls.api.read(), async (req, res) => {
   await markArticlesAsRead(articleIds);
 
   return res.send({ markedAsRead: articleIds });
+});
+
+router.get(urls.moreArticles(), async (req, res) => {
+  const { afterArticleId } = req.query;
+  const unreadArticles = await getUnreadArticles({
+    afterArticleId,
+    pageSize: unreadPageSize,
+  });
+
+  res.turboStream
+    .append(
+      "article-list",
+      unreadArticles.map((article) => articleItem({ article }))
+    )
+    // .replace("more-articles", "")
+    .send();
 });
 
 export default router;
