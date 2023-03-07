@@ -10,9 +10,11 @@ const articleItem = ({ article }) => html`
     class="px-2 py-6 flex flex-col break-words ${article.isRead
       ? "opacity-50"
       : ""}"
-    data-controller="article-item"
-    data-article-item-id-value="${article.id}"
-    data-article-item-read-class="opacity-50"
+    data-controller="mark-as-read"
+    data-mark-as-read-key-value="articles"
+    data-mark-as-read-url-value="${urls.api.read()}"
+    data-mark-as-read-id-value="${article.id}"
+    data-mark-as-read-read-class="opacity-50"
   >
     ${articleTitle({
       article,

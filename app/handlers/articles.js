@@ -39,11 +39,11 @@ router.get(urls.articleDetail(":articleId"), async (req, res) => {
 });
 
 router.post(urls.api.read(), async (req, res) => {
-  const { articleIds } = req.body;
+  const articleIds = req.body;
 
   await markArticlesAsRead(articleIds);
 
-  return res.send({ markedAsRead: articleIds });
+  return res.send({ read: articleIds });
 });
 
 router.get(urls.moreArticles(), async (req, res) => {
