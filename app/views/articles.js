@@ -3,10 +3,10 @@ import urls from "../urls.js";
 import articlesList from "./components/articles-list.js";
 import layout from "./components/layout.js";
 
-const articlesView = ({ articles, hasMoreArticles }) =>
+const articlesView = ({ articles = [], hasMoreArticles }) =>
   layout({
     body: html`
-      ${!!articles.length &&
+      ${articles.length > 0 &&
       html`
         ${articlesList({
           articles,
@@ -21,7 +21,7 @@ const articlesView = ({ articles, hasMoreArticles }) =>
         <input
           type="hidden"
           name="afterArticleId"
-          value="${articles.slice(-1)[0].id}"
+          value="${articles.slice(-1)[0]?.id}"
         />
       </form>
       <div id="no-more-articles" class="h-[calc(100vh-5rem)]">
