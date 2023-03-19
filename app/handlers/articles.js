@@ -7,6 +7,7 @@ import {
   getUnreadArticles,
   markArticlesAsRead,
 } from "../core/articles.js";
+import turbo from "../lib/turbo.js";
 import urls from "../urls.js";
 import articlesView from "../views/articles.js";
 import articleDetailView from "../views/articles/detail.js";
@@ -55,7 +56,7 @@ router.get(urls.moreArticles(), async (req, res) => {
     pageSize: unreadPageSize,
   });
 
-  res.turboStream
+  return turbo(res)
     .append(
       "article-list",
       unreadArticles.map((article) => articleItem({ article }))

@@ -6,7 +6,7 @@ const stream = (action, target, content) => html`
   </turbo-stream>
 `;
 
-const TurboStream = (res) => {
+const turbo = (res) => {
   const streams = [];
 
   const turboStream = {
@@ -45,10 +45,4 @@ const TurboStream = (res) => {
   return turboStream;
 };
 
-const turboMiddleware = () => (req, res, next) => {
-  res.turboStream = TurboStream(res);
-
-  return next();
-};
-
-export default turboMiddleware;
+export default turbo;
