@@ -6,7 +6,15 @@ import { useIntersection } from "stimulus-use";
 const readItemsMap = {};
 
 export default class extends Controller {
-  static values = { id: Number, key: String, url: String };
+  static values = {
+    id: Number,
+    key: String,
+    url: String,
+    isRead: {
+      type: Boolean,
+      default: false,
+    },
+  };
 
   static classes = ["read"];
 
@@ -48,16 +56,20 @@ export default class extends Controller {
   #debouncedSyncItems = debounce(this.#syncItems, milliseconds({ seconds: 5 }));
 
   disappear(entry) {
+    if (this.isReadValue) {
+      return;
+    }
     const { boundingClientRect } = entry;
-
     if (boundingClientRect.top < 0) {
-      this.#disappearUp();
+      this.isReadValue = true;
     }
   }
 
-  #disappearUp() {
-    this.#markAsRead(this.idValue);
-    this.element.classList.add(this.readClass);
+  isReadValueChanged(isRead) {
+    if (isRead) {
+      this.#markAsRead(this.idValue);
+      this.element.classList.add(this.readClass);
+    }
   }
 
   connect() {
@@ -70,11 +82,11 @@ export default class extends Controller {
 
     useIntersection(this, {
       eventPrefix: false,
-      rootMargin: "0px 0px 0px 0px",
+      rootMargin: "-100px 0px 0px 0px",
     });
 
     if (this.readItems.has(this.idValue)) {
-      this.element.classList.add(this.readClass);
+      this.isReadValue = true;
     }
   }
 }
