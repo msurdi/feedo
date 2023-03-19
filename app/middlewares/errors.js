@@ -1,7 +1,9 @@
 import accepts from "accepts";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import Youch from "youch";
+import { ValidationError } from "yup";
 import config from "../config.js";
-import { NotFoundError, ValidationError } from "../exceptions.js";
+import { NotFoundError } from "../exceptions.js";
 
 export const validationHandler = (handler) => (req, res, next) => {
   req.onValidationErrorHandler = handler;
@@ -46,10 +48,20 @@ const errorsMiddleware = async (err, req, res, next) => {
     // eslint-disable-next-line no-console
     console.error(err);
 
-    const message = config.devMode
-      ? err.stack
-      : ReasonPhrases.INTERNAL_SERVER_ERROR;
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ message });
+    if (config.devMode) {
+      const youch = new Youch(err, req);
+      const html = await youch.toHTML();
+
+      res.writeHead(StatusCodes.INTERNAL_SERVER_ERROR, {
+        "content-type": "text/html",
+      });
+      res.write(html);
+      return res.end();
+    }
+
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send(ReasonPhrases.INTERNAL_SERVER_ERROR);
   }
 
   return next();

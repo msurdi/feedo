@@ -27,7 +27,7 @@ router.get(urls.home(), async (req, res) => {
     pageSize: unreadPageSize,
   });
 
-  res.send(html.render(articlesView({ articles: unreadArticles })));
+  return res.send(html.render(articlesView({ articles: unreadArticles })));
 });
 
 router.get(urls.articleDetail(":articleId"), async (req, res) => {
