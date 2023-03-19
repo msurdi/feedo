@@ -1,6 +1,6 @@
 import html from "html-string";
-import urls from "../urls.js";
 import articlesList from "./components/articles-list.js";
+import fetchMore from "./components/fetch-more.js";
 import layout from "./components/layout.js";
 
 const articlesView = ({ articles = [], hasMoreArticles }) =>
@@ -13,21 +13,13 @@ const articlesView = ({ articles = [], hasMoreArticles }) =>
           id: "article-list",
         })}
       `}
-      <form
-        data-controller="fetch-more"
-        method="get"
-        action="${urls.moreArticles()}"
-      >
-        <input
-          type="hidden"
-          name="afterArticleId"
-          value="${articles.slice(-1)[0]?.id}"
-        />
-      </form>
-      <div id="no-more-articles" class="h-[calc(100vh-5rem)]">
+      ${fetchMore({
+        id: "fetch-more",
+        afterArticleId: articles.slice(-1)[0]?.id,
+      })}
+      <div class="h-[calc(100vh-5rem)]">
         ${!hasMoreArticles &&
         html`<div id="articles-list"></div>
-          <div id="fetch-more"></div>
           <div class="flex flex-col justify-center items-center h-full">
             <span class="text-gray-400">That's all for now.</span>
           </div>`}

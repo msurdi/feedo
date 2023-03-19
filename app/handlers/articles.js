@@ -11,6 +11,7 @@ import urls from "../urls.js";
 import articlesView from "../views/articles.js";
 import articleDetailView from "../views/articles/detail.js";
 import articleItem from "../views/components/article-item.js";
+import fetchMore from "../views/components/fetch-more.js";
 
 const router = express.Router();
 
@@ -59,7 +60,13 @@ router.get(urls.moreArticles(), async (req, res) => {
       "article-list",
       unreadArticles.map((article) => articleItem({ article }))
     )
-    // .replace("more-articles", "")
+    .replace(
+      "fetch-more",
+      fetchMore({
+        id: "fetch-more",
+        afterArticleId: unreadArticles.slice(-1)[0]?.id,
+      })
+    )
     .send();
 });
 
