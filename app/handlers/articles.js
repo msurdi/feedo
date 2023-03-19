@@ -1,4 +1,5 @@
 import express from "express";
+import html from "html-string";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import config from "../config.js";
 import {
@@ -24,7 +25,7 @@ router.get(urls.home(), async (req, res) => {
     pageSize: unreadPageSize,
   });
 
-  res.send(articlesView({ articles: unreadArticles }).render());
+  res.send(html.render(articlesView({ articles: unreadArticles })));
 });
 
 router.get(urls.articleDetail(":articleId"), async (req, res) => {
@@ -35,7 +36,7 @@ router.get(urls.articleDetail(":articleId"), async (req, res) => {
     return res.status(StatusCodes.NOT_FOUND).send(ReasonPhrases.NOT_FOUND);
   }
 
-  return res.send(articleDetailView({ article }).render());
+  return res.send(html.render(articleDetailView({ article })));
 });
 
 router.post(urls.api.read(), async (req, res) => {

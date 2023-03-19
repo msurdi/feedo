@@ -22,7 +22,7 @@ const articleItem = ({ article }) => html`
     })}
     ${articleMeta({ article })}
     <section class="text-gray-600 mt-2 prose max-w-full prose-purple">
-      ${sanitizeHtml(article.excerpt)}:safe
+      ${html.unsafe(sanitizeHtml(article.excerpt))}
     </section>
   </article>
 `;

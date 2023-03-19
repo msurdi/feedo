@@ -15,7 +15,7 @@ const articleDetailView = ({ article }) =>
         })}
         ${articleMeta({ article })}
         <div class="text-gray-600 mt-2 prose max-w-full prose-purple">
-          ${sanitizeHtml(article.content)}:safe
+          ${html.unsafe(sanitizeHtml(article.content))}
         </div>
       </article>
       <div class="flex flex-row justify-center">

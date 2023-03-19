@@ -24,7 +24,7 @@ const button = (
 ) => html` <button
   class="${getClassesForVariant(variant)}"
   type="${type}"
-  ${attrs}:attrs
+  ${html.attrs(attrs)}
 >
   ${children}
 </button>`;

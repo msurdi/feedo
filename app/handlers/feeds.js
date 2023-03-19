@@ -1,4 +1,5 @@
 import express from "express";
+import html from "html-string";
 import { createFeed, getAllFeeds, removeFeed } from "../core/feeds.js";
 import { validationHandler } from "../middlewares/errors.js";
 import urls from "../urls.js";
@@ -10,15 +11,17 @@ const router = express.Router();
 router.get(urls.feeds(), async (req, res) => {
   const feeds = await getAllFeeds();
 
-  return res.send(feedsView({ req, feeds }).render());
+  return res.send(html.render(feedsView({ req, feeds })));
 });
 
 const getNewFeed = async (req, res) =>
   res.send(
-    newFeedView({
-      values: req.flash("values"),
-      errors: req.flash("errors"),
-    }).render()
+    html.render(
+      newFeedView({
+        values: req.flash("values"),
+        errors: req.flash("errors"),
+      })
+    )
   );
 
 router.get(urls.newFeed(), getNewFeed);

@@ -6,7 +6,7 @@ const articleMeta = ({ article }) => html`
     <time title="${article.publishedAt}">${article.timeAgo} </time>
     ago
     ${article.author &&
-    html`<span> by ${sanitizeHtml(article.author)}:safe</span>`}
+    html`<span> by ${html.unsafe(sanitizeHtml(article.author))}</span>`}
   </span>
 `;
 

@@ -11,31 +11,31 @@ const TurboStream = (res) => {
 
   const turboStream = {
     append: (target, content) => {
-      streams.push(stream("append", target, content).render());
+      streams.push(html.render(stream("append", target, content)));
       return turboStream;
     },
     prepend: (target, content) => {
-      streams.push(stream("prepend", target, content).render());
+      streams.push(html.render(stream("prepend", target, content)));
       return turboStream;
     },
     replace: (target, content) => {
-      streams.push(stream("replace", target, content).render());
+      streams.push(html.render(stream("replace", target, content)));
       return turboStream;
     },
     update: (target, content) => {
-      streams.push(stream("update", target, content).render());
+      streams.push(html.render(stream("update", target, content)));
       return turboStream;
     },
     remove: (target, content) => {
-      streams.push(stream("remove", target, content).render());
+      streams.push(html.render(stream("remove", target, content)));
       return turboStream;
     },
     before: (target, content) => {
-      streams.push(stream("before", target, content).render());
+      streams.push(html.render(stream("before", target, content)));
       return turboStream;
     },
     after: (target, content) => {
-      streams.push(stream("after", target, content).render());
+      streams.push(html.render(stream("after", target, content)));
       return turboStream;
     },
     send: () =>
