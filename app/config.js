@@ -19,6 +19,7 @@ fs.ensureDirSync(dataDir);
 const devMode = env("NODE_ENV") === "development";
 const secretKey = env("SECRET_KEY") ?? randomstring.generate();
 const isAuthEnabled = !!(env("USERNAME") || env("PASSWORD"));
+const databaseName = env("DATABASE_NAME") ?? "feedo.db";
 
 const config = {
   devMode,
@@ -30,7 +31,7 @@ const config = {
   },
   rootDir,
   dataDir,
-  databasePath: env("DATABASE_PATH") ?? path.join(dataDir, "feedo.db"),
+  databasePath: env("DATABASE_PATH") ?? path.join(dataDir, databaseName),
   reloadFile: path.join(rootDir, ".reload"),
   publicRoot: path.resolve(path.join(rootDir, "public")),
   helmet: {
