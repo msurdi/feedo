@@ -6,7 +6,7 @@ import layout from "../components/layout.js";
 import link from "../components/link.js";
 
 const articleDetailView = ({ article }) =>
-  layout.js({
+  layout({
     body: html`
       <article class="px-2 py-6 flex flex-col break-words">
         ${articleTitle({
