@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from "vite";
+import viteCompression from "vite-plugin-compression";
 import FullReload from "vite-plugin-full-reload";
 
 export default defineConfig({
@@ -17,5 +18,5 @@ export default defineConfig({
   test: {
     setupFiles: ["./vitest.setup.js"],
   },
-  plugins: [FullReload([".reload"])],
+  plugins: [FullReload([".reload"]), viteCompression()],
 });
